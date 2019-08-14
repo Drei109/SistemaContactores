@@ -139,15 +139,16 @@ class DestinatarioController extends Controller
         return view('mantenimiento.destinatario.asignarSala',compact('destinatario'));
     }
 
-    public function ListarSalasNoAsignadas($id)
+    public function ListarSalasNoAsignadas(Request $request,$id)
     {
         $lista = "";
         $mensaje_error = "Listado realizado correctamente";
         $estado = true;
+        $query = $request->input('query');
         try {
-            $lista = Sala::whereDoesntHave('destinatarios', function($q) use ($id){
+            $lista = Sala::whereDoesntHave('destinatarios', function($q) use ($id, $query){
                 $q->where('destinatario_id', $id);
-            })->get();
+            })->where('Sala.id','like', $query . '%')->get();
 
         } catch (QueryException $ex) {
             $mensaje_error = $ex;

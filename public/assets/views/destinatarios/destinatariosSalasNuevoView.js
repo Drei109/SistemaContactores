@@ -33,13 +33,13 @@ var NuevoView = function() {
                   url: "/Destinatarios/" + $("#txt_id").val() +"/SalasNoAsignadas",
                   dataType: "json",
                   data: {
-                    id: request.term
+                    query: request.term
                   },
                   success: function(data) {
-                    response($.map(data, function(item) {
+                    response($.map(data.data, function(item) {
                       return {
-                        label: item.mensaje,
-                        value: item.mensaje
+                        label: item.id + ": " +item.nombre,
+                        value: item.id
                       }
                     }))
                   }
