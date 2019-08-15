@@ -142,4 +142,8 @@ class UserController extends Controller
             ->with('flash_message',
              'User successfully deleted.');
     }
+
+    public function AuthRouteAPI(Request $request){
+        return $request->user();
+     }
 }
