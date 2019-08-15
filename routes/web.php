@@ -37,7 +37,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 #region[Salas]
 Route::post('Salas/Listar', 'Mantenimiento\SalaController@Listar');
 Route::get('Salas/Index', 'Mantenimiento\SalaController@Index');
-Route::get('Salas/', 'Mantenimiento\SalaController@Index')->name('Salas.Index');
+Route::get('Salas/', 'Mantenimiento\SalaController@Index')->name('Salas.index');
 Route::get('Salas/Nuevo', 'Mantenimiento\SalaController@Nuevo');
 Route::post('Salas/Guardar', 'Mantenimiento\SalaController@Guardar');
 Route::post('Salas/Eliminar', 'Mantenimiento\SalaController@Eliminar');
