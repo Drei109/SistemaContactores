@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Destinatario extends Model
 {
-    protected $table = 'Destinatarios';
+    protected $table = 'destinatarios';
     public $timestamps = false;
     protected $fillable = [
 		'nombre', 'correo'

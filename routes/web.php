@@ -49,7 +49,7 @@ Route::post('Salas/Actualizar', 'Mantenimiento\SalaController@Actualizar');
 #region[Destinatarios]
 Route::post('Destinatarios/Listar', 'Mantenimiento\DestinatarioController@Listar');
 Route::get('Destinatarios/Index', 'Mantenimiento\DestinatarioController@Index');
-Route::get('Destinatarios/', 'Mantenimiento\DestinatarioController@Index')->name('Destinarios.Index');
+Route::get('Destinatarios/', 'Mantenimiento\DestinatarioController@Index')->name('Destinarios.index');
 Route::get('Destinatarios/Nuevo', 'Mantenimiento\DestinatarioController@Nuevo');
 Route::post('Destinatarios/Guardar', 'Mantenimiento\DestinatarioController@Guardar');
 Route::post('Destinatarios/Eliminar', 'Mantenimiento\DestinatarioController@Eliminar');
