@@ -35,7 +35,7 @@
 					Mantenimiento
 				</a>
 				<a href="#" class="breadcrumb-item">
-					Salas
+					Locales
 				</a>
 				<span class="breadcrumb-item active">Index</span>	
 				
