@@ -10,7 +10,7 @@ class InicioController extends Controller
 {
     public function DashboardView()
     {
-        return view('Inicio.DashboardView');
+        return view('Inicio.DashBoardView');
     }
 
 }
