@@ -38,7 +38,7 @@ class SalaController extends Controller
 
     public function Nuevo()
     {
-        return view('mantenimiento.salas.nuevo');    
+        return view('Mantenimiento.Salas.nuevo');    
     }
 
     public function Guardar(Request $request)
@@ -80,7 +80,7 @@ class SalaController extends Controller
 
     public function Editar($id)
     {
-        return view('mantenimiento.salas.editar',['id'=> $id]);
+        return view('Mantenimiento.Salas.editar',['id'=> $id]);
     }
 
     public function Ver($id)

@@ -18,7 +18,7 @@ class DestinatarioController extends Controller
     public function Index()
     {
         //app('auth')->user()->hasPermissionTo('Puede Ver Salas');
-        return view('mantenimiento.destinatario.index');
+        return view('Mantenimiento.Destinatario.index');
     }
 
     public function Listar()
@@ -37,7 +37,7 @@ class DestinatarioController extends Controller
 
     public function Nuevo()
     {
-        return view('mantenimiento.destinatario.nuevo');    
+        return view('Mantenimiento.Destinatario.nuevo');    
     }
 
     public function Guardar(Request $request)
@@ -78,7 +78,7 @@ class DestinatarioController extends Controller
 
     public function Editar($id)
     {
-        return view('mantenimiento.destinatario.editar',['id'=> $id]);
+        return view('Mantenimiento.Destinatario.editar',['id'=> $id]);
     }
 
     public function Ver($id)
@@ -116,7 +116,7 @@ class DestinatarioController extends Controller
     public function ListarSalas($id)
     {
         $destinatario = Destinatario::find($id);
-        return view('mantenimiento.destinatario.salas',compact('destinatario'));
+        return view('Mantenimiento.Destinatario.salas',compact('destinatario'));
     }
 
     public function VerSalas($id)
@@ -136,7 +136,7 @@ class DestinatarioController extends Controller
     public function NuevaRelacionSala($id)
     {
         $destinatario = Destinatario::find($id);
-        return view('mantenimiento.destinatario.asignarSala',compact('destinatario'));
+        return view('Mantenimiento.Destinatario.asignarSala',compact('destinatario'));
     }
 
     public function ListarSalasNoAsignadas(Request $request,$id)
