@@ -143,7 +143,7 @@ class UserController extends Controller
              'User successfully deleted.');
     }
 
-    public function AuthRouteAPI(Request $request){
-        return $request->user();
-     }
+    // public function AuthRouteAPI(Request $request){
+    //     return $request->user();
+    //  }
 }
