@@ -19,7 +19,7 @@ class SalaController extends Controller
     public function Index()
     {
         app('auth')->user()->hasPermissionTo('Puede Ver Salas');
-        return view('mantenimiento.salas.index');
+        return view('Mantenimiento.Salas.index');
     }
 
     public function Listar()
