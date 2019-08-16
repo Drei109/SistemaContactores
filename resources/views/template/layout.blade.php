@@ -168,14 +168,7 @@
 							<a href="#" class="nav-link"><i class="icon-file-spreadsheet"></i> <span>Reportes</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Themes">
-								<li class="nav-item nav-item-submenu">
-									<ul class="nav nav-group-sub">
-										<li class="nav-item"><a href="#" class="nav-link">Asistencia</a></li>
-										<li class="nav-item"><a href="#" class="nav-link">Asistencia x Factor Nocturno</a></li>
-										<li class="nav-item"><a href="#" class="nav-link">Cambios Efectuados</a></li>
-									</ul>
-								</li>
-								<li class="nav-item"><a href="#" class="nav-link">Nuevo</a></li>
+								<li class="nav-item"><a href="{{route('Reportes.index')}}" class="nav-link">Nuevo</a></li>
 							</ul>
 						</li>
 

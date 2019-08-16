@@ -82,10 +82,10 @@ var ListarView = function() {
 
         $(document).on("click", ".btn_guardar_salas", function() {
             var id = $(".datatable-salas>tbody>tr:first>td:first>div>span>input").data("destinatario-id");
-            var data_salas=[];
+            var data_salas=[""];
             data_salas["id"] = id;
             var selected = [];
-    
+
             $('.datatable_salas_chk:checked').each(function() {
                 //selected.push($(this).attr('value'));
                 selected.push($(this).parents('tr').find('.s_id').html());
@@ -94,17 +94,18 @@ var ListarView = function() {
             data_salas["salas_id"] = selected;
             console.log(data_salas);
 
-            responseSimple({
-                url: "Destinatarios/"+ id + "/ReasignarSalas",
-                refresh: false,
-                data: JSON.stringify(data_salas),
-                callBackSuccess: function(response) {
-                    console.info(response);
-                    $('.btn-link').click();
-                    // ListarView.init_Listado();
-                }
-            });
-            
+            if(data_salas != null){
+                responseSimple({
+                    url: "Destinatarios/"+ id + "/ReasignarSalas",
+                    refresh: false,
+                    data: JSON.stringify(data_salas),
+                    callBackSuccess: function(response) {
+                        //console.info(response);
+                        $('#cerrar_modal').click();
+                        // ListarView.init_Listado();
+                    }
+                });
+            }
         });
     };
 

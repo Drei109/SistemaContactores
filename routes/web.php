@@ -65,7 +65,10 @@ Route::post('Destinatarios/{id}/ReasignarSalas', 'Mantenimiento\DestinatarioCont
 #endregion
 
 
-
 Route::resource('Users', 'UserController');
 Route::resource('roles', 'RoleController');
 Route::resource('Permissions', 'PermissionController');
+
+#region[Reportes]
+Route::get('Reportes/', 'ReporteController@Index')->name('Reportes.index');
+#endregion

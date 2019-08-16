@@ -661,18 +661,28 @@ function simpleAjaxDataTable(obj) {
 
     var defaults = {
         ajaxUrl: null,
+        fullUrl:null,
         ajaxDataSend: {},
         tableColumnsData: [],
         tableColumns: [],
         tableHeaderCheck: false
     }
     var opciones = $.extend({}, defaults, obj);
-    if (opciones.ajaxUrl == null) {
+    var url = basePath;
+
+    if(opciones.fullUrl != null){
+        url = opciones.fullUrl;
+    }
+
+    if(opciones.ajaxUrl != null){
+        url = basePath + opciones.ajaxUrl;
+    }
+
+    if (opciones.ajaxUrl == null && opciones.fullUrl == null) {
         console.warn('Advertencia - url no fue declarado.');
         return;
     };
 
-    var url = basePath + opciones.ajaxUrl;
     $.ajax({
         url: url,
         type: "POST",
