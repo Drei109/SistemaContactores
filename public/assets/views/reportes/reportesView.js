@@ -48,7 +48,7 @@ var ListarView = function() {
         // Basic datatable
         simpleAjaxDataTable({
             uniform: true,
-            fullUrl: "http://35.222.110.129:999/registro/read.php",
+            fullUrl: "http://localhost:90/apiRegistro/registro/read.php",
             tableNameVariable: "destinatarios",
             tableHeaderCheck:true,
             table: ".datatable",
