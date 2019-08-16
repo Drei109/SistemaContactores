@@ -148,7 +148,7 @@
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Mantenimiento</span></a>
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="{{route('Salas.index')}}" class="nav-link">Salas</a></li>
+								<li class="nav-item"><a href="{{route('Salas.index')}}" class="nav-link">Locales</a></li>
 								<li class="nav-item"><a href="{{route('Destinarios.index')}}" class="nav-link">Destinatarios</a></li>
 								{{-- <li class="nav-item"><a href="#" class="nav-link">Salas - Destinatarios</a></li> --}}
 							</ul>

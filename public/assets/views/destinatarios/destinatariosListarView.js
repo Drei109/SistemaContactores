@@ -42,9 +42,73 @@ var ListarView = function() {
 
         $(document).on("click", ".btn_ver_salas", function() {
             var id = $(this).data("id");
-            redirect({site:"Destinatarios/"+ id+ "/Salas", time:0});
+            simpleAjaxDataTable({
+                uniform: true,
+                ajaxUrl: "Destinatarios/" + id + "/SalasNoAsignadas",
+                tableNameVariable: "destinatarios",
+                tablePaging: false,
+                tableHeaderCheck:true,
+                table: ".datatable-salas",
+                tableColumns: [
+                    {
+                    data: "tiene",
+                    title: "",
+                    "bSortable": false,
+                    "render": function(value) {
+                        var check = '<input type="checkbox" class="form-check-input-styled-info chk_id datatable_salas_chk" data-destinatario-id="' + id + '" name="" value="'+ value +'">';
+                        if(value === 1){
+                            check = '<input type="checkbox" class="form-check-input-styled-info chk_id  datatable_salas_chk" data-destinatario-id="' + id + '" name="" checked value="'+ value +'">';
+                        }
+                        return check;
+                        }
+                    },
+                    {
+                        data: "id",
+                        title: "ID",
+                        className: "s_id"
+                    },
+                    {
+                        data: "nombre",
+                        title: "Nombre"
+                    },
+                    {
+                        data: "direccion",
+                        title: "Dirección"
+                    }
+                ]
+            })
+            // $(".modal-content").append('<div class="modal-footer pt-3"><button type="button" class="btn btn-link" data-dismiss="modal">Cerrar</button><button type="button" class="btn bg-primary btn_guardar_salas">Guardar Cambios</button></div>');
+        });
+
+        $(document).on("click", ".btn_guardar_salas", function() {
+            var id = $(".datatable-salas>tbody>tr:first>td:first>div>span>input").data("destinatario-id");
+            var data_salas=[];
+            data_salas["id"] = id;
+            var selected = [];
+    
+            $('.datatable_salas_chk:checked').each(function() {
+                //selected.push($(this).attr('value'));
+                selected.push($(this).parents('tr').find('.s_id').html());
+            });
+
+            data_salas["salas_id"] = selected;
+            console.log(data_salas);
+
+            responseSimple({
+                url: "Destinatarios/"+ id + "/ReasignarSalas",
+                refresh: false,
+                data: JSON.stringify(data_salas),
+                callBackSuccess: function(response) {
+                    console.info(response);
+                    $('.btn-link').click();
+                    // ListarView.init_Listado();
+                }
+            });
+            
         });
     };
+
+    
 
     // Basic Datatable examples
     var _Listado = function() {
@@ -72,7 +136,7 @@ var ListarView = function() {
                 },
                 {
                     data: "id",
-                    title: "ID",
+                    title: "ID"                    
                 },
                 {
                     data: "nombre",
@@ -96,7 +160,8 @@ var ListarView = function() {
                             '</a>' +
                             '<div class="dropdown-menu dropdown-menu-right">' +
                             '<a href="#" class="dropdown-item btn_editar" data-id="' + value + '"><i class="icon-hammer"></i> Editar</a>' +
-                            '<a href="#" class="dropdown-item btn_ver_salas" data-id="' + value + '"><i class="icon-store2"></i> Salas</a>' +
+                            '<button type="button" class="dropdown-item btn border-transparent btn_ver_salas" data-toggle="modal" data-target="#modal_scrollable" data-id="' + value + '"><i class="icon-store2"></i> Salas </button>' +
+                            // '<a href="#" class="dropdown-item btn_ver_salas" data-id="' + value + '" ><i class="icon-store2"></i> Salas</a>' +
                             '</div>' +
                             '</div>' +
                             '</div>';

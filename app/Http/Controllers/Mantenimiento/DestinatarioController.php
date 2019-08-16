@@ -7,6 +7,7 @@ use App\Sala;
 use App\DestinatarioSalas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class DestinatarioController extends Controller
 {
@@ -139,16 +140,19 @@ class DestinatarioController extends Controller
         return view('Mantenimiento.Destinatario.asignarSala',compact('destinatario'));
     }
 
-    public function ListarSalasNoAsignadas(Request $request,$id)
+    public function ListarSalasNoAsignadas($id)
     {
         $lista = "";
         $mensaje_error = "Listado realizado correctamente";
         $estado = true;
-        $query = $request->input('query');
         try {
-            $lista = Sala::whereDoesntHave('destinatarios', function($q) use ($id, $query){
-                $q->where('destinatario_id', $id);
-            })->where('Sala.id','like', $query . '%')->get();
+            $lista = DB::select('SELECT s.id, s.nombre, s.direccion, (
+                SELECT EXISTS( SELECT * 
+                FROM destinatario_salas ds
+                WHERE s.id = ds.sala_id
+                AND ds.destinatario_id = :id)) AS "tiene"
+        FROM salas s
+        ',['id'=> $id]);
 
         } catch (QueryException $ex) {
             $mensaje_error = $ex;
@@ -157,4 +161,24 @@ class DestinatarioController extends Controller
         return response()->json(['data' => $lista,'estado'=>$estado,'mensaje' => $mensaje_error]);
     }
     
+    public function ReasignarSalas(Request $request)
+    {
+        $respuesta = true;
+        $mensaje_error = "Se actualizó Correctamente";
+
+        try {
+            $id = $request->input('id');
+            $delete = DB::delete('delete from destinatario_salas ds where ds.destinatario_id =' . $id);
+            //$salas_id = $request->input('salas_id');
+
+            // $destinatario = Destinatario::findOrFail($request->id);
+            // $destinatario->nombre = $request->input('nombre');
+            // $destinatario->correo = $request->input('correo');
+            // $destinatario->save();
+        } catch (QueryException $ex) {
+            $mensaje_error = $ex->errorInfo;
+            $respuesta = false;
+        }
+        return response()->json(['respuesta' => $respuesta,'objeto' => $delete, 'mensaje' => $mensaje_error]);
+    }
 }

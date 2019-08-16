@@ -85,6 +85,30 @@
 	<!-- /basic datatable -->
 </div>
 <!-- /content area -->
+
+<!-- Scrollable modal -->
+<div id="modal_scrollable" class="modal fade" tabindex="-1">
+	<div class="modal-dialog modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header pb-3">
+				<h5 class="modal-title">Locales</h5>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<div id="cuerpo-modal" class="modal-body py-0">
+				<table class="table datatable-salas table-hover">
+						<tbody><tr><td colspan="3"></td></tr></tbody>
+				</table>
+			</div>
+
+			<div class="modal-footer pt-3">
+				<button type="button" class="btn btn-link" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn bg-primary btn_guardar_salas">Guardar Cambios</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /scrollable modal -->
 @stop
 
 @push('js')
