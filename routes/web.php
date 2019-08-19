@@ -73,7 +73,7 @@ Route::resource('Permissions', 'PermissionController');
 Route::get('Reportes/', 'ReporteController@Index')->name('Reportes.index');
 
 Route::get('Registro/', 'RegistroController@Index');
-Route::get('Registro/Buscar', 'RegistroController@Buscar');
+Route::post('Registro/Buscar', 'RegistroController@Buscar');
 Route::post('Registro/Guardar', 'RegistroController@Guardar');
 Route::post('Registro/Actualizar', 'RegistroController@Actualizar');
 #endregion
