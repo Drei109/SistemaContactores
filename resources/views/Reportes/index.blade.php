@@ -83,7 +83,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="">
 					<div class="row">
 						<div class="col-12 text-right">
 							<input id="btn_buscar" type="button" class="col-12 btn btn-primary" value="BUSCAR">

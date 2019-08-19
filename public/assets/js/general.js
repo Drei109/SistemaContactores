@@ -726,15 +726,18 @@ function simpleDataTable(obj) {
         buttons: [
             {
                 extend: 'excelHtml5',
-                title: 'Reporte Juegos'                            
+                title: 'Reporte Juegos',
+                className: 'btn btn-primary'                            
             },                        
             {
                 extend: 'pdfHtml5',
-                title: 'Reporte Juegos'
+                title: 'Reporte Juegos',
+                className: 'btn btn-primary'                            
             },
             {
                 extend: 'print',
-                title: 'Reporte Juegos'
+                title: 'Reporte Juegos',
+                className: 'btn btn-primary'                            
             }
         ],
         "bDestroy": true,
