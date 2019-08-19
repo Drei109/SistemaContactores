@@ -1,38 +1,84 @@
 var ListarView = function() {
-
+   
     var _componentes = function() {
+
         $(document).on("click", ".btn_recargar", function() {
             refresh({estate:true, time:0});
         });
 
-        $(document).on("click", ".btn_nuevo", function() {
-            redirect({site:"Destinatarios/Nuevo", time:0});
+        $(function() {
+            $('input[name="txt_fecha_inicio"]').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: false,
+                autoUpdateInput: false,
+                minYear: 1901,
+                locale:{
+                    "format": "YYYY-MM-DD",
+                    "separator": "-",
+                }                                        
+            });
+
+            $('input[name="txt_fecha_final"]').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: false,
+                autoUpdateInput: false,
+                minYear: 1901,
+                locale:{
+                    "format": "YYYY-MM-DD",
+                    "separator": "-",
+                }                                        
+            });
+            
         });
 
-        $(document).on("click", ".btn_eliminar", function() {
-            var id = $(".datatable_chk:checked").length;
-            var selected = [];
+        $(document).on("click", "#btn_buscar", function() {
+            var txt_sala_id = $("#txt_sala_id").val();
+            var txt_fecha_inicio = $("#txt_fecha_inicio").val();
+            var txt_fecha_final = $("#txt_fecha_final").val();
+            var data = {};
 
-            if (id > 0) {
-                $('.datatable_chk:checked').each(function() {
-                    selected.push($(this).attr('value'));
-                });
-                responseSimple({
-                    url: "Destinatarios/Eliminar",
-                    refresh: false,
-                    data: JSON.stringify(selected),
-                    callBackSuccess: function(response) {
-                        console.info(response);
-                        ListarView.init_Listado();
-                    }
-                });
+            if(txt_sala_id){
+                data.local_id = parseInt(txt_sala_id);
             }
-            else{
-                 messageResponse({
-                        message: "No hay Registros Seleccionados",
-                        type: "warning"
-                    });
+            if(txt_fecha_inicio){
+                data.fecha_encendido = txt_fecha_inicio;
             }
+            if(txt_fecha_final){
+                data.fecha_apagado = txt_fecha_final;
+            }
+
+            console.log(data);
+
+            simpleAjaxDataTable({
+                uniform: true,
+                ajaxUrl: "Registro/Buscar",
+                ajaxDataSend: data,
+                tableNameVariable: "registros",
+                tableHeaderCheck:false,
+                table: ".datatable",
+                tableColumns: [
+                    {
+                        data: "id",
+                        title: "ID"                    
+                    },
+                    {
+                        data: "local_id",
+                        title: "Local"                    
+                    },
+                    {
+                        data: "tipo",
+                        title: "Estado"
+                    },
+                    {
+                        data: "fecha_encendido",
+                        title: "Fecha de encendido"
+                    },
+                    {
+                        data: "fecha_apagado",
+                        title: "Fecha de apagado"
+                    }                
+                ]
+            })
         });
     };
 
@@ -48,11 +94,15 @@ var ListarView = function() {
         // Basic datatable
         simpleAjaxDataTable({
             uniform: true,
-            fullUrl: "http://localhost:90/apiRegistro/registro/read.php",
-            tableNameVariable: "destinatarios",
-            tableHeaderCheck:true,
+            ajaxUrl: "Registro",
+            tableNameVariable: "registros",
+            tableHeaderCheck:false,
             table: ".datatable",
             tableColumns: [
+                {
+                    data: "id",
+                    title: "ID"                    
+                },
                 {
                     data: "local_id",
                     title: "Local"                    

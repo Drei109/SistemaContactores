@@ -18,6 +18,7 @@
 	<link href="{{asset('../assets/css/components.min.css')}}" rel="stylesheet" type="text/css">
 	<link href="{{asset('../assets/css/colors.min.css')}}" rel="stylesheet" type="text/css">
 	<link href="{{asset('../assets/css/jquery-ui.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{asset('../assets/css/daterangepicker.css')}}" rel="stylesheet" type="text/css">
 
 	<!-- /global stylesheets -->
 	@stack('styles')
@@ -228,14 +229,25 @@
 	<script src="{{asset('../global_assets/js/plugins/forms/styling/switchery.min.js')}}"></script>
 	<script src="{{asset('../global_assets/js/plugins/forms/selects/bootstrap_multiselect.js')}}"></script>
 	<script src="{{asset('../global_assets/js/plugins/forms/styling/uniform.min.js')}}"></script>
-	<script src="{{asset('../global_assets/js/plugins/ui/moment/moment.min.js')}}"></script>
-	<script src="{{asset('../global_assets/js/plugins/pickers/daterangepicker.js')}}"></script>
+	{{-- <script src="{{asset('../global_assets/js/plugins/ui/moment/moment.min.js')}}"></script>
+	<script src="{{asset('../global_assets/js/plugins/pickers/daterangepicker.js')}}"></script> --}}
 	<script src="{{asset('../global_assets/js/plugins/notifications/noty.min.js')}}"></script>
 	<script src="{{asset('../global_assets/js/plugins/tables/datatables/datatables.min.js')}}"></script>
 	<script src="{{asset('../global_assets/js/plugins/forms/validation/validate.min.js')}}"></script>
 	<script src="{{asset('../assets/js/app.js')}}"></script>
 	<script src="{{asset('../assets/js/general.js')}}"></script>
 	<script src="{{asset('../global_assets/js/main/jquery-ui.js')}}"></script>
+
+	<script src="{{asset('../global_assets/js/plugins/pickers/datetime/moment.min.js')}}"></script>
+	<script src="{{asset('../global_assets/js/plugins/pickers/datetime/daterangepicker.js')}}"></script>
+
+	<script src="{{asset('../global_assets/js/plugins/tables/datatables/extensions/pdfmake/pdfmake.min.js')}}"></script>
+	<script src="{{asset('../global_assets/js/plugins/tables/datatables/extensions/pdfmake/vfs_fonts.min.js')}}"></script>
+	<script src="{{asset('../global_assets/js/plugins/tables/datatables/extensions/jszip/jszip2.min.js')}}"></script>
+	
+	{{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script> --}}
+	{{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script> --}}
+	{{-- <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/b-print-1.5.6/r-2.2.2/sc-2.0.0/datatables.min.js"></script> --}}
 	<!-- /theme JS files -->
 	@stack('js')
 </body>

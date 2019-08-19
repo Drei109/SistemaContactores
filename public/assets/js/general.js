@@ -722,6 +722,21 @@ function simpleDataTable(obj) {
     var opciones = $.extend({}, defaults, obj);
     var objt = "_objetoDatatable";
     this[objt + '_' + opciones.tableNameVariable] = $(opciones.table).DataTable({
+        dom: 'Bfrtip',                    
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: 'Reporte Juegos'                            
+            },                        
+            {
+                extend: 'pdfHtml5',
+                title: 'Reporte Juegos'
+            },
+            {
+                extend: 'print',
+                title: 'Reporte Juegos'
+            }
+        ],
         "bDestroy": true,
         "scrollCollapse": true,
         "scrollX": false,

@@ -71,22 +71,22 @@
 					<div class="row">
 						<div class="col-4">
 							<label>Sala ID</label>
-							<input type="text" class="form-control">
+							<input id="txt_sala_id" type="text" class="form-control">
 						</div>
 						<div class="col-4">
 							<label>Fecha Inicio</label>
-							<input type="date" class="form-control">
+							<input id="txt_fecha_inicio" name="txt_fecha_inicio" value="" type="text" class="form-control">
 						</div>
 						<div class="col-4">
 							<label>Fecha Final</label>
-							<input type="date" class="form-control">
+							<input id="txt_fecha_final" name="txt_fecha_final" value=""  type="text" class="form-control">
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="row">
 						<div class="col-12 text-right">
-							<input type="button" class="col-12 btn btn-primary" value="BUSCAR">
+							<input id="btn_buscar" type="button" class="col-12 btn btn-primary" value="BUSCAR">
 						</div>
 					</div>
 				</div>

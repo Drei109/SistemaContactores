@@ -12,7 +12,7 @@ class RegistroController extends Controller
     public function Index()
     {
         $registros = Registro::all();
-        return response()->json($registros);
+        return response()->json(['data' => $registros]);
     }
 
     public function Buscar(Request $request)
@@ -40,7 +40,7 @@ class RegistroController extends Controller
             WHERE fecha_encendido BETWEEN ? 
             AND ? ORDER BY r.fecha_encendido ASC",[$request->post('fecha_encendido'),$request->post('fecha_apagado')]);
         }
-        return response()->json($registros);
+        return response()->json(['data' => $registros]);
     }
 
     public function Guardar(Request $request)
