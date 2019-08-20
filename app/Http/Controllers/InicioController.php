@@ -14,7 +14,7 @@ class InicioController extends Controller
         if (Auth::check()) {
             return view('Inicio.DashBoardView');
         }
-        return view('home');
+        return redirect('login');
     }
 
 }
