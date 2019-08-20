@@ -44,29 +44,6 @@
 					<i class="icon-more"></i>
 				</a>
 		</div>
-		<div class="header-elements d-none">
-			<div class="breadcrumb justify-content-center">
-				<div class="breadcrumb-elements-item dropdown p-0">
-					<a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown">
-						<i class="icon-gear mr-2"></i>
-						Acciones
-					</a>
-
-					<div class="dropdown-menu dropdown-menu-right">
-						<a href="#" class="dropdown-item">
-							<i class="icon-printer"></i> Imprimir
-						</a>
-						<a href="#" class="dropdown-item">
-							<i class="icon-file-excel"></i> Excel
-						</a>
-						<a href="#" class="dropdown-item">
-							<i class="icon-file-pdf"></i> Pdf
-						</a>
-						
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 </div>
 <!-- /page header -->

@@ -15,7 +15,13 @@
 //     return view('welcome');
 // });
 
-Route::get('/', 'InicioController@DashboardView')->name('Dashboard');
+Auth::routes();
+
+Route::get('/', 'InicioController@DashboardView')->name('Dashboard')->middleware('auth');
+Route::resource('Users', 'UserController');
+Route::resource('roles', 'RoleController');
+Route::resource('Permissions', 'PermissionController');
+Route::get('/home', 'HomeController@index')->name('home');
 
 #region [Seguridad]
 Route::get('Empleados', 'EmpleadoController@EmpleadosVista')->name('Seguridad.Empleados');
@@ -29,10 +35,8 @@ Route::post('RolesCambiarEstado', 'RolesController@RolesEditarEstado');
 Route::post('RolesGuardarNuevo', 'RolesController@RolesInsertar');
 Route::get('Permisos', 'PermisosController@PermisosVista')->name('Seguridad.Permisos');
 #endregion
-Auth::routes();
 
 
-Route::get('/home', 'HomeController@index')->name('home');
 
 #region[Salas]
 Route::post('Salas/Listar', 'Mantenimiento\SalaController@Listar');
@@ -64,14 +68,8 @@ Route::post('Destinatarios/{id}/SalasNoAsignadas', 'Mantenimiento\DestinatarioCo
 Route::post('Destinatarios/{id}/ReasignarSalas', 'Mantenimiento\DestinatarioController@ReasignarSalas');
 #endregion
 
-
-Route::resource('Users', 'UserController');
-Route::resource('roles', 'RoleController');
-Route::resource('Permissions', 'PermissionController');
-
 #region[Reportes]
 Route::get('Reportes/', 'ReporteController@Index')->name('Reportes.index');
-
 Route::post('Registro/', 'RegistroController@Index');
 Route::post('Registro/Buscar', 'RegistroController@Buscar');
 Route::post('Registro/Guardar', 'RegistroController@Guardar');

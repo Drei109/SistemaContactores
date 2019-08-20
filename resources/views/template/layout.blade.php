@@ -68,14 +68,18 @@
 						@endif
 						
 					</a>
-
-					<div class="dropdown-menu dropdown-menu-right">
-						<a href="#" class="dropdown-item"><i class="icon-user-plus"></i> Cuenta</a>
-						<a href="#" class="dropdown-item"><i class="icon-coins"></i> Mi Tareaje</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item"><i class="icon-cog5"></i> Configuracion</a>
-						<a href="#" class="dropdown-item"><i class="icon-switch2"></i> Salir</a>
-					</div>
+					@auth
+						<div class="dropdown-menu dropdown-menu-right">
+							<a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
+							document.getElementById('logout-form').submit();"><i class="icon-switch2"></i> 
+							Salir
+							</a>
+						</div>
+						<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+							@csrf
+						</form>
+					@endauth
+					
 				</li>
 			</ul>
 		</div>

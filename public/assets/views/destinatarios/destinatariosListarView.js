@@ -159,8 +159,7 @@ var ListarView = function() {
                             '</a>' +
                             '<div class="dropdown-menu dropdown-menu-right">' +
                             '<a href="#" class="dropdown-item btn_editar" data-id="' + value + '"><i class="icon-hammer"></i> Editar</a>' +
-                            '<button type="button" class="dropdown-item btn border-transparent btn_ver_salas" data-toggle="modal" data-target="#modal_scrollable" data-id="' + value + '"><i class="icon-store2"></i> Salas </button>' +
-                            // '<a href="#" class="dropdown-item btn_ver_salas" data-id="' + value + '" ><i class="icon-store2"></i> Salas</a>' +
+                            '<button type="button" class="dropdown-item btn border-transparent btn_ver_salas" data-toggle="modal" data-target="#modal_scrollable" data-id="' + value + '"><i class="icon-store2"></i> Locales </button>' +
                             '</div>' +
                             '</div>' +
                             '</div>';
