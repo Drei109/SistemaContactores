@@ -45,11 +45,11 @@ class UserController extends Controller
     */
     public function store(Request $request) {
     //Validate name, email and password fields
-        $this->validate($request, [
-            'name'=>'required|max:120',
-            'email'=>'required|email|unique:users',
-            'password'=>'required|min:6|confirmed'
-        ]);
+        // $this->validate($request, [
+        //     'name'=>'required|max:120',
+        //     'email'=>'required|email|unique:users',
+        //     'password'=>'required|min:6|confirmed'
+        // ]);
 
         $user = User::create($request->only('email', 'name', 'password')); //Retrieving only the email and password data
 

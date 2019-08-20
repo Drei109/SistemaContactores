@@ -18,9 +18,9 @@
 Auth::routes();
 
 Route::get('/', 'InicioController@DashboardView')->name('Dashboard')->middleware('auth');
-Route::resource('Users', 'UserController');
+Route::resource('users', 'UserController');
 Route::resource('roles', 'RoleController');
-Route::resource('Permissions', 'PermissionController');
+Route::resource('permissions', 'PermissionController');
 Route::get('/home', 'HomeController@index')->name('home');
 
 #region [Seguridad]
@@ -36,7 +36,11 @@ Route::post('RolesGuardarNuevo', 'RolesController@RolesInsertar');
 Route::get('Permisos', 'PermisosController@PermisosVista')->name('Seguridad.Permisos');
 #endregion
 
-
+#region[PuntoVentas]
+Route::get('PuntoVentas/', 'Mantenimiento\PuntoVentaController@Index')->name('PuntoVenta.index');
+Route::post('PuntoVentas/Listar', 'Mantenimiento\PuntoVentaController@Listar');
+Route::post('PuntoVentas/Sincronizar', 'Mantenimiento\PuntoVentaController@SincronizarPuntoVentaAPI');
+#endregion
 
 #region[Salas]
 Route::post('Salas/Listar', 'Mantenimiento\SalaController@Listar');
