@@ -665,7 +665,8 @@ function simpleAjaxDataTable(obj) {
         ajaxDataSend: {},
         tableColumnsData: [],
         tableColumns: [],
-        tableHeaderCheck: false
+        tableHeaderCheck: false,
+        reportTitle: "Reporte"
     }
     var opciones = $.extend({}, defaults, obj);
     var url = basePath;
@@ -726,17 +727,17 @@ function simpleDataTable(obj) {
         buttons: [
             {
                 extend: 'excelHtml5',
-                title: 'Reporte Juegos',
+                title: opciones.reportTitle,
                 className: 'btn btn-primary'                            
             },                        
             {
                 extend: 'pdfHtml5',
-                title: 'Reporte Juegos',
+                title: opciones.reportTitle,
                 className: 'btn btn-primary'                            
             },
             {
                 extend: 'print',
-                title: 'Reporte Juegos',
+                title: opciones.reportTitle,
                 className: 'btn btn-primary'                            
             }
         ],

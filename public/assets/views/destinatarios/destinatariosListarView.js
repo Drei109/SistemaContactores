@@ -82,18 +82,16 @@ var ListarView = function() {
 
         $(document).on("click", ".btn_guardar_salas", function() {
             var id = $(".datatable-salas>tbody>tr:first>td:first>div>span>input").data("destinatario-id");
-            var data_salas=[""];
+            var data_salas = {};
             data_salas["id"] = id;
             var selected = [];
 
             $('.datatable_salas_chk:checked').each(function() {
-                //selected.push($(this).attr('value'));
                 selected.push($(this).parents('tr').find('.s_id').html());
             });
 
             data_salas["salas_id"] = selected;
-            console.log(data_salas);
-
+            
             if(data_salas != null){
                 responseSimple({
                     url: "Destinatarios/"+ id + "/ReasignarSalas",

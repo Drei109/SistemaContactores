@@ -165,17 +165,15 @@ class DestinatarioController extends Controller
     {
         $respuesta = true;
         $mensaje_error = "Se actualizó Correctamente";
-
+        
         try {
             $id = $request->input('id');
-            return $request;
-            $delete = DB::delete('delete from destinatario_salas ds where ds.destinatario_id =' . $id);
-            //$salas_id = $request->input('salas_id');
-
-            // $destinatario = Destinatario::findOrFail($request->id);
-            // $destinatario->nombre = $request->input('nombre');
-            // $destinatario->correo = $request->input('correo');
-            // $destinatario->save();
+            $delete = DB::delete('delete from destinatario_salas where destinatario_id = ?', [$id]);
+            
+            $salas_id = $request->input('salas_id');
+            foreach ($salas_id as &$sala_relacion) {
+                DB::insert('insert into destinatario_salas (destinatario_id, sala_id) values (?, ?)', [$id, $sala_relacion]);
+            }
         } catch (QueryException $ex) {
             $mensaje_error = $ex->errorInfo;
             $respuesta = false;
