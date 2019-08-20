@@ -168,7 +168,7 @@ class DestinatarioController extends Controller
         
         try {
             $id = $request->input('id');
-            $delete = DB::delete('delete from destinatario_salasgi where destinatario_id = ?', [$id]);
+            $delete = DB::delete('delete from destinatario_salas where destinatario_id = ?', [$id]);
             
             $salas_id = $request->input('salas_id');
             foreach ($salas_id as &$sala_relacion) {
