@@ -65,7 +65,7 @@ class ValidarApi
     public function consultarLocal($unitId)
     {
         $ch = curl_init();
-        usleep(650000); // 0.4
+        usleep(1000000); // 0.4
 
         curl_setopt($ch, CURLOPT_URL, 'https://api.apuestatotal.com/v2/locales/' . $unitId);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
