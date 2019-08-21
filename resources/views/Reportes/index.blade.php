@@ -48,15 +48,30 @@
 					<div class="row">
 						<div class="col-4">
 							<label>Sala ID</label>
-							<input id="txt_sala_id" type="text" class="form-control">
+							<div class="form-group form-group-feedback form-group-feedback-right">
+								<input class="form-control form-control-lg" id="txt_sala_id" type="text">
+								<a href="#" class="clean-txt form-control-feedback form-control-feedback-lg">
+									<i class="icon-cross"></i>
+								</a>
+							</div>
 						</div>
 						<div class="col-4">
 							<label>Fecha Inicio</label>
-							<input id="txt_fecha_inicio" name="txt_fecha_inicio" value="" type="text" class="form-control">
+							<div class="form-group form-group-feedback form-group-feedback-right">
+								<input class="form-control form-control-lg" id="txt_fecha_inicio" name="txt_fecha_inicio" value="" type="text">
+								<a href="#" class="clean-txt form-control-feedback form-control-feedback-lg">
+									<i class="icon-cross"></i>
+								</a>
+							</div>
 						</div>
 						<div class="col-4">
 							<label>Fecha Final</label>
-							<input id="txt_fecha_final" name="txt_fecha_final" value=""  type="text" class="form-control">
+							<div class="form-group form-group-feedback form-group-feedback-right">
+								<input class="form-control form-control-lg" id="txt_fecha_final" name="txt_fecha_final" value="" type="text">
+								<a href="#" class="clean-txt form-control-feedback form-control-feedback-lg">
+									<i class="icon-cross"></i>
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>

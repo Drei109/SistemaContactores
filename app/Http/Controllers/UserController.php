@@ -45,11 +45,11 @@ class UserController extends Controller
     */
     public function store(Request $request) {
     //Validate name, email and password fields
-        // $this->validate($request, [
-        //     'name'=>'required|max:120',
-        //     'email'=>'required|email|unique:users',
-        //     'password'=>'required|min:6|confirmed'
-        // ]);
+        $this->validate($request, [
+            'name'=>'required|max:50',
+            'email'=>'required|email|unique:users',
+            'password'=>'required|min:6|confirmed'
+        ]);
 
         $user = User::create($request->only('email', 'name', 'password')); //Retrieving only the email and password data
 
@@ -106,13 +106,16 @@ class UserController extends Controller
 
     //Validate name, email and password fields    
         $this->validate($request, [
-            'name'=>'required|max:120',
+            'name'=>'required|max:50',
             'email'=>'required|email|unique:users,email,'.$id,
-            'password'=>'required|min:6|confirmed'
+            'password'=>''
         ]);
-        $input = $request->only(['name', 'email', 'password']); //Retreive the name, email and password fields
-
-        
+        if($request->filled('password')){
+            $input = $request->only(['name', 'email', 'password']); //Retreive the name, email and password fields
+        }else{
+            $input = $request->only(['name', 'email']);
+        }
+       
         $roles = $request['roles']; //Retreive all roles
         $user->fill($input)->save();
 

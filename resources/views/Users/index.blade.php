@@ -10,14 +10,8 @@
 
 		<div class="header-elements d-none">
 			<div class="d-flex justify-content-center">
-				<a href="#" class="btn btn-link btn-float text-default btn_recargar">
-					<i class="icon-reset text-primary"></i><span>Recargar</span>
-				</a>
 				<a href="{{ route('users.create') }}" class="btn btn-link btn-float text-default btn_nuevo">
 					<i class="icon-diff-added text-primary"></i> <span>Nuevo</span>
-				</a>
-				<a href="#" class="btn btn-link btn-float text-default btn_eliminar">
-					<i class="icon-bin text-primary"></i> <span>Eliminar</span>
 				</a>
 			</div>
 		</div>

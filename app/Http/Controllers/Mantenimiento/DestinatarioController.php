@@ -13,7 +13,7 @@ class DestinatarioController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware(['role:Admin|Tecnico']);
+        $this->middleware('auth');
     }
 
     public function Index()
@@ -146,12 +146,14 @@ class DestinatarioController extends Controller
         $mensaje_error = "Listado realizado correctamente";
         $estado = true;
         try {
-            $lista = DB::select('SELECT s.id, s.nombre, s.direccion, (
+            $lista = DB::select('SELECT pv.id, pv.cc_id ,pv.nombre AS "nombre", u.nombre AS "ubigeo", (
                 SELECT EXISTS( SELECT * 
-                FROM destinatario_salas ds
-                WHERE s.id = ds.sala_id
-                AND ds.destinatario_id = :id)) AS "tiene"
-        FROM salas s
+                FROM destinatario_punto_ventas dpv
+                WHERE pv.id = dpv.punto_venta_id
+                AND dpv.destinatario_id = :id)) AS "tiene"
+                FROM punto_venta pv
+                LEFT JOIN ubigeo u
+                ON u.id = pv.idUbigeo
         ',['id'=> $id]);
 
         } catch (QueryException $ex) {
@@ -168,11 +170,11 @@ class DestinatarioController extends Controller
         
         try {
             $id = $request->input('id');
-            $delete = DB::delete('delete from destinatario_salas where destinatario_id = ?', [$id]);
+            $delete = DB::delete('delete from destinatario_punto_ventas where destinatario_id = ?', [$id]);
             
             $salas_id = $request->input('salas_id');
             foreach ($salas_id as &$sala_relacion) {
-                DB::insert('insert into destinatario_salas (destinatario_id, sala_id) values (?, ?)', [$id, $sala_relacion]);
+                DB::insert('insert into destinatario_punto_ventas (destinatario_id, punto_venta_id) values (?, ?)', [$id, $sala_relacion]);
             }
         } catch (QueryException $ex) {
             $mensaje_error = $ex->errorInfo;

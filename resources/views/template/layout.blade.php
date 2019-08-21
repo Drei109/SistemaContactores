@@ -153,19 +153,18 @@
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Mantenimiento</span></a>
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								<li class="nav-item"><a href="{{route('Salas.index')}}" class="nav-link">Locales</a></li>
+								{{-- <li class="nav-item"><a href="{{route('Salas.index')}}" class="nav-link">Locales</a></li> --}}
+								<li class="nav-item"><a href="{{route('PuntoVenta.index')}}" class="nav-link">Puntos de Venta</a></li>
 								<li class="nav-item"><a href="{{route('Destinarios.index')}}" class="nav-link">Destinatarios</a></li>
-								{{-- <li class="nav-item"><a href="#" class="nav-link">Salas - Destinatarios</a></li> --}}
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link"><i class="icon-lock2"></i> <span>Seguridad</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Themes">
-								<li class="nav-item"><a href="{{route('Seguridad.Empleados')}}" class="nav-link active">Empleados</a></li>
-								<li class="nav-item"><a href="{{route('Seguridad.Usuarios')}}" class="nav-link">Usuarios</a></li>
-								<li class="nav-item"><a href="{{route('Seguridad.Roles')}}" class="nav-link">Roles</a></li>
-								<li class="nav-item"><a href="{{route('Seguridad.Permisos')}}" class="nav-link">Permisos</a></li>
+								<li class="nav-item"><a href="{{route('users.index')}}" class="nav-link">Usuarios</a></li>
+								<li class="nav-item"><a href="{{route('roles.index')}}" class="nav-link">Roles</a></li>
+								<li class="nav-item"><a href="{{route('permissions.index')}}" class="nav-link">Permisos</a></li>
 							</ul>
 						</li>
 

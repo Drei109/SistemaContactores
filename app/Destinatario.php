@@ -16,4 +16,9 @@ class Destinatario extends Model
     {
         return $this->belongsToMany('App\Sala', 'destinatario_salas')->withPivot('id');
     }
+
+    public function punto_venta()
+    {
+        return $this->belongsToMany('App\punto_venta', 'destinatario_punto_ventas')->withPivot('id');
+    }
 }

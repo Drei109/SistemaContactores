@@ -6,11 +6,15 @@ var ListarView = function() {
             refresh({estate:true, time:0});
         });
 
+        $(document).on("click", ".clean-txt", function() {
+            $(this).siblings("input").val("");
+        });
+
         $(function() {
             $('input[name="txt_fecha_inicio"]').daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: false,
-                autoUpdateInput: false,
+                autoUpdateInput: true,
                 minYear: 1901,
                 locale:{
                     "format": "YYYY-MM-DD",
@@ -21,7 +25,7 @@ var ListarView = function() {
             $('input[name="txt_fecha_final"]').daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: false,
-                autoUpdateInput: false,
+                autoUpdateInput: true,
                 minYear: 1901,
                 locale:{
                     "format": "YYYY-MM-DD",

@@ -17,7 +17,7 @@ class PuntoVentaController extends Controller
 
     public function __construct()
     {
-        //$this->middleware(['role:Admin|Tecnico']);
+        $this->middleware('auth');
     }
 
     public function Index()
@@ -93,7 +93,7 @@ class PuntoVentaController extends Controller
 
     public function Editar($id)
     {
-        return view('Mantenimiento.Salas.editar',['id'=> $id]);
+        return view('Mantenimiento.PuntoVenta.editar',['id'=> $id]);
     }
 
     public function Ver($id)
@@ -102,12 +102,12 @@ class PuntoVentaController extends Controller
         $mensaje_error = "Se Visualizó Correctamente";
 
         try {
-            $sala = Sala::findOrFail($id);
+            $registro = punto_venta::findOrFail($id);
         } catch (QueryException $ex) {
             $mensaje_error = $ex->errorInfo;
             $respuesta = false;
         }
-        return response()->json(['respuesta' => $respuesta,'sala' => $sala, 'mensaje' => $mensaje_error]);
+        return response()->json(['respuesta' => $respuesta,'registro' => $registro, 'mensaje' => $mensaje_error]);
     }
     
 
@@ -117,19 +117,20 @@ class PuntoVentaController extends Controller
         $mensaje_error = "Se actualizó Correctamente";
 
         try {
-            $sala = Sala::findOrFail($request->id);
-            $sala->nombre = $request->input('nombre');
-            $sala->direccion = $request->input('direccion');
-            $sala->save();
+            $registro = punto_venta::findOrFail($request->id);
+            $registro->nombre = $request->input('nombre');
+            $registro->cc_id = $request->input('cc_id');
+            $registro->save();
         } catch (QueryException $ex) {
             $mensaje_error = $ex->errorInfo;
             $respuesta = false;
         }
-        return response()->json(['respuesta' => $respuesta,'sala' => $sala, 'mensaje' => $mensaje_error]);
+        return response()->json(['respuesta' => $respuesta,'registro' => $registro, 'mensaje' => $mensaje_error]);
     }
 
     public function SincronizarPuntoVentaAPI()
     {
+        $mensaje_error = "Sincronizado correctamente";
         $validar_api = new ValidarApi();
         $respuesta_api = $validar_api->ListaTiendasTokenApi();
         $respuesta_api = (string)$respuesta_api;

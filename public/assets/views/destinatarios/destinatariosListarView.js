@@ -68,12 +68,16 @@ var ListarView = function() {
                         className: "s_id"
                     },
                     {
+                        data: "cc_id",
+                        title: "CC_ID"
+                    },
+                    {
                         data: "nombre",
                         title: "Nombre"
                     },
                     {
-                        data: "direccion",
-                        title: "Dirección"
+                        data: "ubigeo",
+                        title: "Ubigeo"
                     }
                 ]
             })

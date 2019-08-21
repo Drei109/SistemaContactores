@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class ReporteController extends Controller
 {
-    public function Index()
+    public function __construct()
     {
-        return view('Reportes.index');
+        $this->middleware('auth');
     }
 }

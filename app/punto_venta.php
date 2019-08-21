@@ -17,6 +17,11 @@ class punto_venta extends Model
 
     public $fillable = ['idEmpresa', 'idUbigeo', 'nombre', 'cc_id', 'unit_ids', 'ZonaComercial'];
 
+    public function destinatarios()
+    {
+        return $this->belongsToMany('App\Destinatario', 'destinatario_salas')->withPivot('id');
+    }
+
     public static function PuntoVentaListarJson()
     {
         $listar = DB::select(DB::raw("SELECT 

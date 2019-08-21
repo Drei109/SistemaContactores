@@ -71,11 +71,9 @@
                     <label class="col-form-label col-lg-2">Roles</label>
                     <div class="col-lg-10 form-group">
                         @foreach ($roles as $role)
-                        <div class="row">
-                            <div class="col-lg-1">
-                                {{ Form::checkbox('roles[]',  $role->id, array('class' => 'form-control')) }}
-                            </div>
-                            {{ Form::label($role->name, ucfirst($role->name)) }}<br>
+                        <div class="form-check">
+                            {{ Form::checkbox('roles[]',  $role->id,null,array('class' => 'form-check-input')) }}
+                            {{ Form::label($role->name, ucfirst($role->name), array('class' => 'form-check-label')) }}<br>
                         </div>
                         @endforeach
                     </div>

@@ -14,9 +14,8 @@ use Session;
 class RoleController extends Controller {
 
     public function __construct() {
-        $this->middleware(['auth', 'isAdmin']);//isAdmin middleware lets only users with a //specific permission permission to access these resources
+        $this->middleware(['auth', 'isAdmin']); //isAdmin middleware lets only users with a //specific permission permission to access these resources
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -48,7 +47,7 @@ class RoleController extends Controller {
     public function store(Request $request) {
     //Validate name and permissions field
         $this->validate($request, [
-            'name'=>'required|unique:roles|max:10',
+            'name'=>'required|unique:roles|max:30',
             'permissions' =>'required',
             ]
         );
@@ -108,7 +107,7 @@ class RoleController extends Controller {
         $role = Role::findOrFail($id);//Get role with the given id
     //Validate name and permission fields
         $this->validate($request, [
-            'name'=>'required|max:10|unique:roles,name,'.$id,
+            'name'=>'required|max:30|unique:roles,name,'.$id,
             'permissions' =>'required',
         ]);
 

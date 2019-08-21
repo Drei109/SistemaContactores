@@ -13,7 +13,7 @@ class SalaController extends Controller
 
     public function __construct()
     {
-        //$this->middleware(['role:Admin|Tecnico']);
+        $this->middleware('auth');
     }
 
     public function Index()

@@ -6,7 +6,7 @@ var NuevoView = function() {
         });
 
         $(document).on("click", ".btn_regresar", function() {
-            redirect({site:"roles", time:0});
+            redirect({site:"permissions", time:0});
         });
 
         $(document).on("click", ".btn_limpiar", function() {

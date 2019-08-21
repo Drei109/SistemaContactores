@@ -8,6 +8,12 @@ var ListarView = function() {
                 data: {
                     '_token': $('input[name=_token]').val(),
                 },
+                beforeSend: function () {
+                    block_general("body");
+                },
+                complete: function () {
+                    unblock("body");
+                },
                 success: function (response) {
                     var respuesta = response.respuesta;
                     if (respuesta === true) {
@@ -15,6 +21,7 @@ var ListarView = function() {
                         _Listado();
                     } else {
                         toastr.error(response.mensaje, "Mensaje Servidor");
+                        _Listado();
                     }
                 }
             });
@@ -22,7 +29,7 @@ var ListarView = function() {
 
         $(document).on("click", ".btn_editar", function() {
             var id = $(this).data("id");
-            redirect({site:"Salas/Editar/" + id, time:0});
+            redirect({site:"PuntoVentas/Editar/" + id, time:0});
         });
     };
 
@@ -38,7 +45,7 @@ var ListarView = function() {
             uniform: true,
             ajaxUrl: "PuntoVentas/Listar",
             tableNameVariable: "salas",
-            tableHeaderCheck:true,
+            tableHeaderCheck:false,
             table: ".datatable",
             tableColumns: [
                 {
@@ -75,7 +82,6 @@ var ListarView = function() {
                             '</a>' +
                             '<div class="dropdown-menu dropdown-menu-right">' +
                             '<a href="#" class="dropdown-item btn_editar" data-id="' + value + '"><i class="icon-hammer"></i> Editar</a>' +
-                            // '<a href="#" class="dropdown-item btn_estado" data-id="' + value + '" data-estado="' + oData.estado + '"><i class="icon-circles"></i> Cambiar Estado</a>' +
                             '</div>' +
                             '</div>' +
                             '</div>';

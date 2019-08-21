@@ -15,43 +15,26 @@
 //     return view('welcome');
 // });
 
-Auth::routes();
 
+#region[Inicio]
 Route::get('/', 'InicioController@DashboardView')->name('Dashboard')->middleware('auth');
+Route::get('/home', 'HomeController@index')->name('home');
+#endregion
+
+#region[Seguridad]
+Auth::routes();
 Route::resource('users', 'UserController');
 Route::resource('roles', 'RoleController');
 Route::resource('permissions', 'PermissionController');
-Route::get('/home', 'HomeController@index')->name('home');
-
-#region [Seguridad]
-Route::get('Empleados', 'EmpleadoController@EmpleadosVista')->name('Seguridad.Empleados');
-Route::get('Usuarios', 'UsuarioController@UsuariosVista')->name('Seguridad.Usuarios');
-Route::get('Roles', 'RolesController@RolesVista')->name('Seguridad.Roles');
-Route::post('RolesListarJson', 'RolesController@RolesListar');
-Route::post('RolesListarActivosJson', 'RolesController@RolesListarActivos');
-Route::post('RolesListarInactivosJson', 'RolesController@RolesListarInActivos');
-Route::get('RolesNuevo', 'RolesController@RolesNuevoVista');
-Route::post('RolesCambiarEstado', 'RolesController@RolesEditarEstado');
-Route::post('RolesGuardarNuevo', 'RolesController@RolesInsertar');
-Route::get('Permisos', 'PermisosController@PermisosVista')->name('Seguridad.Permisos');
 #endregion
 
 #region[PuntoVentas]
 Route::get('PuntoVentas/', 'Mantenimiento\PuntoVentaController@Index')->name('PuntoVenta.index');
 Route::post('PuntoVentas/Listar', 'Mantenimiento\PuntoVentaController@Listar');
 Route::post('PuntoVentas/Sincronizar', 'Mantenimiento\PuntoVentaController@SincronizarPuntoVentaAPI');
-#endregion
-
-#region[Salas]
-Route::post('Salas/Listar', 'Mantenimiento\SalaController@Listar');
-Route::get('Salas/Index', 'Mantenimiento\SalaController@Index');
-Route::get('Salas/', 'Mantenimiento\SalaController@Index')->name('Salas.index');
-Route::get('Salas/Nuevo', 'Mantenimiento\SalaController@Nuevo');
-Route::post('Salas/Guardar', 'Mantenimiento\SalaController@Guardar');
-Route::post('Salas/Eliminar', 'Mantenimiento\SalaController@Eliminar');
-Route::get('Salas/Editar/{id}', 'Mantenimiento\SalaController@Editar');
-Route::get('Salas/Ver/{id}', 'Mantenimiento\SalaController@Ver');
-Route::post('Salas/Actualizar', 'Mantenimiento\SalaController@Actualizar');
+Route::get('PuntoVentas/Editar/{id}', 'Mantenimiento\PuntoVentaController@Editar');
+Route::get('PuntoVentas/Ver/{id}', 'Mantenimiento\PuntoVentaController@Ver');
+Route::post('PuntoVentas/Actualizar', 'Mantenimiento\PuntoVentaController@Actualizar');
 #endregion
 
 #region[Destinatarios]
@@ -79,3 +62,34 @@ Route::post('Registro/Buscar', 'RegistroController@Buscar');
 Route::post('Registro/Guardar', 'RegistroController@Guardar');
 Route::post('Registro/Actualizar', 'RegistroController@Actualizar');
 #endregion
+
+#region[Mail]
+Route::get('SendEmail','MailController@htmlEmail');
+#endregion
+
+
+#region[Salas]
+Route::post('Salas/Listar', 'Mantenimiento\SalaController@Listar');
+Route::get('Salas/Index', 'Mantenimiento\SalaController@Index');
+Route::get('Salas/', 'Mantenimiento\SalaController@Index')->name('Salas.index');
+Route::get('Salas/Nuevo', 'Mantenimiento\SalaController@Nuevo');
+Route::post('Salas/Guardar', 'Mantenimiento\SalaController@Guardar');
+Route::post('Salas/Eliminar', 'Mantenimiento\SalaController@Eliminar');
+Route::get('Salas/Editar/{id}', 'Mantenimiento\SalaController@Editar');
+Route::get('Salas/Ver/{id}', 'Mantenimiento\SalaController@Ver');
+Route::post('Salas/Actualizar', 'Mantenimiento\SalaController@Actualizar');
+#endregion
+
+
+// #region [Seguridad]
+// Route::get('Empleados', 'EmpleadoController@EmpleadosVista')->name('Seguridad.Empleados');
+// Route::get('Usuarios', 'UsuarioController@UsuariosVista')->name('Seguridad.Usuarios');
+// Route::get('Roles', 'RolesController@RolesVista')->name('Seguridad.Roles');
+// Route::post('RolesListarJson', 'RolesController@RolesListar');
+// Route::post('RolesListarActivosJson', 'RolesController@RolesListarActivos');
+// Route::post('RolesListarInactivosJson', 'RolesController@RolesListarInActivos');
+// Route::get('RolesNuevo', 'RolesController@RolesNuevoVista');
+// Route::post('RolesCambiarEstado', 'RolesController@RolesEditarEstado');
+// Route::post('RolesGuardarNuevo', 'RolesController@RolesInsertar');
+// Route::get('Permisos', 'PermisosController@PermisosVista')->name('Seguridad.Permisos');
+// #endregion
