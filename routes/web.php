@@ -29,10 +29,10 @@ Route::resource('permissions', 'PermissionController');
 #endregion
 
 #region[PuntoVentas]
-Route::get('PuntoVentas/', 'Mantenimiento\PuntoVentaController@Index')->name('PuntoVenta.index');
+Route::get('PuntoVentas/', 'Mantenimiento\PuntoVentaController@Index')->name('PuntoVenta.index')->middleware('permission:Listar Puntos de Venta');
 Route::post('PuntoVentas/Listar', 'Mantenimiento\PuntoVentaController@Listar');
 Route::post('PuntoVentas/Sincronizar', 'Mantenimiento\PuntoVentaController@SincronizarPuntoVentaAPI');
-Route::get('PuntoVentas/Editar/{id}', 'Mantenimiento\PuntoVentaController@Editar');
+Route::get('PuntoVentas/Editar/{id}', 'Mantenimiento\PuntoVentaController@Editar')->middleware('permission:Editar Puntos de Venta');
 Route::get('PuntoVentas/Ver/{id}', 'Mantenimiento\PuntoVentaController@Ver');
 Route::post('PuntoVentas/Actualizar', 'Mantenimiento\PuntoVentaController@Actualizar');
 #endregion

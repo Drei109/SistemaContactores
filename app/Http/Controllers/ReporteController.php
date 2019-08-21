@@ -10,4 +10,9 @@ class ReporteController extends Controller
     {
         $this->middleware('auth');
     }
+
+    public function Index()
+    {
+        return view('Reportes.index');
+    }
 }

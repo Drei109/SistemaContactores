@@ -22,7 +22,6 @@ class PuntoVentaController extends Controller
 
     public function Index()
     {
-        //app('auth')->user()->hasPermissionTo('Puede Ver Salas');
         return view('Mantenimiento.PuntoVenta.index');
     }
 
@@ -51,6 +50,7 @@ class PuntoVentaController extends Controller
 
     public function Nuevo()
     {
+        app('auth')->user()->hasPermissionTo('Crear Puntos de Venta');
         return view('Mantenimiento.Salas.nuevo');    
     }
 
