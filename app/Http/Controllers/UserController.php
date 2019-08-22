@@ -24,7 +24,7 @@ class UserController extends Controller
     public function index() {
     //Get all users and pass it to the view
         $users = User::all(); 
-        return view('users.index')->with('users', $users);
+        return view('Users.index')->with('users', $users);
     }
 
     /**
@@ -35,7 +35,7 @@ class UserController extends Controller
     public function create() {
     //Get all roles and pass it to the view
         $roles = Role::get();
-        return view('users.create', ['roles'=>$roles]);
+        return view('Users.create', ['roles'=>$roles]);
     }
 
     /**
@@ -91,7 +91,7 @@ class UserController extends Controller
         $user = User::findOrFail($id); //Get user with specified id
         $roles = Role::get(); //Get all roles
 
-        return view('users.edit', compact('user', 'roles')); //pass user and roles data to view
+        return view('Users.edit', compact('user', 'roles')); //pass user and roles data to view
 
     }
 
