@@ -23,7 +23,7 @@ class PermissionController extends Controller {
     */
     public function index() {
         $permissions = Permission::all(); //Get all permissions
-        return view('permissions.index')->with('permissions', $permissions);
+        return view('Permissions.index')->with('permissions', $permissions);
     }
 
     /**
@@ -34,7 +34,7 @@ class PermissionController extends Controller {
     public function create() {
         $roles = Role::get(); //Get all roles
 
-        return view('permissions.create')->with('roles', $roles);
+        return view('Permissions.create')->with('roles', $roles);
     }
 
     /**
@@ -90,7 +90,7 @@ class PermissionController extends Controller {
     public function edit($id) {
         $permission = Permission::findOrFail($id);
 
-        return view('permissions.edit', compact('permission'));
+        return view('Permissions.edit', compact('permission'));
     }
 
     /**
