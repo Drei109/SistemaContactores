@@ -9,11 +9,15 @@ use App\Http\Controllers\Controller;
 class MailController extends Controller {
    
    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+   {
+      $this->middleware('auth');
+   }
 
-    public function htmlEmail() {
+   public function sendEmail(){
+      
+   }
+
+   public function htmlEmail() {
       $data = array('name'=>"Test Name");
       Mail::send('Mail.mail', $data, function($message) {
          $message->to('drei.rar@gmail.com', 'Name Test')->subject

@@ -150,6 +150,10 @@ var ListarView = function() {
                     title: "Correo"
                 },
                 {
+                    data: "correo_hora",
+                    title: "Hora de envío"
+                },
+                {
                     data: 'id',
                     title: "Acciones",
                     width: 100,

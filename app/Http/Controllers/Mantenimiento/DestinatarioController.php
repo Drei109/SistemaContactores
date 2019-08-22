@@ -48,6 +48,7 @@ class DestinatarioController extends Controller
         $destinatario = new Destinatario();
         $destinatario->nombre = $request->input('nombre');
         $destinatario->correo = $request->input('correo');
+        $destinatario->correo_hora = $request->input('correo_hora');
 
         try {
             $destinatario = $destinatario->save();
@@ -105,6 +106,7 @@ class DestinatarioController extends Controller
             $destinatario = Destinatario::findOrFail($request->id);
             $destinatario->nombre = $request->input('nombre');
             $destinatario->correo = $request->input('correo');
+            $destinatario->correo_hora = $request->input('correo_hora');
             $destinatario->save();
         } catch (QueryException $ex) {
             $mensaje_error = $ex->errorInfo;

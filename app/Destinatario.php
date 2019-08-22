@@ -9,7 +9,7 @@ class Destinatario extends Model
     protected $table = 'destinatarios';
     public $timestamps = false;
     protected $fillable = [
-		'nombre', 'correo'
+		'nombre', 'correo', 'correo_hora'
     ];
 
     public function salas()

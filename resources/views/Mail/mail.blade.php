@@ -1,2 +1,2 @@
 <h1>Hi, {{ $name }}</h1>
-<p>Sending Mail from Laravel.</p>
+<p>Message sent at {{ $today }}</p>

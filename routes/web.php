@@ -66,7 +66,6 @@ Route::post('Registro/Actualizar', 'RegistroController@Actualizar');
 
 #region[Mail]
 Route::get('SendEmail','MailController@htmlEmail');
-
 #endregion
 
 

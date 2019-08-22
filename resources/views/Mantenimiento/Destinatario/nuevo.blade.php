@@ -61,8 +61,12 @@
 
 				<div class="form-group row">
 					<label class="col-form-label col-lg-2 cursor-pointer" for="txt_correo">Correo</label>
-					<div class="col-lg-10">
+					<div class="col-lg-6">
                         <input type="email" class="form-control" id="txt_correo" name="correo" required="required" placeholder="Correo electrónico" autocomplete="off">
+					</div>
+					<label class="col-form-label col-lg-2 cursor-pointer" for="txt_correo_hora">Hora de envío</label>
+					<div class="col-lg-2">
+                        <input type="time" class="form-control text-center" id="txt_correo_hora" name="correo_hora" required="required" autocomplete="off">
                     </div>
 				</div>
 

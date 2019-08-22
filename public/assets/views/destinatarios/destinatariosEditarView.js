@@ -24,6 +24,7 @@ var NuevoView = function() {
             success: function(data) {
                 $("#txt_nombre").val(data.objeto.nombre);   
                 $("#txt_correo").val(data.objeto.correo);
+                $("#txt_correo_hora").val(data.objeto.correo_hora);
             }
           });
 
@@ -40,7 +41,7 @@ var NuevoView = function() {
                             limpiar_form({
                                 contenedor: '#formulario',
                             });
-                            _objetoForm_formNuevo.resetForm();
+                            redirect({site:"Destinatarios", time:0});
                         }
                         
                     }
