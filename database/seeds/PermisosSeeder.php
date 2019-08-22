@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-class PuntoVentaPermisosSeeder extends Seeder
+class PermisosSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +15,18 @@ class PuntoVentaPermisosSeeder extends Seeder
     {
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // create permissions
         Permission::create(['name' => 'Listar Puntos de Venta']);
         Permission::create(['name' => 'Crear Puntos de Venta']);
         Permission::create(['name' => 'Editar Puntos de Venta']);
+
+        Permission::create(['name' => 'Listar Destinatarios']);
+        Permission::create(['name' => 'Crear Destinatarios']);
+        Permission::create(['name' => 'Editar Destinatarios']);
+
+        Permission::create(['name' => 'Listar Reportes']);
+
+        Permission::create(['name' => 'Configurar Usuarios']);
+        Permission::create(['name' => 'Configurar Roles']);
+        Permission::create(['name' => 'Configurar Permisos']);
     }
 }

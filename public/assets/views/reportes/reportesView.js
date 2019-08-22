@@ -35,6 +35,32 @@ var ListarView = function() {
             
         });
 
+        $("#txt_sala_id").autocomplete({
+            source: function(request, response) {
+                $.ajax({
+                  type: "POST",
+                  url: "PuntoVentas/Busqueda",
+                  dataType: "json",
+                  data: {
+                    query: request.term
+                  },
+                  success: function(data) {
+                    response($.map(data.data, function(item) {
+                      return {
+                        label: item.cc_id + ": " +item.nombre,
+                        value: item.cc_id
+                      }
+                    }))
+                  }
+                })
+              },
+            minLength: 0,
+          });
+
+        $("#txt_sala_id").focus(function() {
+            $(this).autocomplete("search", $(this).val());
+        });
+
         $(document).on("click", "#btn_buscar", function() {
             var txt_sala_id = $("#txt_sala_id").val();
             var txt_fecha_inicio = $("#txt_fecha_inicio").val();

@@ -16,7 +16,7 @@ class AdminMiddleware
     {
         $user = User::all()->count();
         if (!($user == 1)) {
-            if (!Auth::user()->hasPermissionTo('Puede Editar Seguridad')) {
+            if (!Auth::user()->hasRole('Admin')) {
                 abort('401');
             }
         }

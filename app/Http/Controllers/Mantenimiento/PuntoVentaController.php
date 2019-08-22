@@ -48,6 +48,33 @@ class PuntoVentaController extends Controller
         return response()->json(['data' => $lista,'estado'=>$estado,'mensaje' => $mensaje_error]);
     }
 
+    public function ListarBusqueda(Request $request)
+    {
+        $lista = "";
+        $mensaje_error = "Listar";
+        $estado = true;
+        $term = $request->input('query');
+
+        try {
+            $lista = DB::select("SELECT 
+            pv.id,
+            pv.nombre,
+            e.razonSocial,
+            pv.cc_id,
+            (SELECT u.nombre FROM ubigeo u
+            WHERE u.id = pv.idUbigeo) Ubigeo,
+            pv.ZonaComercial
+            FROM punto_venta pv
+            LEFT JOIN empresa e ON e.id = pv.idEmpresa
+            WHERE nombre LIKE '%" . $term . "%' 
+            OR cc_id LIKE '%". $term ."%'");
+        } catch (QueryException $ex) {
+            $mensaje_error = $ex;
+            $estado = false;
+        }
+        return response()->json(['data' => $lista,'estado'=>$estado,'mensaje' => $mensaje_error]);
+    }
+
     public function Nuevo()
     {
         app('auth')->user()->hasPermissionTo('Crear Puntos de Venta');

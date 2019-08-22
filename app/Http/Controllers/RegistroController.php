@@ -10,7 +10,7 @@ class RegistroController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
     
     public function Index()
@@ -43,6 +43,11 @@ class RegistroController extends Controller
             FROM registro r 
             WHERE fecha_encendido BETWEEN ? 
             AND ? ORDER BY r.fecha_encendido ASC",[$request->post('fecha_encendido'),$request->post('fecha_apagado')]);
+        }else{
+            $registros = 
+            DB::select("SELECT r.id, r.local_id, r.tipo, r.fecha_encendido, r.fecha_apagado
+            FROM registro r 
+            ORDER BY r.fecha_encendido ASC");
         }
         return response()->json(['data' => $registros]);
     }
@@ -86,23 +91,5 @@ class RegistroController extends Controller
         [$registros->tipo,$registros->fecha_apagado,$registros->local_id,$registros->fecha_apagado]);
 
         return "Actualiza2";
-    }
-
-    
-    public function edit(Registro $registro)
-    {
-        //
-    }
-
-    
-    public function update(Request $request, Registro $registro)
-    {
-        //
-    }
-
-    
-    public function destroy(Registro $registro)
-    {
-        //
     }
 }

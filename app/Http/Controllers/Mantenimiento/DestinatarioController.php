@@ -18,7 +18,6 @@ class DestinatarioController extends Controller
 
     public function Index()
     {
-        //app('auth')->user()->hasPermissionTo('Puede Ver Salas');
         return view('Mantenimiento.Destinatario.index');
     }
 
