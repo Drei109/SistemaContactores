@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
 class EnviarEmails extends Command
 {
@@ -40,11 +41,38 @@ class EnviarEmails extends Command
     {
         $today = date('H:i:s');
 
-        $data = array('name'=>"Test Name", 'date'=> $today);
-        Mail::send('Mail.mail', $data, function($message) {
-            $message->to('drei.rar@gmail.com', 'Name Test')->subject
-                ('Test Subject');
-            $message->from('AdmiWebOnline@gmail.com','From Test');
+        $segundos = time();
+        $segundos_redondeados_abajo = floor($segundos / (30 * 60)) * (30 * 60);
+        $segundos_redondeados_arriba = round($segundos / (30 * 60)) * (30 * 60);
+        
+        $destinatarios = DB::select("SELECT *
+        FROM destinatarios d
+        WHERE d.correo_hora BETWEEN '?' AND '?'",
+        [$segundos_redondeados_abajo, $segundos_redondeados_arriba]);
+
+        foreach ($destinatarios as $destinatario) {
+            $punto_ventas = DB::select("SELECT r.local_id, pv.nombre, r.fecha_encendido, r.fecha_apagado
+            FROM registro r
+            LEFT JOIN punto_venta pv
+            ON pv.cc_id = r.local_id
+            LEFT JOIN destinatario_punto_ventas dpv
+            ON pv.id = dpv.punto_venta_id
+            WHERE dpv.destinatario_id = ?",
+            [$destinatario->id]);
+
+            $data = array('nombre'=> $destinatario->nombre, 'correo'=> $destinatario->correo, 'punto_ventas' => $punto_ventas);
+            enviarEmail($data);
+        }
+    }
+
+    public function enviarEmail($data){
+        $nombre = $data->nombre;
+        $correo = $data->correo;
+        Mail::send('Mail.mail', $data, function($message) use ($correo, $nombre){
+            $message    ->to('drei.rar@gmail.com', $nombre)
+                        ->subject('Contactores');
+            $message
+                        ->from('AdmiWebOnline@gmail.com','Sistema Contactores - Admin');
         });
         echo "HTML Email Sent. Check your inbox.";
     }
