@@ -42,12 +42,12 @@ class EnviarEmails extends Command
         $today = date('H:i:s');
 
         $segundos = time();
-        $segundos_redondeados_abajo = floor($segundos / (30 * 60)) * (30 * 60);
-        $segundos_redondeados_arriba = round($segundos / (30 * 60)) * (30 * 60);
+        $segundos_redondeados_abajo = date('H:i:s', floor($segundos / (30 * 60)) * (30 * 60));
+        $segundos_redondeados_arriba = date('H:i:s', (ceil($segundos / (30 * 60)) * (30 * 60)) - 60);
         
         $destinatarios = DB::select("SELECT *
         FROM destinatarios d
-        WHERE d.correo_hora BETWEEN '?' AND '?'",
+        WHERE d.correo_hora BETWEEN ? AND ?",
         [$segundos_redondeados_abajo, $segundos_redondeados_arriba]);
 
         foreach ($destinatarios as $destinatario) {
@@ -61,13 +61,13 @@ class EnviarEmails extends Command
             [$destinatario->id]);
 
             $data = array('nombre'=> $destinatario->nombre, 'correo'=> $destinatario->correo, 'punto_ventas' => $punto_ventas);
-            enviarEmail($data);
+            $this->enviarEmail($data);
         }
     }
 
     public function enviarEmail($data){
-        $nombre = $data->nombre;
-        $correo = $data->correo;
+        $nombre = $data['nombre'];
+        $correo = $data['correo'];
         Mail::send('Mail.mail', $data, function($message) use ($correo, $nombre){
             $message    ->to('drei.rar@gmail.com', $nombre)
                         ->subject('Contactores');

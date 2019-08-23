@@ -1423,8 +1423,33 @@
                       </tbody>
                     </table>
                     <hr>
-                    Nombre: {{ $nombre }}
-                    Correo: {{ $correo }}
+                    Nombre: {{ $nombre }} Correo: {{ $correo }}
+                    <br>
+                    <br>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>LOCAL</th>
+                          <th>FECHA DE ENCENDIDO</th>
+                          <th>FECHA DE APAGADO</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @if(empty($punto_ventas))
+                        <tr><td>No hay registros</td></tr>
+                        @else
+                          @foreach ($punto_ventas as $punto_venta)
+                          <tr>
+                            <td>{{ $punto_venta->local_id }}</td>
+                            <td>{{ $punto_venta->nombre }}</td>
+                            <td>{{ $punto_venta->fecha_encendido }}</td>
+                            <td>{{ $punto_venta->fecha_apagado }}</td>
+                          </tr>
+                          @endforeach
+                        @endif
+                      </tbody>
+                    </table>
 
                     {{-- <table class="row">
                       <tbody>
