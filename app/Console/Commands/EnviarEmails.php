@@ -46,8 +46,8 @@ class EnviarEmails extends Command
         $segundos_redondeados_arriba = date('H:i:s', (ceil($segundos / (30 * 60)) * (30 * 60)) - 60);
         
         $destinatarios = DB::select("SELECT *
-        FROM destinatarios d
-        WHERE d.correo_hora BETWEEN ? AND ?",
+        FROM destinatario_horas_envios dhe
+        WHERE dhe.hora_envio BETWEEN ? AND ?",
         [$segundos_redondeados_abajo, $segundos_redondeados_arriba]);
 
         foreach ($destinatarios as $destinatario) {

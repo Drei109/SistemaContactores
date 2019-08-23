@@ -183,4 +183,45 @@ class DestinatarioController extends Controller
         }
         return response()->json(['respuesta' => $respuesta,'objeto' => $delete, 'mensaje' => $mensaje_error]);
     }
+
+    public function ListarHoras($id){
+        $lista = "";
+        $mensaje_error = "Listado realizado correctamente";
+        $estado = true;
+        try {
+            $lista = DB::select('SELECT * FROM destinatario_horas_envios dhe
+            WHERE dhe.destinatario_id = :id
+        ',['id'=> $id]);
+
+        } catch (QueryException $ex) {
+            $mensaje_error = $ex;
+            $estado = false;
+        }
+        return response()->json(['data' => $lista,'estado'=>$estado,'mensaje' => $mensaje_error]);
+    }
+
+    public function ReasignarHoras(Request $request){
+        $respuesta = true;
+        $mensaje_error = "Se actualizó Correctamente";
+
+        $destinatario_id = $request->input('id');
+        $horas_nuevas = $request->input('data');
+
+        try {
+            $deleted = DB::delete('DELETE 
+            FROM destinatario_horas_envios 
+            WHERE destinatario_id = ?', [$destinatario_id]);
+
+            foreach ($horas_nuevas as &$horanueva) {
+                DB::insert('insert into destinatario_horas_envios 
+                (destinatario_id, hora_envio) values (?, ?)', [$destinatario_id, $horanueva['hora_envio']]);
+            }
+
+        } catch (QueryException $ex) {
+            $mensaje_error = $ex;
+            $respuesta = false;
+        }
+
+        return response()->json(['respuesta' => $respuesta, 'mensaje' => $mensaje_error]);
+    }
 }

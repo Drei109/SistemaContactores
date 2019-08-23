@@ -717,30 +717,32 @@ function simpleDataTable(obj) {
         tableOrdering: true,
         tableInfo: true,
         tableLengthChange: true,
-        tableHeaderCheck: false
+        tableHeaderCheck: false,
+        tableDom: 'Bfrtip',
+        tableButtons:[
+            {
+                extend: 'excelHtml5',
+                title: "Reporte",
+                className: 'btn btn-primary'                            
+            },                        
+            {
+                extend: 'pdfHtml5',
+                title: "Reporte",
+                className: 'btn btn-primary'                            
+            },
+            {
+                extend: 'print',
+                title: "Reporte",
+                className: 'btn btn-primary'                            
+            }
+        ]
     }
 
     var opciones = $.extend({}, defaults, obj);
     var objt = "_objetoDatatable";
     this[objt + '_' + opciones.tableNameVariable] = $(opciones.table).DataTable({
-        dom: 'Bfrtip',                    
-        buttons: [
-            {
-                extend: 'excelHtml5',
-                title: opciones.reportTitle,
-                className: 'btn btn-primary'                            
-            },                        
-            {
-                extend: 'pdfHtml5',
-                title: opciones.reportTitle,
-                className: 'btn btn-primary'                            
-            },
-            {
-                extend: 'print',
-                title: opciones.reportTitle,
-                className: 'btn btn-primary'                            
-            }
-        ],
+        dom: opciones.tableDom,                    
+        buttons: opciones.tableButtons,
         "bDestroy": true,
         "scrollCollapse": true,
         "scrollX": false,

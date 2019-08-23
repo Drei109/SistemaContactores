@@ -54,6 +54,9 @@ Route::get('Destinatarios/{id}/VerSalas', 'Mantenimiento\DestinatarioController@
 Route::get('Destinatarios/{id}/Nuevo', 'Mantenimiento\DestinatarioController@NuevaRelacionSala');
 Route::post('Destinatarios/{id}/SalasNoAsignadas', 'Mantenimiento\DestinatarioController@ListarSalasNoAsignadas');
 Route::post('Destinatarios/{id}/ReasignarSalas', 'Mantenimiento\DestinatarioController@ReasignarSalas');
+
+Route::post('Destinatarios/{id}/ListarHoras', 'Mantenimiento\DestinatarioController@ListarHoras');
+Route::post('Destinatarios/{id}/ReasignarHoras', 'Mantenimiento\DestinatarioController@ReasignarHoras');
 #endregion
 
 #region[Reportes]

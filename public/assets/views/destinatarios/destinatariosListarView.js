@@ -81,7 +81,6 @@ var ListarView = function() {
                     }
                 ]
             })
-            // $(".modal-content").append('<div class="modal-footer pt-3"><button type="button" class="btn btn-link" data-dismiss="modal">Cerrar</button><button type="button" class="btn bg-primary btn_guardar_salas">Guardar Cambios</button></div>');
         });
 
         $(document).on("click", ".btn_guardar_salas", function() {
@@ -103,24 +102,91 @@ var ListarView = function() {
                     data: JSON.stringify(data_salas),
                     callBackSuccess: function(response) {
                         //console.info(response);
-                        $('#cerrar_modal').click();
+                        $('#cerrar_modal_salas').click();
                         // ListarView.init_Listado();
                     }
                 });
             }
         });
+
+        $(document).on("click", ".btn_editar_horas", function() {
+            var id = $(this).data("id");
+            $('#destinatario_id').val(id);
+
+            simpleAjaxDataTable({
+                uniform: true,
+                ajaxUrl: "Destinatarios/" + id + "/ListarHoras",
+                tableNameVariable: "horas",
+                tablePaging: false,
+                tableHeaderCheck:false,
+                table: ".datatable-horas",
+                tableButtons: "",
+                tableDom: "",
+                tableColumns: [
+                    {
+                        data: "hora_envio",
+                        title: "Hora"
+                    },
+                    {
+                        data: 'id',
+                        title: "Acciones",
+                        width: 100,
+                        className: 'text-center',
+                        "bSortable": false,
+                        "render": function(value, type, oData, meta) {
+                            var botones = '<a href="#" class="btn btn-icon btn-sm bg-danger-400 eliminar_hora" data-id="' + value + '"><i class="icon-cross"></i></a>';
+                            return botones;
+                        }
+                    }
+                ]
+            })
+        });
+
+        $(document).on("click", "#agregar_hora", function() {
+            if($('#txt_hora_nueva').val().length !== 0){
+                var hora_nueva = $('#txt_hora_nueva').val();
+                var t = $('.datatable-horas').DataTable();
+                t.row.add({
+                    'hora_envio' : hora_nueva,
+                    'id' : 0
+                }).draw(false);
+
+                $('.datatable-horas > tbody:last-child').append('<tr><td></td><td>' + hora_nueva + '</td><td></td></tr>');
+                $('#txt_hora_nueva').val('');
+            }
+        });
+
+        $(document).on("click", ".eliminar_hora", function() {
+            var t = $('.datatable-horas').DataTable();
+            t.row($(this).parents('tr')).remove().draw();
+        });
+
+        $(document).on("click", ".btn_guardar_horas", function() {
+            var t = $('.datatable-horas').DataTable();
+            var data = t.rows().data().toArray();
+            var object = {};
+            object.id = $('#destinatario_id').val();
+            object.data = data;
+            console.log(object);
+
+            responseSimple({
+                url: "Destinatarios/"+ object.id + "/ReasignarHoras",
+                refresh: false,
+                data: JSON.stringify(object),
+                callBackSuccess: function(response) {
+                    $('#cerrar_modal_horas').click();
+                }
+            });
+        });
+
     };
 
-    
-
-    // Basic Datatable examples
     var _Listado = function() {
         if (!$().DataTable) {
             console.warn('Advertencia - datatables.min.js no esta declarado.');
             return;
         }
 
-        // Basic datatable
         simpleAjaxDataTable({
             uniform: true,
             ajaxUrl: "Destinatarios/Listar",
@@ -150,10 +216,6 @@ var ListarView = function() {
                     title: "Correo"
                 },
                 {
-                    data: "correo_hora",
-                    title: "Hora de envío"
-                },
-                {
                     data: 'id',
                     title: "Acciones",
                     width: 100,
@@ -167,7 +229,8 @@ var ListarView = function() {
                             '</a>' +
                             '<div class="dropdown-menu dropdown-menu-right">' +
                             '<a href="#" class="dropdown-item btn_editar" data-id="' + value + '"><i class="icon-hammer"></i> Editar</a>' +
-                            '<button type="button" class="dropdown-item btn border-transparent btn_ver_salas" data-toggle="modal" data-target="#modal_scrollable" data-id="' + value + '"><i class="icon-store2"></i> Locales </button>' +
+                            '<button type="button" class="dropdown-item btn border-transparent btn_ver_salas" data-toggle="modal" data-target="#modal_scrollable_salas" data-id="' + value + '"><i class="icon-store2"></i> Locales </button>' +
+                            '<button type="button" class="dropdown-item btn border-transparent btn_editar_horas" data-toggle="modal" data-target="#modal_scrollable_horas" data-id="' + value + '"><i class="icon-mail"></i> Horas </button>' +
                             '</div>' +
                             '</div>' +
                             '</div>';

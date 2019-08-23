@@ -1,7 +1,5 @@
 @extends('template.layout')
 @section('content')
-
-@section('content')
 <!-- Page header -->
 <div class="page-header page-header-light">
 	<div class="page-header-content header-elements-md-inline">
@@ -56,7 +54,7 @@
 	<!-- /basic datatable -->
 </div>
 <!-- /content area -->
-@stop
+@endsection
 
 @push('js')
 <script src="{{asset('../assets/views/puntoVentas/puntoVentasListarView.js')}}"></script>

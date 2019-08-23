@@ -17,10 +17,10 @@ var ListarView = function() {
                 success: function (response) {
                     var respuesta = response.respuesta;
                     if (respuesta === true) {
-                        toastr.success("Se Sincronizo Correctamente", "Mensaje Servidor");
+                        //toastr.success("Se Sincronizo Correctamente", "Mensaje Servidor");
                         _Listado();
                     } else {
-                        toastr.error(response.mensaje, "Mensaje Servidor");
+                        //toastr.error(response.mensaje, "Mensaje Servidor");
                         _Listado();
                     }
                 }
