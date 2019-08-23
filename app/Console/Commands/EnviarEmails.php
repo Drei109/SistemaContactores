@@ -39,14 +39,14 @@ class EnviarEmails extends Command
      */
     public function handle()
     {
-        $today = date('H:i:s');
-
         $segundos = time();
         $segundos_redondeados_abajo = date('H:i:s', floor($segundos / (30 * 60)) * (30 * 60));
         $segundos_redondeados_arriba = date('H:i:s', (ceil($segundos / (30 * 60)) * (30 * 60)) - 60);
         
-        $destinatarios = DB::select("SELECT *
+        $destinatarios = DB::select("SELECT d.id, d.nombre, d.correo
         FROM destinatario_horas_envios dhe
+        LEFT JOIN destinatarios d
+        ON d.id = dhe.destinatario_id
         WHERE dhe.hora_envio BETWEEN ? AND ?",
         [$segundos_redondeados_abajo, $segundos_redondeados_arriba]);
 
