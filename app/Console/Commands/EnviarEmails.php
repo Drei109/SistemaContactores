@@ -69,7 +69,7 @@ class EnviarEmails extends Command
         $nombre = $data['nombre'];
         $correo = $data['correo'];
         Mail::send('Mail.mail', $data, function($message) use ($correo, $nombre){
-            $message    ->to('drei.rar@gmail.com', $nombre)
+            $message    ->to($correo, $nombre)
                         ->subject('Contactores');
             $message
                         ->from('AdmiWebOnline@gmail.com','Sistema Contactores - Admin');
