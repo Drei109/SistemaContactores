@@ -66,7 +66,7 @@
 					</div>
 					<label class="col-form-label col-lg-2 cursor-pointer" for="txt_correo_hora">Hora de envío</label>
 					<div class="col-lg-2">
-                        <input type="time" class="form-control text-center" id="txt_correo_hora" name="correo_hora" required="required" autocomplete="off">
+                        <input type="time" class="form-control text-center" id="txt_correo_hora" name="correo_hora" required="required" autocomplete="off" step="1800">
                     </div>
 				</div>
 

@@ -51,17 +51,28 @@ class EnviarEmails extends Command
         [$segundos_redondeados_abajo, $segundos_redondeados_arriba]);
 
         foreach ($destinatarios as $destinatario) {
-            $punto_ventas = DB::select("SELECT r.local_id, pv.nombre, r.fecha_encendido, r.fecha_apagado
-            FROM registro r
+            $punto_ventas = DB::select("SELECT pv.cc_id, pv.nombre, f.fecha_encendido, f.fecha_apagado, f.tipo
+            FROM
+            destinatario_punto_ventas dpv
             LEFT JOIN punto_venta pv
-            ON pv.cc_id = r.local_id
-            LEFT JOIN destinatario_punto_ventas dpv
-            ON pv.id = dpv.punto_venta_id
+            ON dpv.punto_venta_id = pv.id
+            LEFT JOIN
+            (
+                SELECT r.local_id, r.fecha_encendido, r.fecha_apagado, r.tipo
+                FROM registro r
+                LEFT JOIN punto_venta pv
+                ON r.local_id = pv.cc_id
+                WHERE r.local_id = pv.cc_id
+                AND DATE(r.fecha_encendido) = DATE(NOW())
+            ) AS f
+            ON f.local_id = pv.cc_id
             WHERE dpv.destinatario_id = ?",
             [$destinatario->id]);
 
             $data = array('nombre'=> $destinatario->nombre, 'correo'=> $destinatario->correo, 'punto_ventas' => $punto_ventas);
-            $this->enviarEmail($data);
+            if(!empty($data['punto_ventas'])){
+                $this->enviarEmail($data);
+            }
         }
     }
 
@@ -74,6 +85,6 @@ class EnviarEmails extends Command
             $message
                         ->from('AdmiWebOnline@gmail.com','Sistema Contactores - Admin');
         });
-        echo "HTML Email Sent. Check your inbox.";
+        echo "HTML Email Sent. Check your inbox. \n";
     }
 }
