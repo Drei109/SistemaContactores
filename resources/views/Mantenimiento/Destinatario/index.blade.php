@@ -100,7 +100,7 @@
 			<div class="align-middle modal-body py-1 row align-middle">
 				<div class="col-lg-8 offset-lg-2 row align-middle">
 					<div class="col-lg-8 align-middle">
-						<input id="txt_hora_nueva" class="w-100 form-group text-center" name="hora_nueva" type="time">
+						<input id="txt_hora_nueva" class="w-100 form-group text-center" name="hora_nueva" type="time" step="1800">
 					</div>
 					<div class="col-lg-4">
 						<button id="agregar_hora" class="w-100 btn btn-sm btn-primary">Agregar</button>
