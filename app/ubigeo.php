@@ -37,8 +37,17 @@ class ubigeo extends Model
 
     public static function ObtenerDepartamento($unit_id)
     {
+        static $counter = 1;
         $valor = new ValidarApi();
+
+        if($counter >= 5){
+            usleep(1000000);
+            $counter = 1;
+        }
+        
         $resultado = $valor->consultarLocal($unit_id);
+        $counter++;
+
         $departamento = $resultado['result']['ubigeo_id'];
         if (strlen($departamento) > 2) {
             $departamento = substr($departamento, 0, 2);

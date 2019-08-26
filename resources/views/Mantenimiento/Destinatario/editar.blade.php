@@ -59,14 +59,14 @@
                 <div class="form-group row">
 					<label class="col-form-label col-lg-2 cursor-pointer" for="nombre">Nombre</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="txt_nombre" name="nombre" placeholder="Nombre de destinatarios" autocomplete="off">
+						<input maxlength="40" required type="text" class="form-control" id="txt_nombre" name="nombre" placeholder="Nombre de destinatarios" autocomplete="off">
 					</div>
 				</div>
 
 				<div class="form-group row">
 					<label class="col-form-label col-lg-2 cursor-pointer" for="correo">Correo</label>
 					<div class="col-lg-10">
-						<input type="email" class="form-control" id="txt_correo" name="correo" placeholder="Correo electrónico">
+						<input maxlength="40" required type="email" class="form-control" id="txt_correo" name="correo" placeholder="Correo electrónico">
 					</div>
 					{{-- <label class="col-form-label col-lg-2 cursor-pointer" for="txt_correo_hora">Hora de envío</label>
 					<div class="col-lg-2">

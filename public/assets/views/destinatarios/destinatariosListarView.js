@@ -230,7 +230,7 @@ var ListarView = function() {
                             '<div class="dropdown-menu dropdown-menu-right">' +
                             '<a href="#" class="dropdown-item btn_editar" data-id="' + value + '"><i class="icon-hammer"></i> Editar</a>' +
                             '<button type="button" class="dropdown-item btn border-transparent btn_ver_salas" data-toggle="modal" data-target="#modal_scrollable_salas" data-id="' + value + '"><i class="icon-store2"></i> Locales </button>' +
-                            '<button type="button" class="dropdown-item btn border-transparent btn_editar_horas" data-toggle="modal" data-target="#modal_scrollable_horas" data-id="' + value + '"><i class="icon-mail"></i> Horas </button>' +
+                            '<button type="button" class="dropdown-item btn border-transparent btn_editar_horas" data-toggle="modal" data-target="#modal_scrollable_horas" data-id="' + value + '"><i class="icon-mail5"></i> Horas </button>' +
                             '</div>' +
                             '</div>' +
                             '</div>';
