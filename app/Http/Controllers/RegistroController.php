@@ -58,7 +58,7 @@ class RegistroController extends Controller
         // $registros->local_id = $request['local_id'];
         $registros->estado = $request['estado'];
         $registros->tipo_id = $request['tipo_id'];
-        $registros->MAC = $request['MAC'];
+        $registros->MAC = $request['mac'];
         $fecha_actual = date("Y-m-d H:i:s", strtotime("+0 day"));
         $registros->fecha_encendido =  $fecha_actual;
 
