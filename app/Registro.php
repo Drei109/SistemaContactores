@@ -10,6 +10,6 @@ class Registro extends Model
     public $timestamps = false;
 
     protected $fillable = [
-		'local_id', 'tipo', 'fecha_encendido', 'fecha_apagado'
+		'local_id', 'tipo_id', 'fecha_encendido', 'fecha_apagado','estado', 'MAC'
     ];
 }

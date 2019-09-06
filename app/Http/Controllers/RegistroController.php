@@ -55,19 +55,19 @@ class RegistroController extends Controller
     public function Guardar(Request $request)
     {
         $registros = new Registro();
-        $registros->local_id = $request['local_id'];
-        $registros->tipo = $request['tipo'];
+        // $registros->local_id = $request['local_id'];
+        $registros->estado = $request['estado'];
+        $registros->tipo_id = $request['tipo_id'];
+        $registros->MAC = $request['MAC'];
         $fecha_actual = date("Y-m-d H:i:s", strtotime("+0 day"));
         $registros->fecha_encendido =  $fecha_actual;
 
         $existenRegistros = DB::select("SELECT * FROM registro r WHERE
         r.local_id = ? AND DATE (r.fecha_encendido) = DATE(?)",[$registros->local_id, $fecha_actual]); 
 
-        //return count($existenRegistros);
-
         if(count($existenRegistros) > 0){
-            DB::update("UPDATE  registro SET tipo=? WHERE local_id =? AND DATE(fecha_encendido) = DATE(?)",
-             [$registros->tipo, $registros->local_id, $fecha_actual]);
+            DB::update("UPDATE  registro SET tipo=? WHERE MAC =? AND DATE(fecha_encendido) = DATE(?)",
+             [$registros->tipo_id, $registros->MAC, $fecha_actual]);
             return "Actualizado";
         }else{
             $registros->save();
@@ -86,9 +86,9 @@ class RegistroController extends Controller
 
         DB::update("UPDATE registro 
         SET tipo=?,fecha_apagado= ? 
-        WHERE local_id = ? 
+        WHERE MAC = ? 
         AND DATE(fecha_encendido) = DATE(?)",
-        [$registros->tipo,$registros->fecha_apagado,$registros->local_id,$registros->fecha_apagado]);
+        [$registros->tipo,$registros->fecha_apagado,$registros->MAC,$registros->fecha_apagado]);
 
         return "Actualiza2";
     }
