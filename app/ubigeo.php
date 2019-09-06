@@ -40,8 +40,8 @@ class ubigeo extends Model
         static $counter = 1;
         $valor = new ValidarApi();
 
-        if($counter >= 5){
-            usleep(1000000);
+        if($counter >= 2){
+            usleep(800000);
             $counter = 1;
         }
         
