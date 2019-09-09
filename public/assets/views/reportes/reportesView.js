@@ -45,10 +45,11 @@ var ListarView = function() {
                     query: request.term
                   },
                   success: function(data) {
+                    //$("#txt_cc_id").val(data.data[0].cc_id);
                     response($.map(data.data, function(item) {
                       return {
                         label: item.cc_id + ": " +item.nombre,
-                        value: item.cc_id
+                        value: item.cc_id + ": " +item.nombre,
                       }
                     }))
                   }
@@ -62,7 +63,7 @@ var ListarView = function() {
         });
 
         $(document).on("click", "#btn_buscar", function() {
-            var txt_sala_id = $("#txt_sala_id").val();
+            var txt_sala_id = $("#txt_sala_id").val().substring(0, $("#txt_sala_id").val().indexOf(':'));
             var txt_fecha_inicio = $("#txt_fecha_inicio").val();
             var txt_fecha_final = $("#txt_fecha_final").val();
             var data = {};
@@ -88,16 +89,20 @@ var ListarView = function() {
                 table: ".datatable",
                 tableColumns: [
                     {
-                        data: "id",
-                        title: "ID"                    
+                        data: "cc_id",
+                        title: "CC"                    
                     },
                     {
-                        data: "local_id",
-                        title: "Local"                    
+                        data: "punto_venta",
+                        title: "Punto de Venta"
+                    },
+                    {
+                        data: "MAC",
+                        title: "MAC"
                     },
                     {
                         data: "tipo",
-                        title: "Estado"
+                        title: "tipo"
                     },
                     {
                         data: "fecha_encendido",
@@ -106,7 +111,15 @@ var ListarView = function() {
                     {
                         data: "fecha_apagado",
                         title: "Fecha de apagado"
-                    }                
+                    },
+                    {
+                        data: "dia",
+                        title: "Día"
+                    },              
+                    {
+                        data: "estado",
+                        title: "Estado"
+                    },             
                 ]
             })
         });
@@ -130,16 +143,20 @@ var ListarView = function() {
             table: ".datatable",
             tableColumns: [
                 {
-                    data: "id",
-                    title: "ID"                    
+                    data: "cc_id",
+                    title: "CC"                    
                 },
                 {
-                    data: "local_id",
-                    title: "Local"                    
+                    data: "punto_venta",
+                    title: "Punto de Venta"
+                },
+                {
+                    data: "MAC",
+                    title: "MAC"
                 },
                 {
                     data: "tipo",
-                    title: "Estado"
+                    title: "tipo"
                 },
                 {
                     data: "fecha_encendido",
@@ -148,7 +165,15 @@ var ListarView = function() {
                 {
                     data: "fecha_apagado",
                     title: "Fecha de apagado"
-                }                
+                },
+                {
+                    data: "dia",
+                    title: "Día"
+                },              
+                {
+                    data: "estado",
+                    title: "Estado"
+                },             
             ]
         })
 

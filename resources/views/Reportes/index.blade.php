@@ -47,9 +47,10 @@
 				<div class="form-group">
 					<div class="row">
 						<div class="col-4">
-							<label>Sala ID</label>
+							<label>CC ID</label>
 							<div class="form-group form-group-feedback form-group-feedback-right">
 								<input class="form-control form-control-lg" id="txt_sala_id" type="text">
+								<input type="hidden" id="txt_cc_id">
 								<a href="#" class="clean-txt form-control-feedback form-control-feedback-lg">
 									<i class="icon-cross"></i>
 								</a>

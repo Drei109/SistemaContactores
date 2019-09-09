@@ -54,7 +54,47 @@
 	<!-- /basic datatable -->
 </div>
 <!-- /content area -->
-@endsection
+
+<!-- Scrollable modal -->
+<div id="modal_scrollable_horas" class="modal fade" tabindex="-1">
+	<div class="modal-dialog modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header pb-3 text-center">
+				<h5 class="modal-title">Horas</h5>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<input type="hidden" id="cc_id" val="">
+			</div>
+
+			<div class="align-middle modal-body py-1 row align-middle">
+				<div class="col-lg-8 offset-lg-2 row align-middle">
+					<div class="col-lg-8 align-middle">
+						<input id="txt_mac_nueva" class="w-100 form-group text-center" name="hora_nueva" type="text" size="12" placeholder="02004C4F4F50">
+					</div>
+					<div class="col-lg-4">
+						<button id="agregar_mac" class="w-100 btn btn-sm btn-primary">Agregar</button>
+					</div>
+				</div>
+			</div>
+		
+
+			<div id="cuerpo-modal" class="align-middle modal-body py-1 row">
+				<div class="col-lg-8 offset-lg-2">
+					<table class="table datatable-macs table-hover ">
+						<tbody><tr><td colspan="2"></td></tr></tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="modal-footer pt-3">
+				<button id="cerrar_modal_horas" type="button" class="btn btn-link" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn bg-primary btn_guardar_macs">Guardar Cambios</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /scrollable modal -->
+
+@stop
 
 @push('js')
 <script src="{{asset('../assets/views/puntoVentas/puntoVentasListarView.js')}}"></script>

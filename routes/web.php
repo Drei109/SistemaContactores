@@ -36,6 +36,9 @@ Route::post('PuntoVentas/Sincronizar', 'Mantenimiento\PuntoVentaController@Sincr
 Route::get('PuntoVentas/Editar/{id}', 'Mantenimiento\PuntoVentaController@Editar')->middleware('permission:Editar Puntos de Venta');
 Route::get('PuntoVentas/Ver/{id}', 'Mantenimiento\PuntoVentaController@Ver');
 Route::post('PuntoVentas/Actualizar', 'Mantenimiento\PuntoVentaController@Actualizar');
+
+Route::post('PuntoVentas/{id}/ListarMacs', 'Mantenimiento\PuntoVentaController@ListarMacs');
+Route::post('PuntoVentas/{id}/AsignarMacs', 'Mantenimiento\PuntoVentaController@AsignarMacs');
 #endregion
 
 #region[Destinatarios]

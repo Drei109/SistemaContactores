@@ -207,5 +207,45 @@ class PuntoVentaController extends Controller
         }
         return response()->json(['respuesta' => $respuesta, 'mensaje' => $mensaje_error]);
     }
+
+    public function ListarMacs($id){
+        $lista = "";
+        $mensaje_error = "Listado realizado correctamente";
+        $estado = true;
+        try {
+            $lista = DB::select('SELECT * FROM punto_venta_macs pvm
+            WHERE pvm.cc_id = :id
+        ',['id'=> $id]);
+
+        } catch (QueryException $ex) {
+            $mensaje_error = $ex;
+            $estado = false;
+        }
+        return response()->json(['data' => $lista,'estado'=>$estado,'mensaje' => $mensaje_error]);
+    }
     
+    public function AsignarMacs(Request $request){
+        $respuesta = true;
+        $mensaje_error = "Se actualizó Correctamente";
+
+        $cc_id = $request->input('id');
+        $macs_nuevas = $request->input('data');
+
+        try {
+            $deleted = DB::delete('DELETE 
+            FROM punto_venta_macs 
+            WHERE cc_id = ?', [$cc_id]);
+
+            foreach ($macs_nuevas as &$mac) {
+                DB::insert('insert into punto_venta_macs 
+                (cc_id, MAC) values (?, ?)', [$cc_id, $mac['MAC']]);
+            }
+
+        } catch (QueryException $ex) {
+            $mensaje_error = $ex;
+            $respuesta = false;
+        }
+
+        return response()->json(['respuesta' => $respuesta, 'mensaje' => $mensaje_error]);
+    }
 }

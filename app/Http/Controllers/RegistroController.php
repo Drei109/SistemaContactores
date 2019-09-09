@@ -15,39 +15,62 @@ class RegistroController extends Controller
     
     public function Index()
     {
-        $registros = Registro::all();
+        DB::statement("SET lc_time_names = 'es_PE';");
+        $registros = DB::select("SELECT pvm.cc_id, pv.nombre AS 'punto_venta', r.MAC, 
+                                t.descripcion AS 'tipo', r.fecha_encendido, r.fecha_apagado, 
+                                DAYNAME(r.fecha_encendido) AS dia, 
+                                CASE
+                                    WHEN r.estado = 1 THEN 'Encendido'
+                                    WHEN r.estado = 2 THEN 'Apagado'
+                                END AS estado
+                                FROM registro r
+                                LEFT JOIN tipos t
+                                ON r.tipo_id = t.id
+                                LEFT JOIN punto_venta_macs pvm
+                                ON pvm.MAC = r.MAC
+                                LEFT JOIN punto_venta pv
+                                ON pv.cc_id = pvm.cc_id
+                                WHERE DATE(r.fecha_encendido) = DATE(NOW());");
         return response()->json(['data' => $registros]);
     }
 
     public function Buscar(Request $request)
     {
-        //$local_id, $fecha_encendido, $fecha_apagado
         $registros = "";
-        // return response()->json($request);
+        $base_query = "SELECT pvm.cc_id, pv.nombre AS 'punto_venta', r.MAC, 
+                        t.descripcion AS 'tipo', r.fecha_encendido, r.fecha_apagado, 
+                        DAYNAME(r.fecha_encendido) AS dia, 
+                        CASE
+                            WHEN r.estado = 1 THEN 'Encendido'
+                            WHEN r.estado = 2 THEN 'Apagado'
+                        END AS estado
+                        FROM registro r
+                        LEFT JOIN tipos t
+                        ON r.tipo_id = t.id
+                        LEFT JOIN punto_venta_macs pvm
+                        ON pvm.MAC = r.MAC
+                        LEFT JOIN punto_venta pv
+                        ON pv.cc_id = pvm.cc_id";
+
+        DB::statement("SET lc_time_names = 'es_PE';");
+
+        //ONLY local_id is SET        
         if($request->has('local_id') && !$request->has('fecha_encendido') && !$request->has('fecha_apagado')){
             $registros = 
-            DB::select(" SELECT r.id, r.local_id, r.tipo, r.fecha_encendido, r.fecha_apagado
-            FROM registro r 
-            WHERE r.local_id = ?
-            ORDER BY r.fecha_encendido ASC",[$request->post('local_id')]);
-        }elseif($request->has('local_id') && $request->has('fecha_encendido') && $request->has('fecha_apagado')){
+            DB::select($base_query . " WHERE pv.cc_id = ?",[$request->post('local_id')]);
+        }
+        //EVERYTHING is SET
+        elseif($request->has('local_id') && $request->has('fecha_encendido') && $request->has('fecha_apagado')){
             $registros = 
-            DB::select("SELECT r.id, r.local_id, r.tipo, r.fecha_encendido, r.fecha_apagado
-            FROM registro r 
-            WHERE r.local_id = ? 
-            AND fecha_encendido BETWEEN ? 
-            AND ? ORDER BY r.local_id DESC",[$request->post('local_id'),$request->post('fecha_encendido'),$request->post('fecha_apagado')]);
+            DB::select($base_query . " WHERE pv.cc_id = ? 
+                                    AND DATE(r.fecha_encendido) BETWEEN ? AND ?",
+                                    [$request->post('local_id'),$request->post('fecha_encendido'),$request->post('fecha_apagado')]);
         }elseif(!$request->has('local_id') && $request->has('fecha_encendido') && $request->has('fecha_apagado')){
             $registros = 
-            DB::select("SELECT r.id, r.local_id, r.tipo, r.fecha_encendido, r.fecha_apagado
-            FROM registro r 
-            WHERE fecha_encendido BETWEEN ? 
-            AND ? ORDER BY r.fecha_encendido ASC",[$request->post('fecha_encendido'),$request->post('fecha_apagado')]);
+            DB::select($base_query . " WHERE DATE(r.fecha_encendido) BETWEEN ? AND ?",[$request->post('fecha_encendido'),$request->post('fecha_apagado')]);
         }else{
             $registros = 
-            DB::select("SELECT r.id, r.local_id, r.tipo, r.fecha_encendido, r.fecha_apagado
-            FROM registro r 
-            ORDER BY r.fecha_encendido ASC");
+            DB::select($base_query);
         }
         return response()->json(['data' => $registros]);
     }
