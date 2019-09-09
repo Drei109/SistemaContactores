@@ -12,6 +12,6 @@ class TipoSeeder extends Seeder
     public function run()
     {
         DB::table('tipos')->insert(['descripcion' => "PC"]);
-        DB::table('tipos')->insert(['descripcion' => "Arduino"]);
+        DB::table('tipos')->insert(['descripcion' => "Puerta"]);
     }
 }

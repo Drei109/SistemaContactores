@@ -205,12 +205,12 @@
                             <tr>
                               <td>{{ $punto_venta->cc_id }}</td>
                               <td>{{ $punto_venta->nombre }}</td>
-                              @if(empty($punto_venta->tipo))
+                              @if(empty($punto_venta->estado))
                                 <td>Aún no se abre</td>
                                 <td>Aún no se cierra</td>
                               @else
                                 <td>{{ $punto_venta->fecha_encendido }}</td>
-                                @if($punto_venta->tipo == 1)
+                                @if($punto_venta->estado == 1)
                                   <td>Aún no se cierra</td>
                                 @else
                                   <td>{{ $punto_venta->fecha_apagado }}</td>

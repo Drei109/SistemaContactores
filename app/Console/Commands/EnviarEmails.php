@@ -51,21 +51,20 @@ class EnviarEmails extends Command
         [$segundos_redondeados_abajo, $segundos_redondeados_arriba]);
 
         foreach ($destinatarios as $destinatario) {
-            $punto_ventas = DB::select("SELECT pv.cc_id, pv.nombre, f.fecha_encendido, f.fecha_apagado, f.tipo
+            $punto_ventas = DB::select("SELECT pv.cc_id, pv.nombre, f.fecha_encendido, f.fecha_apagado, f.estado
             FROM
             destinatario_punto_ventas dpv
             LEFT JOIN punto_venta pv
             ON dpv.punto_venta_id = pv.id
             LEFT JOIN
             (
-                SELECT r.local_id, r.fecha_encendido, r.fecha_apagado, r.tipo
+                SELECT pvm.cc_id, r.fecha_encendido, r.fecha_apagado, r.estado
                 FROM registro r
-                LEFT JOIN punto_venta pv
-                ON r.local_id = pv.cc_id
-                WHERE r.local_id = pv.cc_id
-                AND DATE(r.fecha_encendido) = DATE(NOW())
+                LEFT JOIN punto_venta_macs pvm
+                ON pvm.MAC = r.MAC
+                WHERE DATE(r.fecha_encendido) = DATE(NOW())
             ) AS f
-            ON f.local_id = pv.cc_id
+            ON f.cc_id = pv.cc_id
             WHERE dpv.destinatario_id = ?",
             [$destinatario->id]);
 
