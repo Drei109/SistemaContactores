@@ -48,8 +48,8 @@ class UserController extends Controller
     //Validate name, email and password fields
         $this->validate($request, [
             'name'=>'required|max:50',
-            'email'=>'required|email|unique:users',
-            'password'=>'required|min:6|confirmed'
+            'email'=>'unique:users',
+            'password'=>'required|min:3'
         ]);
 
         $user = User::create($request->only('email', 'name', 'password')); //Retrieving only the email and password data

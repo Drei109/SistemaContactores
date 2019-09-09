@@ -143,7 +143,7 @@
 						<!-- Main -->
 						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Menu</div> <i class="icon-menu" title="Main"></i></li>
 						<li class="nav-item">
-							<a href="#" class="nav-link active">
+							<a href="#" class="nav-link">
 								<i class="icon-home4"></i>
 								<span>
 									Inicio
@@ -169,11 +169,7 @@
 						</li>
 
 						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link"><i class="icon-file-spreadsheet"></i> <span>Reportes</span></a>
-
-							<ul class="nav nav-group-sub" data-submenu-title="Themes">
-								<li class="nav-item"><a href="{{route('Reportes.index')}}" class="nav-link">Nuevo</a></li>
-							</ul>
+							<a href="{{route('Reportes.index')}}" class="nav-link"><i class="icon-file-spreadsheet"></i> <span>Reportes</span></a>
 						</li>
 
 

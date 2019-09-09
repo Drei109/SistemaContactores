@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\ValidarApi;
 
 class LoginController extends Controller
 {
@@ -39,6 +42,30 @@ class LoginController extends Controller
     }
 
     protected function loggedOut(Request $request) {
+        return redirect('login');
+    }
+
+    public function authenticate(Request $request)
+    {
+        $credentials = $request->only('name', 'password');
+
+        $validar_api = new ValidarApi();
+        $respuesta_api = $validar_api->ValidarLoginTokenApi($request->input('name'), $request->input('password'));
+        $respuesta_api = (string)$respuesta_api;
+        $respuesta = json_decode($respuesta_api, true);
+        
+        if($respuesta['http_code'] == 202){
+            if (Auth::attempt($credentials)) {  
+                return redirect()->intended('/');
+            }else{
+                app('App\Http\Controllers\UserController')->store($request);
+                Auth::attempt($credentials);
+
+                $user = auth()->user();
+                $user->assignRole("Admin");
+                return redirect()->intended('/');
+            }
+        }
         return redirect('login');
     }
 }

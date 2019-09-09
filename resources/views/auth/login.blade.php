@@ -13,7 +13,7 @@
             <div class="content d-flex justify-content-center align-items-center">
 
                 <!-- Login form -->
-                <form class="login-form" method="POST" action="{{ route('login') }}">
+                <form class="login-form" method="POST" action="{{ route('Authenticate') }}">
                     @csrf
                     <div class="card mb-0">
                         <div class="card-body">
@@ -24,11 +24,11 @@
                             </div>
 
                             <div class="form-group form-group-feedback form-group-feedback-left">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus>
                                 <div class="form-control-feedback">
 									<i class="icon-user text-muted"></i>
 								</div>
-                                @error('email')
+                                @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

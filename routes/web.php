@@ -23,6 +23,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 #region[Seguridad]
 Auth::routes();
+Route::post('Login/Authenticate', 'Auth\LoginController@authenticate')->name('Authenticate');
+
 Route::resource('users', 'UserController')->middleware('permission:Configurar Usuarios');
 Route::resource('roles', 'RoleController')->middleware('permission:Configurar Roles');
 Route::resource('permissions', 'PermissionController')->middleware('permission:Configurar Permisos');
