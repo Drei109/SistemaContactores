@@ -41,7 +41,7 @@ class ubigeo extends Model
         $valor = new ValidarApi();
 
         if($counter >= 2){
-            usleep(800000);
+            usleep(700000);
             $counter = 1;
         }
         
