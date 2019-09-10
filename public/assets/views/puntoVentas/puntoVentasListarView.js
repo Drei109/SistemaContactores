@@ -149,7 +149,7 @@ var ListarView = function() {
                             '<i class="icon-menu9"></i>' +
                             '</a>' +
                             '<div class="dropdown-menu dropdown-menu-right">' +
-                            '<a href="#" class="dropdown-item btn_editar" data-id="' + value + '"><i class="icon-hammer"></i> Editar</a>' +
+                            // '<a href="#" class="dropdown-item btn_editar" data-id="' + value + '"><i class="icon-hammer"></i> Editar</a>' +
                             '<button type="button" class="dropdown-item btn border-transparent btn_editar_macs" data-toggle="modal" data-target="#modal_scrollable_horas" data-id="' + value + '"><i class="icon-mail5"></i> MACs </button>' +
                             '</div>' +
                             '</div>' +
