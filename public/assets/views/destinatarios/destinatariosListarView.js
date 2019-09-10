@@ -193,6 +193,7 @@ var ListarView = function() {
             tableNameVariable: "destinatarios",
             tableHeaderCheck:true,
             table: ".datatable",
+            reportTitle: "Listado de Destinatarios",
             tableColumns: [
                 {
                 data: "id",
@@ -219,7 +220,7 @@ var ListarView = function() {
                     data: 'id',
                     title: "Acciones",
                     width: 100,
-                    className: 'text-center',
+                    className: 'text-center no-export',
                     "bSortable": false,
                     "render": function(value, type, oData, meta) {
                         var botones = '<div class="list-icons">' +

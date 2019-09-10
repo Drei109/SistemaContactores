@@ -44,6 +44,11 @@ class ubigeo extends Model
             usleep(700000);
             $counter = 1;
         }
+
+        // if($counter >= 20){
+        //     usleep(5000000);
+        //     $counter = 1;
+        // }
         
         $resultado = $valor->consultarLocal($unit_id);
         $counter++;

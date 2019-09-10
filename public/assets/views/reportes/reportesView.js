@@ -87,6 +87,7 @@ var ListarView = function() {
                 tableNameVariable: "registros",
                 tableHeaderCheck:false,
                 table: ".datatable",
+                reportTitle: "Reporte de registros",
                 tableColumns: [
                     {
                         data: "cc_id",
@@ -141,6 +142,7 @@ var ListarView = function() {
             tableNameVariable: "registros",
             tableHeaderCheck:false,
             table: ".datatable",
+            reportTitle: "Reporte de registros",
             tableColumns: [
                 {
                     data: "cc_id",
