@@ -118,6 +118,7 @@ var ListarView = function() {
             tableNameVariable: "salas",
             tableHeaderCheck:false,
             table: ".datatable",
+            reportTitle: "Listado de Locales",
             tableColumns: [
                 {
                     data: "id",
@@ -132,10 +133,6 @@ var ListarView = function() {
                     title: "Nombre"
                 },
                 {
-                    data: "razonSocial",
-                    title: "Empresa"
-                },
-                {
                     data: "Ubigeo",
                     title: "Ubigeo"
                 },
@@ -143,7 +140,7 @@ var ListarView = function() {
                     data: 'cc_id',
                     title: "Acciones",
                     width: 100,
-                    className: 'text-center',
+                    className: 'text-center no-export',
                     "bSortable": false,
                     "render": function(value, type, oData, meta) {
                         var botones = '<div class="list-icons">' +

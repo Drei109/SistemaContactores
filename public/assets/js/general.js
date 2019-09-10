@@ -722,18 +722,27 @@ function simpleDataTable(obj) {
         tableButtons:[
             {
                 extend: 'excelHtml5',
-                title: "Reporte",
-                className: 'btn btn-primary'                            
+                title: obj.reportTitle,
+                className: 'btn btn-primary',
+                exportOptions: {
+                    columns: "thead th:not(.no-export)"
+                }                            
             },                        
             {
                 extend: 'pdfHtml5',
-                title: "Reporte",
-                className: 'btn btn-primary'                            
+                title: obj.reportTitle,
+                className: 'btn btn-primary',
+                exportOptions: {
+                    columns: "thead th:not(.no-export)"
+                }
             },
             {
                 extend: 'print',
-                title: "Reporte",
-                className: 'btn btn-primary'                            
+                title: obj.reportTitle,
+                className: 'btn btn-primary',
+                exportOptions: {
+                    columns: "thead th:not(.no-export)"
+                }                            
             }
         ]
     }
@@ -742,7 +751,6 @@ function simpleDataTable(obj) {
     var objt = "_objetoDatatable";
     this[objt + '_' + opciones.tableNameVariable] = $(opciones.table).DataTable({
         dom: opciones.tableDom,                    
-        buttons: opciones.tableButtons,
         "bDestroy": true,
         "scrollCollapse": true,
         "scrollX": false,
@@ -755,6 +763,7 @@ function simpleDataTable(obj) {
         "lengthChange": opciones.tableLengthChange,
         data: opciones.tableColumnsData,
         columns: opciones.tableColumns,
+        "buttons": opciones.tableButtons,
         "initComplete": function() {
             var api = this.api();
             if (opciones.tableHeaderCheck) {

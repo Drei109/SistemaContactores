@@ -129,7 +129,7 @@ class PuntoVentaController extends Controller
         $mensaje_error = "Se Visualizó Correctamente";
 
         try {
-            $registro = punto_venta::findOrFail($id);
+            $registro = DB::table('punto_venta')->where('cc_id', $id)->first();
         } catch (QueryException $ex) {
             $mensaje_error = $ex->errorInfo;
             $respuesta = false;

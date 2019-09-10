@@ -52,10 +52,10 @@
                                     {{ __('Login') }}
                                     <i class="icon-circle-right2 ml-2"></i>
                                 </button>
-                                <a href="{{ route('register') }}" class="btn btn-info btn-block">
+                                {{-- <a href="{{ route('register') }}" class="btn btn-info btn-block">
                                     Regístrate
                                     <i class="icon-circle-right2 ml-2"></i>
-                                </a>
+                                </a> --}}
                             </div>
 
                             {{-- <div class="text-center form-group">
