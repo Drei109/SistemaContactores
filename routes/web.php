@@ -16,9 +16,10 @@
 // });
 
 
-#region[Inicio]
+#region[Inicio/Dashboard]
 Route::get('/', 'InicioController@DashboardView')->name('Dashboard')->middleware('auth');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('Dashboard/Listar', 'DashboardController@Listar');
 #endregion
 
 #region[Seguridad]
@@ -62,6 +63,12 @@ Route::post('Destinatarios/{id}/ReasignarSalas', 'Mantenimiento\DestinatarioCont
 
 Route::post('Destinatarios/{id}/ListarHoras', 'Mantenimiento\DestinatarioController@ListarHoras');
 Route::post('Destinatarios/{id}/ReasignarHoras', 'Mantenimiento\DestinatarioController@ReasignarHoras');
+#endregion
+
+#region[Turnos]
+Route::get('Turno/','Mantenimiento\TurnoController@Index')->name('Turnos.index');
+//->middleware('permission:Listar Turnos');
+Route::post('Turno/Listar','Mantenimiento\TurnoController@Listar');
 #endregion
 
 #region[Reportes]

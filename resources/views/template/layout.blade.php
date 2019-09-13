@@ -47,7 +47,7 @@
 		<div class="collapse navbar-collapse" id="navbar-mobile">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a href="#" class="navbar-nav-link sidebar-control sidebar-main-toggle d-none d-md-block">
+					<a href="#" id="collapse-navbar" class="navbar-nav-link sidebar-control sidebar-main-toggle d-none d-md-block">
 						<i class="icon-paragraph-justify3"></i>
 					</a>
 				</li>
@@ -143,7 +143,7 @@
 						<!-- Main -->
 						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Menu</div> <i class="icon-menu" title="Main"></i></li>
 						<li class="nav-item">
-							<a href="#" class="nav-link">
+							<a href="{{route('Dashboard')}}" class="nav-link">
 								<i class="icon-home4"></i>
 								<span>
 									Inicio
@@ -156,6 +156,7 @@
 								{{-- <li class="nav-item"><a href="{{route('Salas.index')}}" class="nav-link">Locales</a></li> --}}
 								<li class="nav-item"><a href="{{route('Destinarios.index')}}" class="nav-link">Destinatarios</a></li>
 								<li class="nav-item"><a href="{{route('PuntoVenta.index')}}" class="nav-link">Puntos de Venta</a></li>
+								<li class="nav-item"><a href="{{route('Turnos.index')}}" class="nav-link">Turnos</a></li>
 							</ul>
 						</li>
 						<li class="nav-item nav-item-submenu">

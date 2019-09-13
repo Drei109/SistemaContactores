@@ -107,10 +107,9 @@ class UserController extends Controller
 
     //Validate name, email and password fields    
         $this->validate($request, [
-            'name'=>'required|max:50',
-            'email'=>'required|email|unique:users,email,'.$id,
-            'password'=>''
+            'name'=>'required|max:50',            
         ]);
+        
         if($request->filled('password')){
             $input = $request->only(['name', 'email', 'password']); //Retreive the name, email and password fields
         }else{

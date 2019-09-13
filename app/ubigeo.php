@@ -45,8 +45,8 @@ class ubigeo extends Model
             $counter = 1;
         }
 
-        // if($counter >= 20){
-        //     usleep(5000000);
+        // if($counter >= 30){
+        //     usleep(10000000);
         //     $counter = 1;
         // }
         

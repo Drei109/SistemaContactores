@@ -27,22 +27,19 @@
 
 	<!-- Content area -->
 	<div class="content">
-
-		<!-- Dashboard content -->
-		<div class="row">
-			<div class="col-xl-8">
-
-				<!-- Quick stats boxes -->
-				<div class="row">
-				
-					
-				</div>
-				<!-- /quick stats boxes -->
-
+		<!-- Basic datatable -->
+		<div class="card">
+			<div class="card-body">
+				<table class="table thead-primary datatable table-hover table-responsive">
+					<tbody><tr><td colspan="6"><div class="alert alert-warning alert-dismissible text-center">Cargando...</span></td></tr></tbody>
+				</table>
 			</div>
 		</div>
-		<!-- /dashboard content -->
-
+		<!-- /basic datatable -->
 	</div>
 	<!-- /content area -->
 @stop
+
+@push('js')
+<script src="{{asset('../assets/views/dashboard/dashboardListarView.js')}}"></script>
+@endpush

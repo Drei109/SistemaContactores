@@ -49,23 +49,23 @@ class LoginController extends Controller
     {
         $credentials = $request->only('name', 'password');
 
-        $validar_api = new ValidarApi();
-        $respuesta_api = $validar_api->ValidarLoginTokenApi($request->input('name'), $request->input('password'));
-        $respuesta_api = (string)$respuesta_api;
-        $respuesta = json_decode($respuesta_api, true);
-        
-        if($respuesta['http_code'] == 202){
-            if (Auth::attempt($credentials)) {  
-                return redirect()->intended('/');
-            }else{
+        if (Auth::attempt($credentials)) {  
+            return redirect()->intended('/');
+        }
+        else{
+            $validar_api = new ValidarApi();
+            $respuesta_api = $validar_api->ValidarLoginTokenApi($request->input('name'), $request->input('password'));
+            $respuesta_api = (string)$respuesta_api;
+            $respuesta = json_decode($respuesta_api, true);
+
+            if($respuesta['http_code'] == 202){
                 app('App\Http\Controllers\UserController')->store($request);
                 Auth::attempt($credentials);
-
                 $user = auth()->user();
-                $user->assignRole("Admin");
+                $user->assignRole("Usuario");
                 return redirect()->intended('/');
             }
+            return redirect('login');
         }
-        return redirect('login');
     }
 }
