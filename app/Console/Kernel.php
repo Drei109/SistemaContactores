@@ -26,6 +26,9 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('enviar:Emails')
                  ->everyThirtyMinutes();
+
+        $schedule->command('send:Notty')
+                 ->everyFiveMinutes();
     }
 
     /**

@@ -211,15 +211,16 @@
 			<!-- /footer -->
 
 		</div>
-
+		<div id='app'></div>
 		<!-- /main content -->
 
 	</div>
 	<!-- /page content -->
+	<script src="js/app.js"></script>
 
 	<!-- Core JS files -->
-	<script src="{{asset('../global_assets/js/main/jquery.min.js')}}"></script>
-	<script src="{{asset('../global_assets/js/main/bootstrap.bundle.min.js')}}"></script>
+	{{-- <script src="{{asset('../global_assets/js/main/jquery.min.js')}}"></script> --}}
+	{{-- <script src="{{asset('../global_assets/js/main/bootstrap.bundle.min.js')}}"></script> --}}
 	<script src="{{asset('../global_assets/js/plugins/loaders/blockui.min.js')}}"></script>
 	<!-- /core JS files -->
 
@@ -234,9 +235,8 @@
 	<script src="{{asset('../global_assets/js/plugins/notifications/noty.min.js')}}"></script>
 	<script src="{{asset('../global_assets/js/plugins/tables/datatables/datatables.min.js')}}"></script>
 	<script src="{{asset('../global_assets/js/plugins/forms/validation/validate.min.js')}}"></script>
-	<script src="{{asset('../assets/js/app.js')}}"></script>
 	<script src="{{asset('../assets/js/general.js')}}"></script>
-	<script src="{{asset('../global_assets/js/main/jquery-ui.js')}}"></script>
+	{{-- <script src="{{asset('../global_assets/js/main/jquery-ui.js')}}"></script> --}}
 
 	<script src="{{asset('../global_assets/js/plugins/pickers/datetime/moment.min.js')}}"></script>
 	<script src="{{asset('../global_assets/js/plugins/pickers/datetime/daterangepicker.js')}}"></script>
@@ -250,6 +250,19 @@
 	{{-- <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/b-print-1.5.6/r-2.2.2/sc-2.0.0/datatables.min.js"></script> --}}
 	<!-- /theme JS files -->
 	@stack('js')
+	<script src="{{asset('../assets/js/app.js')}}"></script>
+
+	<script>
+		Echo.channel('home.' + {{ Auth::user()->id }})		
+			.listen('NewMessage', (e) =>{
+				var obj = {
+					message: e.message,
+					type: 'success',
+					modal: false
+				}
+				messageResponse(obj);
+			})
+	</script>
 </body>
 </html>
 

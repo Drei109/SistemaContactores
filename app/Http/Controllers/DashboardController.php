@@ -22,14 +22,14 @@ class DashboardController extends Controller
                                 ELSE 'Apagado'
                             END AS estado,
                             CASE 
-                                WHEN t.horainicio <= (TIME(f.fecha_encendido) - INTERVAL 30 MINUTE) THEN 'Abrió tarde'
-                                WHEN t.horainicio >= (TIME(f.fecha_encendido) + INTERVAL 30 MINUTE) THEN 'Abrió temprano'
+                                WHEN t.horainicio <= (TIME(f.fecha_encendido) - INTERVAL 5 MINUTE) THEN 'Abrió tarde'
+                                WHEN t.horainicio >= (TIME(f.fecha_encendido) + INTERVAL 5 MINUTE) THEN 'Abrió temprano'
                                 WHEN t.horainicio IS NULL THEN 'No Abrió'
                                 ELSE 'Abrió a tiempo'
                             END AS mensaje_hora_inicio,
                             CASE 
-                                WHEN t.horafin <= (TIME(f.fecha_apagado) - INTERVAL 30 MINUTE) THEN 'Cerró tarde'
-                                WHEN t.horafin >= (TIME(f.fecha_apagado) + INTERVAL 30 MINUTE) THEN 'Cerró temprano'
+                                WHEN t.horafin <= (TIME(f.fecha_apagado) - INTERVAL 5 MINUTE) THEN 'Cerró tarde'
+                                WHEN t.horafin >= (TIME(f.fecha_apagado) + INTERVAL 5 MINUTE) THEN 'Cerró temprano'
                                 WHEN t.horafin IS NULL THEN 'No Cerró'
                                 ELSE 'Cerró a tiempo'
                             END AS mensaje_hora_fin
