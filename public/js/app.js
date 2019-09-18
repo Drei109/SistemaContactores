@@ -91850,7 +91850,9 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   cluster: "mt1",
   //encrypted: true
   wsHost: window.location.hostname,
-  wsPort: 6001
+  wsPort: 6001,
+  disableStats: true,
+  enabledTransports: ['ws', 'wss']
 });
 
 /***/ }),
