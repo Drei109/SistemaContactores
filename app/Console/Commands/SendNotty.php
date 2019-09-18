@@ -42,7 +42,7 @@ class SendNotty extends Command
         $registros = DB::select("SELECT pv.cc_id, pv.nombre, pvm.MAC, tps.descripcion AS tipo, 
                                 f.fecha_encendido, f.fecha_apagado, DAYNAME(f.fecha_encendido) AS dia,
                                 CASE f.estado
-                                    WHEN 2 THEN 'Encendido'
+                                    WHEN 1 THEN 'Encendido'
                                     ELSE 'Apagado'
                                 END AS estado,
                                 CASE 
