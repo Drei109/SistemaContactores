@@ -764,6 +764,9 @@ function simpleDataTable(obj) {
         data: opciones.tableColumnsData,
         columns: opciones.tableColumns,
         "buttons": opciones.tableButtons,
+        "language": {
+            "search": ""
+          },
         "initComplete": function() {
             var api = this.api();
             if (opciones.tableHeaderCheck) {

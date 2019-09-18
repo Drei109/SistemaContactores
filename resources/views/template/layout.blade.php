@@ -19,6 +19,7 @@
 	<link href="{{asset('../assets/css/colors.min.css')}}" rel="stylesheet" type="text/css">
 	<link href="{{asset('../assets/css/jquery-ui.css')}}" rel="stylesheet" type="text/css">
 	<link href="{{asset('../assets/css/daterangepicker.css')}}" rel="stylesheet" type="text/css">
+	<link href="{{asset('../assets/css/custom.css')}}" rel="stylesheet" type="text/css">
 
 	<!-- /global stylesheets -->
 	@stack('styles')
@@ -257,7 +258,7 @@
 			.listen('NewMessage', (e) =>{
 				var obj = {
 					message: e.message,
-					type: 'success',
+					type: 'info',
 					modal: false
 				}
 				messageResponse(obj);

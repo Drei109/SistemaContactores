@@ -10,21 +10,19 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class NewMessage implements ShouldBroadcast
+class DashboardData implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
-    public $user_id;
 
-    public function __construct($user_id, $message)
+    public function __construct($object)
     {
-        $this->message = $message;
-        $this->user_id = $user_id;
+        $this->$object->message;
     }
 
     public function broadcastOn()
     {
-        return new Channel('home.' . $this->user_id);
+        return new Channel('dashboard.' . $this->user_id);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Registro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Events\NewMessage;
 
 class RegistroController extends Controller
 {
@@ -89,11 +90,12 @@ class RegistroController extends Controller
         r.MAC = ? AND DATE (r.fecha_encendido) = DATE(?)",[$registros->MAC, $fecha_actual]); 
 
         if(count($existenRegistros) > 0){
-            DB::update("UPDATE  registro SET estado=? WHERE MAC =? AND DATE(fecha_encendido) = DATE(?)",
-             [$registros->estado, $registros->MAC, $fecha_actual]);
+            $registros = DB::update("UPDATE  registro SET estado=? WHERE MAC =? AND DATE(fecha_encendido) = DATE(?)",
+            [$registros->estado, $registros->MAC, $fecha_actual]);
             return "Actualizado";
         }else{
             $registros->save();
+            $this->alertarEstado($registros);
             return "Creado";
         }
     }
@@ -113,6 +115,76 @@ class RegistroController extends Controller
         AND DATE(fecha_encendido) = DATE(?)",
         [$registros->estado,$registros->fecha_apagado,$registros->MAC,$registros->fecha_apagado]);
 
+        $this->alertarEstado($registros);
         return "Actualiza2";
+    }
+
+    private function alertarEstado(Registro $registros){
+        $query = DB::select("SELECT pv.cc_id, pv.nombre, pvm.MAC, tps.descripcion AS tipo, 
+                f.fecha_encendido, f.fecha_apagado, DAYNAME(f.fecha_encendido) AS dia,t.horainicio,
+                f.estado,
+                CASE 
+                    WHEN t.horainicio <= (TIME(f.fecha_encendido) - INTERVAL 5 MINUTE) THEN 'Abrió tarde'
+                    WHEN t.horainicio >= (TIME(f.fecha_encendido) + INTERVAL 5 MINUTE) THEN 'Abrió temprano'
+                    WHEN f.fecha_encendido IS NULL AND (TIME(t.horainicio) + INTERVAL 5 MINUTE) <= TIME(NOW()) THEN 'Aún no abre'
+                    WHEN f.fecha_encendido IS NULL THEN 'No Abrió'
+                    ELSE 'Abrió a tiempo'
+                END AS mensaje_hora_inicio,
+                CASE 
+                    WHEN t.horafin <= (TIME(f.fecha_apagado) - INTERVAL 5 MINUTE) THEN 'Cerró tarde'
+                    WHEN t.horafin >= (TIME(f.fecha_apagado) + INTERVAL 5 MINUTE) THEN 'Cerró temprano'
+                    WHEN (TIME(t.horafin) + INTERVAL 5 MINUTE) <= TIME(NOW()) THEN 'Aún no cierra'
+                    WHEN f.fecha_apagado IS NULL THEN 'No Cerró'
+                    ELSE 'Cerró a tiempo'
+                END AS mensaje_hora_fin,
+                d.correo, d.nombre AS usuario, d.id AS usuario_id
+                FROM
+                destinatario_punto_ventas dpv
+                LEFT JOIN destinatarios d
+                ON d.id = dpv.destinatario_id
+                LEFT JOIN punto_venta pv
+                ON dpv.punto_venta_id = pv.id
+                LEFT JOIN punto_venta_macs pvm
+                ON pvm.cc_id = pv.cc_id
+                LEFT JOIN	
+                (
+                    SELECT pvm.cc_id, r.fecha_encendido, r.fecha_apagado, r.estado, r.MAC, r.tipo_id, r.id
+                    FROM registro r
+                    LEFT JOIN punto_venta_macs pvm
+                    ON pvm.MAC = r.MAC
+                    WHERE DATE(r.fecha_encendido) = DATE(NOW())
+                ) AS f
+                ON f.MAC = pvm.MAC
+                LEFT JOIN
+                (
+                    SELECT t.horainicio, t.horafin, pvm.MAC
+                    FROM turnos t
+                    LEFT JOIN punto_venta_macs pvm
+                    ON t.idlocal = pvm.cc_id
+                    WHERE 
+                    DAYOFWEEK(NOW()) = CASE t.diasemana
+                        WHEN 'Do' THEN 1
+                        WHEN 'Lu' THEN 2
+                        WHEN 'Ma' THEN 3
+                        WHEN 'Mi' THEN 4
+                        WHEN 'Ju' THEN 5
+                        WHEN 'Vi' THEN 6
+                        WHEN 'Sa' THEN 7
+                        END
+                ) AS t
+                ON t.MAC = pvm.MAC
+                LEFT JOIN tipos tps
+                ON tps.id = f.tipo_id 
+                WHERE pvm.MAC = ?", [$registros->MAC]);
+
+        foreach($query as $q){
+            if($q->estado === 1 && ($q->mensaje_hora_inicio === "Abrió tarde" || $q->mensaje_hora_inicio === "Abrió temprano" )){
+                event(new NewMessage($q->usuario_id,"El local: " . $q->mensaje_hora_inicio));
+            }
+            
+            else if($q->estado === 2 && ($q->mensaje_hora_fin === "Cerró tarde" || $q->mensaje_hora_fin === "Cerró temprano")){
+                event(new NewMessage($q->usuario_id,"El local: " . $q->mensaje_hora_fin));
+            }
+        }
     }
 }
