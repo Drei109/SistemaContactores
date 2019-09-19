@@ -53,7 +53,14 @@ var ListarView = function() {
                 },
                 {
                     data: "fecha_apagado",
-                    title: "Fecha de apagado"
+                    title: "Fecha de apagado",
+                    render: function(data,type,row){
+                        if(row.estado === "Encendido"){
+                            return "";
+                        }else{
+                            return data;
+                        }
+                    }
                 },
                 {
                     data: "dia",
