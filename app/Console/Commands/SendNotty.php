@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Events\NewMessage;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 
 class SendNotty extends Command
@@ -103,11 +104,28 @@ class SendNotty extends Command
         foreach($registros as $registro){
             if($registro->mensaje_hora_inicio === 'Aún no abre'){
                 event(new NewMessage($registro->usuario_id,"El local: " . $registro->nombre . " aún no abre"));
+                $this->enviarEmail($registro);
             }
             if($registro->mensaje_hora_fin === 'Aún no cierra' && $registro->mensaje_hora_inicio !== 'Aún no abre'){
                 event(new NewMessage($registro->usuario_id,"El local: " . $registro->nombre . " aún no cierra"));
+                $this->enviarEmail($registro);
             }
             
         }
+    }
+
+    public function enviarEmail($data){
+        $nombre = $data->usuario;
+        $correo = $data->correo;
+
+        $check = ['data' => $data];
+        
+        Mail::send('Mail.alerta', ['data' => $data], function($message) use ($correo, $nombre){
+            $message    ->to($correo, $nombre)
+                        ->subject('Contactores');
+            $message
+                        ->from('AdmiWebOnline@gmail.com','Sistema Contactores - Admin');
+        });
+        echo "HTML Email Sent. Check your inbox. Notty \n";
     }
 }

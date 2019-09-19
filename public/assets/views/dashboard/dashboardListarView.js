@@ -67,7 +67,14 @@ var ListarView = function() {
                 },   
                 {
                     data: "mensaje_hora_fin",
-                    title: "Mensaje de hora de fin"
+                    title: "Mensaje de hora de fin",
+                    render: function(data,type,row){
+                        if(row.estado === "Encendido"){
+                            return "";
+                        }else{
+                            return data;
+                        }
+                    }
                 },             
             ]
         })
@@ -191,7 +198,7 @@ function update() {
 
 
         table.ajax.reload();
-        window.setTimeout(update, 60000); //milliseconds
+        window.setTimeout(update, 30000); //milliseconds
       },
       error: function (XMLHttpRequest, textStatus, errorThrown) {                
         window.setTimeout(update, 10000);

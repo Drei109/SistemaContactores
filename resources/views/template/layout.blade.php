@@ -217,7 +217,7 @@
 
 	</div>
 	<!-- /page content -->
-	<script src="js/app.js"></script>
+	<script src="/js/app.js"></script>
 
 	<!-- Core JS files -->
 	{{-- <script src="{{asset('../global_assets/js/main/jquery.min.js')}}"></script> --}}

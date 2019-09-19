@@ -224,17 +224,7 @@ var ListarView = function() {
                     "bSortable": false,
                     "render": function(value, type, oData, meta) {
                         var botones = 
-                        // `<ul class="nav nav-sidebar" data-nav-type="accordion">
-                        //     <li class="nav-item nav-item-submenu">
-                        //         <a href="#" class="nav-link"><i class="icon-lock2"></i> <span>Seguridad</span></a>
-                        //         <ul class="nav nav-group-sub" data-submenu-title="Themes">
-                        //             <li class="nav-item"><a href="#" class="dropdown-item btn_editar" data-id="' + value + '"><i class="icon-hammer"></i> Editar</a></li>
-                        //             <li class="nav-item"><button type="button" class="dropdown-item btn border-transparent btn_ver_salas" data-toggle="modal" data-target="#modal_scrollable_salas" data-id="' + value + '"><i class="icon-store2"></i> Locales </button></li>
-                        //             <li class="nav-item"><button type="button" class="dropdown-item btn border-transparent btn_editar_horas" data-toggle="modal" data-target="#modal_scrollable_horas" data-id="' + value + '"><i class="icon-mail5"></i> Horas </button></li>
-                        //         </ul>
-                        //     </li>
-                        // </ul>`;
-                        '<div class="list-icons">' +
+                            '<div class="list-icons">' +
                             '<div class="dropdown">' +
                             '<a href="#" class="list-icons-item" data-toggle="dropdown">' +
                             '<i class="icon-menu9"></i>' +
