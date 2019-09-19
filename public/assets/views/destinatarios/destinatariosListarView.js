@@ -190,6 +190,7 @@ var ListarView = function() {
         simpleAjaxDataTable({
             uniform: true,
             ajaxUrl: "Destinatarios/Listar",
+            data: $("#user_id").val(),
             tableNameVariable: "destinatarios",
             tableHeaderCheck:true,
             table: ".datatable",

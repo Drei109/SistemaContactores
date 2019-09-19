@@ -12,7 +12,7 @@ class DashboardController extends Controller
         $this->middleware('auth');
     }
     
-    public function Listar()
+    public function Listar(Request $request)
     {
         DB::statement("SET lc_time_names = 'es_PE';");
             $data = DB::select("SELECT pv.cc_id, pv.nombre, pvm.MAC, tps.descripcion AS tipo, 
@@ -71,8 +71,8 @@ class DashboardController extends Controller
                                 ON t.MAC = pvm.MAC
                                 LEFT JOIN tipos tps
                                 ON tps.id = f.tipo_id 
-                                WHERE dpv.destinatario_id = 2
-                                ORDER BY usuario_id;");
+                                WHERE dpv.destinatario_id = ?
+                                ORDER BY usuario_id;",[$request->input('id')]);
         return response()->json(['data' => $data]);
     }
 }

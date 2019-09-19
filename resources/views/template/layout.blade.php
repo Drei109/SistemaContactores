@@ -64,6 +64,7 @@
 						<img src="../../../../global_assets/images/demo/users/face9.jpg" class="rounded-circle mr-2" height="34" alt="">
 						@if (!Auth::guest())
 							<span>{{ app('auth')->user()->name}}</span>	
+							<input type="hidden" id="user_id" value="{{ app('auth')->user()-> id}}">
 						@else
 							<span>Invitado</span>
 						@endif
