@@ -20,10 +20,12 @@ var ListarView = function() {
             return;
         }
 
+        var user_id = $('#user_id').val();
+
         // Basic datatable
         simpleAjaxDataTable({
             uniform: true,
-            ajaxUrl: "Dashboard/Listar",
+            ajaxUrl: "Dashboard/Listar/" + user_id,
             tableNameVariable: "registros",
             tableHeaderCheck:false,
             table: ".datatable",
@@ -147,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function update() {
     var table = $("datatable").DataTable();
     var chart = $('#myChart').data('graph');
+    var user_id = $('#user_id').val();
 
     let apagado = 0;
     let encendido = 0;
@@ -157,7 +160,7 @@ function update() {
 
     $.ajax({
       type: 'POST',
-      url: '/Dashboard/Listar',
+      url: '/Dashboard/Listar/' + user_id,
       success: function(data) {
              
         $.each(data.data, function(k,item) {

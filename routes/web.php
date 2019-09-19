@@ -19,7 +19,7 @@
 #region[Inicio/Dashboard]
 Route::get('/', 'InicioController@DashboardView')->name('Dashboard')->middleware('auth');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::post('Dashboard/Listar', 'DashboardController@Listar');
+Route::post('Dashboard/Listar/{id}', 'DashboardController@Listar');
 #endregion
 
 #region[Seguridad]
