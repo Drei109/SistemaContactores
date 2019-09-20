@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Console\Commands\SendNotty;
 use App\Registro;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -179,11 +180,15 @@ class RegistroController extends Controller
 
         foreach($query as $q){
             if($q->estado === 1 && ($q->mensaje_hora_inicio === "Abrió tarde" || $q->mensaje_hora_inicio === "Abrió temprano" )){
-                event(new NewMessage($q->usuario_id,"El local: " . $q->mensaje_hora_inicio));
+                $mensaje_alerta = "El local: " . $q->nombre . $q->mensaje_hora_inicio;
+                event(new NewMessage($q->usuario_id,$mensaje_alerta));
+                SendNotty::enviarEmail($q,$mensaje_alerta);
             }
             
             else if($q->estado === 2 && ($q->mensaje_hora_fin === "Cerró tarde" || $q->mensaje_hora_fin === "Cerró temprano")){
+                $mensaje_alerta = "El local: " . $q->nombre . $q->mensaje_hora_fin;
                 event(new NewMessage($q->usuario_id,"El local: " . $q->mensaje_hora_fin));
+                SendNotty::enviarEmail($q,$mensaje_alerta);
             }
         }
     }

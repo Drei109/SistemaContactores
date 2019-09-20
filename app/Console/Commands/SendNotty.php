@@ -42,10 +42,7 @@ class SendNotty extends Command
     {
         $registros = DB::select("SELECT pv.cc_id, pv.nombre, pvm.MAC, tps.descripcion AS tipo, 
                                 f.fecha_encendido, f.fecha_apagado, DAYNAME(f.fecha_encendido) AS dia,
-                                CASE f.estado
-                                    WHEN 1 THEN 'Encendido'
-                                    ELSE 'Apagado'
-                                END AS estado,
+                                f.estado,
                                 CASE 
                                     WHEN t.horainicio <= (TIME(f.fecha_encendido) - INTERVAL 5 MINUTE) THEN 'Abrió tarde'
                                     WHEN t.horainicio >= (TIME(f.fecha_encendido) + INTERVAL 5 MINUTE) THEN 'Abrió temprano'
@@ -103,26 +100,28 @@ class SendNotty extends Command
 
         foreach($registros as $registro){
             if($registro->mensaje_hora_inicio === 'Aún no abre'){
-                event(new NewMessage($registro->usuario_id,"El local: " . $registro->nombre . " aún no abre"));
-                $this->enviarEmail($registro);
+                $mensaje_alerta = "El local: " . $registro->nombre . " aún no abre";
+                event(new NewMessage($registro->usuario_id, $mensaje_alerta));
+                $this->enviarEmail($registro, $mensaje_alerta);
             }
             if($registro->mensaje_hora_fin === 'Aún no cierra' && $registro->mensaje_hora_inicio !== 'Aún no abre'){
-                event(new NewMessage($registro->usuario_id,"El local: " . $registro->nombre . " aún no cierra"));
-                $this->enviarEmail($registro);
+                $mensaje_alerta = "El local: " . $registro->nombre . " aún no cierra";
+                event(new NewMessage($registro->usuario_id, $mensaje_alerta));
+                $this->enviarEmail($registro, $mensaje_alerta);
             }
             
         }
     }
 
-    public function enviarEmail($data){
+    public static function enviarEmail($data, $mensaje_alerta){
         $nombre = $data->usuario;
         $correo = $data->correo;
 
         $check = ['data' => $data];
         
-        Mail::send('Mail.alerta', ['data' => $data], function($message) use ($correo, $nombre){
+        Mail::send('Mail.alerta', ['data' => $data], function($message) use ($correo, $nombre, $mensaje_alerta){
             $message    ->to($correo, $nombre)
-                        ->subject('Contactores');
+                        ->subject('Contactores: ' . $mensaje_alerta);
             $message
                         ->from('AdmiWebOnline@gmail.com','Sistema Contactores - Admin');
         });

@@ -144,7 +144,7 @@
                   </tr>
                   <tr>
                     <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                      <div style="font-family:helvetica;font-size:14px;font-style:bold;line-height:1;text-align:left;color:#626262;"> Mensaje de alerta para: {{ $nombre }}</div>
+                      <div style="font-family:helvetica;font-size:14px;font-style:bold;line-height:1;text-align:left;color:#626262;"> Mensaje de alerta para: {{ $data->usuario }}</div>
                     </td>
                   </tr>
                 </table>
@@ -199,12 +199,12 @@
                         <tbody>
                             <tr>
                                 <td>{{ $data->cc_id }}</td>
-                                <td>{{ $data->usuario }}</td>
-                                @if ($data->mensaje_hora_inicio === 'Aún no abre')
+                                <td>{{ $data->nombre }}</td>
+                                @if ($data->estado == 1 || $data->estado === NULL)
                                     <td>{{ $data->mensaje_hora_inicio }}</td>
                                 @endif
 
-                                @if ($data->mensaje_hora_fin === 'Aún no cierra' && $data->mensaje_hora_inicio !== 'Aún no abre')
+                                @if ($data->estado == 2)
                                     <td>{{ $data->mensaje_hora_fin }}</td>
                                 @endif
                             </tr>
