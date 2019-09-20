@@ -64,7 +64,7 @@ var ListarView = function() {
             return;
         }
 
-        cargarDataTable();
+        //cargarDataTable();
     };
 
     return {
@@ -88,14 +88,14 @@ $( document ).ready(function() {
 });
 
 function cargarDataTable(){
-    
+
     var user_id = $('#user_id').val();
 
      // Basic datatable
      simpleAjaxDataTable({
         uniform: true,
         ajaxUrl: "Dashboard/Listar/" + user_id,
-        tableNameVariable: "registros",
+        tableNameVariable: "registros", 
         tableHeaderCheck:false,
         table: "#datatable",
         reportTitle: "Reporte de estado de locales",
