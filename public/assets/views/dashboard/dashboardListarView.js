@@ -11,83 +11,6 @@ var ListarView = function() {
             $(this).siblings("input").val("");
         });
         
-    };
-
-    // Basic Datatable examples
-    var _Listado = function() {
-        if (!$().DataTable) {
-            console.warn('Advertencia - datatables.min.js no esta declarado.');
-            return;
-        }
-
-        var user_id = $('#user_id').val();
-
-        // Basic datatable
-        simpleAjaxDataTable({
-            uniform: true,
-            ajaxUrl: "Dashboard/Listar/" + user_id,
-            tableNameVariable: "registros",
-            tableHeaderCheck:false,
-            table: ".datatable",
-            reportTitle: "Reporte de estado de locales",
-            tableColumns: [
-                {
-                    data: "cc_id",
-                    title: "CC"                    
-                },
-                {
-                    data: "nombre",
-                    title: "Punto de Venta"
-                },
-                {
-                    data: "MAC",
-                    title: "MAC"
-                },
-                {
-                    data: "tipo",
-                    title: "Tipo"
-                },
-                {
-                    data: "fecha_encendido",
-                    title: "Fecha de encendido"
-                },
-                {
-                    data: "fecha_apagado",
-                    title: "Fecha de apagado",
-                    render: function(data,type,row){
-                        if(row.estado === "Encendido"){
-                            return "";
-                        }else{
-                            return data;
-                        }
-                    }
-                },
-                {
-                    data: "dia",
-                    title: "Día"
-                },              
-                {
-                    data: "estado",
-                    title: "Estado"
-                },   
-                {
-                    data: "mensaje_hora_inicio",
-                    title: "Mensaje de hora de inicio"
-                },   
-                {
-                    data: "mensaje_hora_fin",
-                    title: "Mensaje de hora de fin",
-                    render: function(data,type,row){
-                        if(row.estado === "Encendido"){
-                            return "";
-                        }else{
-                            return data;
-                        }
-                    }
-                },             
-            ]
-        })
-
         var ctx = $('#myChart');
         var myDoughnutChart = new Chart(ctx, {
             type: 'doughnut',
@@ -96,17 +19,16 @@ var ListarView = function() {
                     data: [10, 10, 10, 10],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
                         'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
                         'rgba(153, 102, 255, 0.2)',
                         'rgba(255, 159, 64, 0.2)'
                     ],
                     borderColor: [
                         'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
                         'rgba(255, 206, 86, 1)',
                         'rgba(75, 192, 192, 1)',
+                        'rgba(54, 162, 235, 1)',
                         'rgba(153, 102, 255, 1)',
                         'rgba(255, 159, 64, 1)'
                     ],
@@ -135,15 +57,23 @@ var ListarView = function() {
         ctx.data('graph', myDoughnutChart);
     };
 
+    // Basic Datatable examples
+    var _Listado = function() {
+        if (!$().DataTable) {
+            console.warn('Advertencia - datatables.min.js no esta declarado.');
+            return;
+        }
+
+        cargarDataTable();
+    };
+
     return {
         init: function() {
             _componentes();
             _Listado();
-            $('#collapse-navbar').click();
         },
         init_Listado: function() {
             _Listado();
-            $('#collapse-navbar').click();
         },
     }
 }();
@@ -153,8 +83,114 @@ document.addEventListener('DOMContentLoaded', function() {
     update();
 });
 
+$( document ).ready(function() {
+    $('#collapse-navbar').click();
+});
+
+function cargarDataTable(){
+    
+    var user_id = $('#user_id').val();
+
+     // Basic datatable
+     simpleAjaxDataTable({
+        uniform: true,
+        ajaxUrl: "Dashboard/Listar/" + user_id,
+        tableNameVariable: "registros",
+        tableHeaderCheck:false,
+        table: "#datatable",
+        reportTitle: "Reporte de estado de locales",
+        loader: false,
+        tableColumns: [
+            {
+                data: "cc_id",
+                title: "CC"                    
+            },
+            {
+                data: "nombre",
+                title: "Punto de Venta"
+            },
+            {
+                data: "MAC",
+                title: "MAC"
+            },
+            {
+                data: "tipo",
+                title: "Tipo"
+            },
+            {
+                data: "fecha_encendido",
+                title: "Fecha de encendido"
+            },
+            {
+                data: "fecha_apagado",
+                title: "Fecha de apagado",
+                render: function(data,type,row){
+                    if(row.estado === "Encendido"){
+                        return "";
+                    }else{
+                        return data;
+                    }
+                }
+            },
+            {
+                data: "dia",
+                title: "Día"
+            },              
+            {
+                data: "estado",
+                title: "Estado"
+            },   
+            {
+                data: "mensaje_hora_inicio",
+                title: "Mensaje de hora de inicio"
+            },   
+            {
+                data: "mensaje_hora_fin",
+                title: "Mensaje de hora de fin",
+                render: function(data,type,row){
+                    if(row.estado === "Encendido"){
+                        return "";
+                    }else{
+                        return data;
+                    }
+                }
+            },             
+        ],
+        createdRow: function( row, data, dataIndex ) {
+            switch(data.mensaje_hora_inicio){
+                case "Abrió tarde":
+                    $(row.cells[8]).addClass( 'bg-chart-red' );
+                    break;
+                case "Abrió temprano":
+                    $(row.cells[8]).addClass( 'bg-chart-yellow' );
+                    break;
+                case "Abrió a tiempo":
+                    $(row.cells[8]).addClass( 'bg-chart-green' );
+                    break;
+                case "No Abrió":
+                    $(row.cells[8]).addClass( 'bg-chart-blue' );
+                    break;
+            }
+
+            switch(data.mensaje_hora_fin){
+                case "Cerró tarde":
+                    $(row.cells[9]).addClass( 'bg-chart-red' );
+                    break;
+                case "Cerró temprano":
+                    $(row.cells[9]).addClass( 'bg-chart-yellow' );
+                    break;
+                case "Cerró a tiempo":
+                    $(row.cells[9]).addClass( 'bg-chart-green' );
+                    break;
+                case "No Cerró":
+                    $(row.cells[9]).addClass( 'bg-chart-blue' );
+                    break;
+            }
+        }
+    })
+}
+
 function update() {
-    var table = $("datatable").DataTable();
     var chart = $('#myChart').data('graph');
     var user_id = $('#user_id').val();
 
@@ -206,8 +242,10 @@ function update() {
         chart.data.datasets[0].data[3] = aunNoAbre;
         chart.update();
 
+        cargarDataTable();    
+        //var table = $('#datatable').DataTable();
+        //table.ajax.reload();
 
-        table.ajax.reload();
         window.setTimeout(update, 30000); //milliseconds
       },
       error: function (XMLHttpRequest, textStatus, errorThrown) {                

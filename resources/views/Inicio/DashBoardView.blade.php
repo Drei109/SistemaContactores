@@ -30,7 +30,7 @@
 				<h5 class="font-weight-bold">Registros del los locales del día</h5>
 			</div>
 			<div class="card-body">
-				<table id="datatable" class="table datatable-basic dataTable no-footer datatable table-responsive">
+				<table id="datatable" class="table datatable-basic datatable table-responsive">
 					<tbody><tr><td colspan="6"><div class="alert alert-warning alert-dismissible text-center">Cargando...</span></td></tr></tbody>
 				</table>
 			</div>

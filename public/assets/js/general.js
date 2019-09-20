@@ -666,7 +666,9 @@ function simpleAjaxDataTable(obj) {
         tableColumnsData: [],
         tableColumns: [],
         tableHeaderCheck: false,
-        reportTitle: "Reporte"
+        reportTitle: "Reporte",
+        createdRow: "",
+        loader:true,
     }
     var opciones = $.extend({}, defaults, obj);
     var url = basePath;
@@ -690,7 +692,9 @@ function simpleAjaxDataTable(obj) {
         contentType: "application/json",
         data: JSON.stringify(opciones.ajaxDataSend),
         beforeSend: function() {
-            block_general("body");
+            if(opciones.loader){
+                block_general("body");
+            }
         },
         complete: function() {
             unblock("body");
@@ -764,6 +768,7 @@ function simpleDataTable(obj) {
         data: opciones.tableColumnsData,
         columns: opciones.tableColumns,
         "buttons": opciones.tableButtons,
+        "createdRow": opciones.createdRow,
         "language": {
             "search": ""
           },
