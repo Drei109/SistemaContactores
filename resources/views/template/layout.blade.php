@@ -17,10 +17,10 @@
 	<link href="{{asset('../assets/css/layout.min.css')}}" rel="stylesheet" type="text/css">
 	<link href="{{asset('../assets/css/components.min.css')}}" rel="stylesheet" type="text/css">
 	<link href="{{asset('../assets/css/colors.min.css')}}" rel="stylesheet" type="text/css">
-	<link href="{{asset('../assets/css/jquery-ui.css')}}" rel="stylesheet" type="text/css">
 	<link href="{{asset('../assets/css/daterangepicker.css')}}" rel="stylesheet" type="text/css">
 	<link href="{{asset('../assets/css/custom.css')}}" rel="stylesheet" type="text/css">
 
+	<link href="{{asset('../assets/css/jquery-ui.css')}}" rel="stylesheet" type="text/css">
 	<!-- /global stylesheets -->
 	@stack('styles')
 </head>
@@ -238,7 +238,6 @@
 	<script src="{{asset('../global_assets/js/plugins/tables/datatables/datatables.min.js')}}"></script>
 	<script src="{{asset('../global_assets/js/plugins/forms/validation/validate.min.js')}}"></script>
 	<script src="{{asset('../assets/js/general.js')}}"></script>
-	{{-- <script src="{{asset('../global_assets/js/main/jquery-ui.js')}}"></script> --}}
 
 	<script src="{{asset('../global_assets/js/plugins/pickers/datetime/moment.min.js')}}"></script>
 	<script src="{{asset('../global_assets/js/plugins/pickers/datetime/daterangepicker.js')}}"></script>
@@ -253,6 +252,7 @@
 	<!-- /theme JS files -->
 	@stack('js')
 	<script src="{{asset('../assets/js/app.js')}}"></script>
+	<script src="{{asset('../global_assets/js/main/jquery-ui.js')}}"></script>
 
 	<script>
 		Echo.channel('home.' + {{ Auth::user()->id }})		

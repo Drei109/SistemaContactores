@@ -27,7 +27,7 @@
 		
 		<div class="card">
 			<div class="card-header bg-dark text-center">
-				<h5 class="font-weight-bold">Registros del los locales del día</h5>
+				<h5 class="font-weight-bold">Registros de los locales del día</h5>
 			</div>
 			<div class="card-body">
 				<table id="datatable" class="table datatable-basic datatable table-responsive">

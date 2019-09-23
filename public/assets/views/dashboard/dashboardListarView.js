@@ -109,10 +109,10 @@ function cargarDataTable(){
                 data: "nombre",
                 title: "Punto de Venta"
             },
-            {
-                data: "MAC",
-                title: "MAC"
-            },
+            // {
+            //     data: "MAC",
+            //     title: "MAC"
+            // },
             {
                 data: "tipo",
                 title: "Tipo"
