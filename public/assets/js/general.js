@@ -769,6 +769,7 @@ function simpleDataTable(obj) {
         columns: opciones.tableColumns,
         "buttons": opciones.tableButtons,
         "createdRow": opciones.createdRow,
+        "order": [],
         "language": {
             "search": ""
           },

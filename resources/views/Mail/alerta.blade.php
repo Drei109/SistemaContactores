@@ -1,5 +1,6 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
+  xmlns:o="urn:schemas-microsoft-com:office:office">
 
 <head>
   <title> </title>
@@ -59,6 +60,7 @@
       @-ms-viewport {
         width: 320px;
       }
+
       @viewport {
         width: 320px;
       }
@@ -119,11 +121,15 @@
                class="" style="vertical-align:top;width:600px;"
             >
           <![endif]-->
-              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+              <div class="mj-column-per-100 outlook-group-fix"
+                style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;"
+                  width="100%">
                   <tr>
                     <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:18px;font-weight:800;line-height:1;text-align:left;color:#50b5a1;"> SISTEMA CONTACTORES </div>
+                      <div
+                        style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:18px;font-weight:800;line-height:1;text-align:left;color:#50b5a1;">
+                        SISTEMA CONTACTORES </div>
                     </td>
                   </tr>
                   <tr>
@@ -144,7 +150,9 @@
                   </tr>
                   <tr>
                     <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                      <div style="font-family:helvetica;font-size:14px;font-style:bold;line-height:1;text-align:left;color:#626262;"> Mensaje de alerta para: {{ $data->usuario }}</div>
+                      <div
+                        style="font-family:helvetica;font-size:14px;font-style:bold;line-height:1;text-align:left;color:#626262;">
+                        Mensaje de alerta para: {{ $data->name }}</div>
                     </td>
                   </tr>
                 </table>
@@ -186,28 +194,31 @@
                class="" style="vertical-align:top;width:600px;"
             >
           <![endif]-->
-              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border:#626262;vertical-align:top;" width="100%">
+              <div class="mj-column-per-100 outlook-group-fix"
+                style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation"
+                  style="border:#626262;vertical-align:top;" width="100%">
                   <tr>
                     <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                      <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#626262;font-family:helvetica;font-size:14px;line-height:22px;table-layout:auto;width:100%;">
+                      <table cellpadding="0" cellspacing="0" width="100%" border="0"
+                        style="cellspacing:0;color:#626262;font-family:helvetica;font-size:14px;line-height:22px;table-layout:auto;width:100%;">
                         <tr style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
                           <th>ID</th>
                           <th>Local</th>
                           <th>Mensaje</th>
                         </tr>
                         <tbody>
-                            <tr>
-                                <td>{{ $data->cc_id }}</td>
-                                <td>{{ $data->nombre }}</td>
-                                @if ($data->estado == 1 || $data->estado === NULL)
-                                    <td>{{ $data->mensaje_hora_inicio }}</td>
-                                @endif
+                          <tr>
+                            <td>{{ $data->cc_id }}</td>
+                            <td>{{ $data->nombre }}</td>
+                            @if ($data->estado == 'Encendido' || $data->estado === NULL)
+                            <td>{{ $data->mensaje_hora_inicio }}</td>
+                            @endif
 
-                                @if ($data->estado == 2)
-                                    <td>{{ $data->mensaje_hora_fin }}</td>
-                                @endif
-                            </tr>
+                            @if ($data->estado == 'Apagado')
+                            <td>{{ $data->mensaje_hora_fin }}</td>
+                            @endif
+                          </tr>
                         </tbody>
                       </table>
                     </td>

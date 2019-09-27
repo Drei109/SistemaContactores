@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\ValidarApi;
+use App\UsuarioPuntoVenta;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\ValidarApi;
 
 class LoginController extends Controller
 {
@@ -41,7 +42,8 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected function loggedOut(Request $request) {
+    protected function loggedOut(Request $request)
+    {
         return redirect('login');
     }
 
@@ -49,20 +51,27 @@ class LoginController extends Controller
     {
         $credentials = $request->only('name', 'password');
 
-        if (Auth::attempt($credentials)) {  
-            return redirect()->intended('/');
-        }
-        else{
-            $validar_api = new ValidarApi();
-            $respuesta_api = $validar_api->ValidarLoginTokenApi($request->input('name'), $request->input('password'));
-            $respuesta_api = (string)$respuesta_api;
-            $respuesta = json_decode($respuesta_api, true);
+        $validar_api = new ValidarApi();
+        $respuesta_api = $validar_api->ValidarLoginTokenApi($request->input('name'), $request->input('password'));
+        $respuesta_api = (string) $respuesta_api;
+        $respuesta = json_decode($respuesta_api, true);
 
-            if($respuesta['http_code'] == 202){
+        if (Auth::attempt($credentials)) {
+            $user = auth()->user();
+            if ($user->hasRole('Usuario')) {
+                UsuarioPuntoVenta::ActualizarLocales($respuesta['result']['locales'], $user->id);
+                return redirect()->intended('/');
+            }
+            return redirect()->intended('/Reportes');
+        } else {
+            if ($respuesta['http_code'] == 202) {
                 app('App\Http\Controllers\UserController')->store($request);
                 Auth::attempt($credentials);
                 $user = auth()->user();
                 $user->assignRole("Usuario");
+
+                UsuarioPuntoVenta::ActualizarLocales($respuesta['result']['locales'], $user->id);
+
                 return redirect()->intended('/');
             }
             return redirect('login');

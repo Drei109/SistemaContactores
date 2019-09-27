@@ -42,16 +42,19 @@ class EnviarEmails extends Command
         $segundos = time();
         $segundos_redondeados_abajo = date('H:i:s', floor($segundos / (30 * 60)) * (30 * 60));
         $segundos_redondeados_arriba = date('H:i:s', (ceil($segundos / (30 * 60)) * (30 * 60)) - 60);
-        
-        $destinatarios = DB::select("SELECT d.id, d.nombre, d.correo
+
+        $destinatarios = DB::select(
+            "SELECT d.id, d.nombre, d.correo
         FROM destinatario_horas_envios dhe
         LEFT JOIN destinatarios d
         ON d.id = dhe.destinatario_id
         WHERE dhe.hora_envio BETWEEN ? AND ?",
-        [$segundos_redondeados_abajo, $segundos_redondeados_arriba]);
+            [$segundos_redondeados_abajo, $segundos_redondeados_arriba]
+        );
 
         foreach ($destinatarios as $destinatario) {
-            $punto_ventas = DB::select("SELECT pv.cc_id, pv.nombre, f.fecha_encendido, f.fecha_apagado, f.estado
+            $punto_ventas = DB::select(
+                "SELECT pv.cc_id, pv.nombre, f.fecha_encendido, f.fecha_apagado, f.estado
             FROM
             destinatario_punto_ventas dpv
             LEFT JOIN punto_venta pv
@@ -66,23 +69,25 @@ class EnviarEmails extends Command
             ) AS f
             ON f.cc_id = pv.cc_id
             WHERE dpv.destinatario_id = ?",
-            [$destinatario->id]);
+                [$destinatario->id]
+            );
 
-            $data = array('nombre'=> $destinatario->nombre, 'correo'=> $destinatario->correo, 'punto_ventas' => $punto_ventas);
-            if(!empty($data['punto_ventas'])){
+            $data = array('nombre' => $destinatario->nombre, 'correo' => $destinatario->correo, 'punto_ventas' => $punto_ventas);
+            if (!empty($data['punto_ventas'])) {
                 $this->enviarEmail($data);
             }
         }
     }
 
-    public function enviarEmail($data){
+    public function enviarEmail($data)
+    {
         $nombre = $data['nombre'];
         $correo = $data['correo'];
-        Mail::send('Mail.mail', $data, function($message) use ($correo, $nombre){
-            $message    ->to($correo, $nombre)
-                        ->subject('Contactores');
+        Mail::send('Mail.mail', $data, function ($message) use ($correo, $nombre) {
+            $message->to($correo, $nombre)
+                ->subject('Contactores');
             $message
-                        ->from('AdmiWebOnline@gmail.com','Sistema Contactores - Admin');
+                ->from('AdmiWebOnline@gmail.com', 'Sistema Contactores - Admin');
         });
         echo "HTML Email Sent. Check your inbox. \n";
     }

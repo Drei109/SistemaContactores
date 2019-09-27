@@ -210,7 +210,7 @@
                                 <td>Aún no se cierra</td>
                               @else
                                 <td>{{ $punto_venta->fecha_encendido }}</td>
-                                @if($punto_venta->estado == 1)
+                                @if($punto_venta->estado == 'Encendido')
                                   <td>Aún no se cierra</td>
                                 @else
                                   <td>{{ $punto_venta->fecha_apagado }}</td>

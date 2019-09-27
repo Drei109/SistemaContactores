@@ -94,13 +94,13 @@ var ListarView = function() {
                         title: "CC"                    
                     },
                     {
-                        data: "punto_venta",
+                        data: "nombre",
                         title: "Punto de Venta"
                     },
-                    {
-                        data: "MAC",
-                        title: "MAC"
-                    },
+                    // {
+                    //     data: "MAC",
+                    //     title: "MAC"
+                    // },
                     {
                         data: "tipo",
                         title: "tipo"
@@ -120,6 +120,14 @@ var ListarView = function() {
                     {
                         data: "estado",
                         title: "Estado"
+                    },    
+                    {
+                        data: "mensaje_hora_inicio",
+                        title: "Mensaje Inicio"
+                    },    
+                    {
+                        data: "mensaje_hora_fin",
+                        title: "Mensaje Fin"
                     },             
                 ]
             })
@@ -143,19 +151,20 @@ var ListarView = function() {
             tableHeaderCheck:false,
             table: ".datatable",
             reportTitle: "Reporte de registros",
+            ordering: false,
             tableColumns: [
                 {
                     data: "cc_id",
                     title: "CC"                    
                 },
                 {
-                    data: "punto_venta",
+                    data: "nombre",
                     title: "Punto de Venta"
                 },
-                {
-                    data: "MAC",
-                    title: "MAC"
-                },
+                // {
+                //     data: "MAC",
+                //     title: "MAC"
+                // },
                 {
                     data: "tipo",
                     title: "tipo"
@@ -176,6 +185,14 @@ var ListarView = function() {
                     data: "estado",
                     title: "Estado"
                 },             
+                {
+                    data: "mensaje_hora_inicio",
+                    title: "Mensaje Inicio"
+                },    
+                {
+                    data: "mensaje_hora_fin",
+                    title: "Mensaje Fin"
+                },    
             ]
         })
 
