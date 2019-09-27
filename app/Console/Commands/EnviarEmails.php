@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Repository\RegistrosRepository;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
@@ -53,24 +54,7 @@ class EnviarEmails extends Command
         );
 
         foreach ($destinatarios as $destinatario) {
-            $punto_ventas = DB::select(
-                "SELECT pv.cc_id, pv.nombre, f.fecha_encendido, f.fecha_apagado, f.estado
-            FROM
-            destinatario_punto_ventas dpv
-            LEFT JOIN punto_venta pv
-            ON dpv.punto_venta_id = pv.id
-            LEFT JOIN
-            (
-                SELECT pvm.cc_id, r.fecha_encendido, r.fecha_apagado, r.estado
-                FROM registro r
-                LEFT JOIN punto_venta_macs pvm
-                ON pvm.MAC = r.MAC
-                WHERE DATE(r.fecha_encendido) = DATE(NOW())
-            ) AS f
-            ON f.cc_id = pv.cc_id
-            WHERE dpv.destinatario_id = ?",
-                [$destinatario->id]
-            );
+            $punto_ventas = RegistrosRepository::RegistrosPorDestinatario($destinatario->id);
 
             $data = array('nombre' => $destinatario->nombre, 'correo' => $destinatario->correo, 'punto_ventas' => $punto_ventas);
             if (!empty($data['punto_ventas'])) {

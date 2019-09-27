@@ -1,5 +1,6 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
+  xmlns:o="urn:schemas-microsoft-com:office:office">
 
 <head>
   <title> </title>
@@ -59,6 +60,7 @@
       @-ms-viewport {
         width: 320px;
       }
+
       @viewport {
         width: 320px;
       }
@@ -105,7 +107,7 @@
         <tr>
           <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
       <![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
+    <div style="Margin:0px auto;max-width:950px;">
       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
         <tbody>
           <tr>
@@ -119,11 +121,15 @@
                class="" style="vertical-align:top;width:600px;"
             >
           <![endif]-->
-              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
+              <div class="mj-column-per-100 outlook-group-fix"
+                style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;"
+                  width="100%">
                   <tr>
                     <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                      <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:18px;font-weight:800;line-height:1;text-align:left;color:#50b5a1;"> SISTEMA CONTACTORES </div>
+                      <div
+                        style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:18px;font-weight:800;line-height:1;text-align:left;color:#50b5a1;">
+                        SISTEMA CONTACTORES </div>
                     </td>
                   </tr>
                   <tr>
@@ -144,7 +150,9 @@
                   </tr>
                   <tr>
                     <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                      <div style="font-family:helvetica;font-size:14px;font-style:bold;line-height:1;text-align:left;color:#626262;"> Reporte de hoy para: {{ $nombre }}</div>
+                      <div
+                        style="font-family:helvetica;font-size:14px;font-style:bold;line-height:1;text-align:left;color:#626262;">
+                        Reporte de hoy para: {{ $nombre }}</div>
                     </td>
                   </tr>
                 </table>
@@ -172,7 +180,7 @@
         <tr>
           <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
       <![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
+    <div style="Margin:0px auto;max-width:950px;">
       <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
         <tbody>
           <tr>
@@ -186,38 +194,42 @@
                class="" style="vertical-align:top;width:600px;"
             >
           <![endif]-->
-              <div class="mj-column-per-100 outlook-group-fix" style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border:#626262;vertical-align:top;" width="100%">
+              <div class="mj-column-per-100 outlook-group-fix"
+                style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
+                <table border="0" cellpadding="0" cellspacing="0" role="presentation"
+                  style="border:#626262;vertical-align:top;" width="100%">
                   <tr>
                     <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                      <table cellpadding="0" cellspacing="0" width="100%" border="0" style="cellspacing:0;color:#626262;font-family:helvetica;font-size:14px;line-height:22px;table-layout:auto;width:100%;">
+                      <table cellpadding="0" cellspacing="0" width="100%" border="0"
+                        style="cellspacing:0;color:#626262;font-family:helvetica;font-size:14px;line-height:22px;table-layout:auto;width:100%;">
                         <tr style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
                           <th>ID</th>
                           <th>Local</th>
+                          <th>Tipo</th>
+                          <th>Estado</th>
                           <th>Hora encendido</th>
                           <th>Hora apagado</th>
+                          <th>Mensaje encendido</th>
+                          <th>Mensaje apagado</th>
                         </tr>
                         <tbody>
                           @if(empty($punto_ventas))
-                          <tr><td>No hay registros</td></tr>
+                          <tr>
+                            <td>No hay registros</td>
+                          </tr>
                           @else
-                            @foreach ($punto_ventas as $punto_venta)
-                            <tr>
-                              <td>{{ $punto_venta->cc_id }}</td>
-                              <td>{{ $punto_venta->nombre }}</td>
-                              @if(empty($punto_venta->estado))
-                                <td>Aún no se abre</td>
-                                <td>Aún no se cierra</td>
-                              @else
-                                <td>{{ $punto_venta->fecha_encendido }}</td>
-                                @if($punto_venta->estado == 'Encendido')
-                                  <td>Aún no se cierra</td>
-                                @else
-                                  <td>{{ $punto_venta->fecha_apagado }}</td>
-                                @endif
-                              @endif                            
-                            </tr>
-                            @endforeach
+                          @foreach ($punto_ventas as $punto_venta)
+                          <tr>
+                            <td>{{ $punto_venta->cc_id }}</td>
+                            <td>{{ $punto_venta->nombre }}</td>
+                            <td>{{ $punto_venta->tipo }}</td>
+                            <td>{{ $punto_venta->estado }}</td>
+                            <td>{{ $punto_venta->fecha_encendido }}</td>
+                            <td>{{ $punto_venta->fecha_apagado }}</td>
+                            <td>{{ $punto_venta->mensaje_hora_inicio }}</td>
+                            <td>{{ $punto_venta->mensaje_hora_fin }}</td>
+                          </tr>
+                          @endforeach
                           @endif
                         </tbody>
                       </table>
