@@ -1,16 +1,18 @@
+var ListarView = function () {
 
-var ListarView = function() {
-   
-    var _componentes = function() {
+    var _componentes = function () {
 
-        $(document).on("click", ".btn_recargar", function() {
-            refresh({estate:true, time:0});
+        $(document).on("click", ".btn_recargar", function () {
+            refresh({
+                estate: true,
+                time: 0
+            });
         });
 
-        $(document).on("click", ".clean-txt", function() {
+        $(document).on("click", ".clean-txt", function () {
             $(this).siblings("input").val("");
         });
-        
+
         var ctx = $('#myChart');
         var myDoughnutChart = new Chart(ctx, {
             type: 'doughnut',
@@ -34,7 +36,7 @@ var ListarView = function() {
                     ],
                     borderWidth: 1
                 }],
-            
+
                 labels: [
                     'Abrió tarde',
                     'Abrió temprano',
@@ -45,12 +47,12 @@ var ListarView = function() {
             options: {
                 legend: {
                     display: true,
-                    position:'right',
+                    position: 'right',
                 },
                 title: {
                     display: true,
                     text: 'Estado Locales',
-                    position:'top',
+                    position: 'top',
                 }
             }
         });
@@ -58,7 +60,7 @@ var ListarView = function() {
     };
 
     // Basic Datatable examples
-    var _Listado = function() {
+    var _Listado = function () {
         if (!$().DataTable) {
             console.warn('Advertencia - datatables.min.js no esta declarado.');
             return;
@@ -68,42 +70,41 @@ var ListarView = function() {
     };
 
     return {
-        init: function() {
+        init: function () {
             _componentes();
             _Listado();
         },
-        init_Listado: function() {
+        init_Listado: function () {
             _Listado();
         },
     }
 }();
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     ListarView.init();
     update();
 });
 
-$( document ).ready(function() {
+$(document).ready(function () {
     $('#collapse-navbar').click();
 });
 
-function cargarDataTable(){
+function cargarDataTable() {
 
     var user_id = $('#user_id').val();
 
-     // Basic datatable
-     simpleAjaxDataTable({
+    // Basic datatable
+    simpleAjaxDataTable({
         uniform: true,
         ajaxUrl: "Dashboard/Listar/" + user_id,
-        tableNameVariable: "registros", 
-        tableHeaderCheck:false,
+        tableNameVariable: "registros",
+        tableHeaderCheck: false,
         table: "#datatable",
         reportTitle: "Reporte de estado de locales",
         loader: false,
-        tableColumns: [
-            {
+        tableColumns: [{
                 data: "cc_id",
-                title: "CC"                    
+                title: "CC"
             },
             {
                 data: "nombre",
@@ -124,10 +125,10 @@ function cargarDataTable(){
             {
                 data: "fecha_apagado",
                 title: "Fecha de apagado",
-                render: function(data,type,row){
-                    if(row.estado === "Encendido"){
+                render: function (data, type, row) {
+                    if (row.estado === "Encendido") {
                         return "";
-                    }else{
+                    } else {
                         return data;
                     }
                 }
@@ -135,55 +136,55 @@ function cargarDataTable(){
             {
                 data: "dia",
                 title: "Día"
-            },              
+            },
             {
                 data: "estado",
                 title: "Estado"
-            },   
+            },
             {
                 data: "mensaje_hora_inicio",
                 title: "Mensaje de hora de inicio"
-            },   
+            },
             {
                 data: "mensaje_hora_fin",
                 title: "Mensaje de hora de fin",
-                render: function(data,type,row){
-                    if(row.estado === "Encendido"){
+                render: function (data, type, row) {
+                    if (row.estado === "Encendido") {
                         return "";
-                    }else{
+                    } else {
                         return data;
                     }
                 }
-            },             
+            },
         ],
-        createdRow: function( row, data, dataIndex ) {
-            switch(data.mensaje_hora_inicio){
+        createdRow: function (row, data, dataIndex) {
+            switch (data.mensaje_hora_inicio) {
                 case "Abrió tarde":
-                    $(row.cells[8]).addClass( 'bg-chart-red' );
+                    $(row.cells[7]).addClass('bg-chart-red');
                     break;
                 case "Abrió temprano":
-                    $(row.cells[8]).addClass( 'bg-chart-yellow' );
+                    $(row.cells[7]).addClass('bg-chart-yellow');
                     break;
                 case "Abrió a tiempo":
-                    $(row.cells[8]).addClass( 'bg-chart-green' );
+                    $(row.cells[7]).addClass('bg-chart-green');
                     break;
                 case "No Abrió":
-                    $(row.cells[8]).addClass( 'bg-chart-blue' );
+                    $(row.cells[7]).addClass('bg-chart-blue');
                     break;
             }
 
-            switch(data.mensaje_hora_fin){
+            switch (data.mensaje_hora_fin) {
                 case "Cerró tarde":
-                    $(row.cells[9]).addClass( 'bg-chart-red' );
+                    $(row.cells[8]).addClass('bg-chart-red');
                     break;
                 case "Cerró temprano":
-                    $(row.cells[9]).addClass( 'bg-chart-yellow' );
+                    $(row.cells[8]).addClass('bg-chart-yellow');
                     break;
                 case "Cerró a tiempo":
-                    $(row.cells[9]).addClass( 'bg-chart-green' );
+                    $(row.cells[8]).addClass('bg-chart-green');
                     break;
                 case "No Cerró":
-                    $(row.cells[9]).addClass( 'bg-chart-blue' );
+                    $(row.cells[8]).addClass('bg-chart-blue');
                     break;
             }
         }
@@ -202,53 +203,54 @@ function update() {
     let aunNoAbre = 0;
 
     $.ajax({
-      type: 'POST',
-      url: '/Dashboard/Listar/' + user_id,
-      success: function(data) {
-             
-        $.each(data.data, function(k,item) {
-            switch(item.estado){
-                case 'Apagado':
-                    apagado++;
-                    break;
-                case 'Encendido':
-                    encendido++;
-            }    
-            switch(item.mensaje_hora_inicio){
-                case 'Abrió tarde':
-                    abrioTarde++;
-                    break;
-                case 'Abrió temprano':
-                    abrioTemprano++;
-                    break;
-                case 'Aún no abre':
-                    aunNoAbre++;
-                    break;
-                case 'No Abrió':
-                    aunNoAbre++;
-                    break;
-                case 'Abrió a tiempo':
-                    abrioATiempo++;
-                    break;
-            }        
-        });
+        type: 'POST',
+        url: '/Dashboard/Listar/' + user_id,
+        success: function (data) {
 
-        $("#apagados").html(apagado);
-        $("#encendidos").html(encendido);
+            $.each(data.data, function (k, item) {
+                switch (item.estado) {
+                    case 'Apagado':
+                        apagado++;
+                        break;
+                    case 'Encendido':
+                        encendido++;
+                }
+                switch (item.mensaje_hora_inicio) {
+                    case 'Abrió tarde':
+                        abrioTarde++;
+                        break;
+                    case 'Abrió temprano':
+                        abrioTemprano++;
+                        break;
+                    case 'Aún no abre':
+                        aunNoAbre++;
+                        break;
+                    case 'No Abrió':
+                        aunNoAbre++;
+                        break;
+                    case 'Abrió a tiempo':
+                        abrioATiempo++;
+                        break;
+                }
+            });
 
-        chart.data.datasets[0].data[0] = abrioTarde;
-        chart.data.datasets[0].data[1] = abrioTemprano;
-        chart.data.datasets[0].data[2] = abrioATiempo;
-        chart.data.datasets[0].data[3] = aunNoAbre;
-        chart.update();
+            $("#apagados").html(apagado);
+            $("#encendidos").html(encendido);
 
-        cargarDataTable();    
-        //var table = $('#datatable').DataTable();
-        //table.ajax.reload();
+            chart.data.datasets[0].data[0] = abrioTarde;
+            chart.data.datasets[0].data[1] = abrioTemprano;
+            chart.data.datasets[0].data[2] = abrioATiempo;
+            chart.data.datasets[0].data[3] = aunNoAbre;
+            chart.update();
 
-        window.setTimeout(update, 30000); //milliseconds
-      },
-      error: function (XMLHttpRequest, textStatus, errorThrown) {                
-        window.setTimeout(update, 10000);
-      }
-  })};
+            cargarDataTable();
+            //var table = $('#datatable').DataTable();
+            //table.ajax.reload();
+
+            window.setTimeout(update, 30000); //milliseconds
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            window.setTimeout(update, 10000);
+        }
+    })
+};
