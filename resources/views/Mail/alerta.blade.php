@@ -212,11 +212,11 @@
                             <td>{{ $data->cc_id }}</td>
                             <td>{{ $data->nombre }}</td>
                             @if ($data->estado == 'Encendido' || $data->estado === NULL)
-                            <td>{{ $data->mensaje_hora_inicio }}</td>
+                            <td>{{ $data->mensaje_hora_fin }}</td>
                             @endif
 
                             @if ($data->estado == 'Apagado')
-                            <td>{{ $data->mensaje_hora_fin }}</td>
+                            <td>{{ $data->mensaje_hora_inicio }}</td>
                             @endif
                           </tr>
                         </tbody>
