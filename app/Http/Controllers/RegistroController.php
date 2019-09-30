@@ -105,7 +105,7 @@ class RegistroController extends Controller
                 SendNotty::enviarEmail($q, $mensaje_alerta);
             } else if ($q->estado === 'Apagado' && ($q->mensaje_hora_fin === "Cerró tarde" || $q->mensaje_hora_fin === "Cerró temprano")) {
                 $mensaje_alerta = "El local: " . $q->nombre . $q->mensaje_hora_fin;
-                event(new NewMessage($q->usuario_id, "El local: " . $q->mensaje_hora_fin));
+                event(new NewMessage($q->usuario_id, $mensaje_alerta));
                 SendNotty::enviarEmail($q, $mensaje_alerta);
             }
         }
