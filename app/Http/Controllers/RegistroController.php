@@ -102,11 +102,11 @@ class RegistroController extends Controller
 
         foreach ($query as $q) {
             if ($q->estado === 'Encendido' && ($q->mensaje_hora_inicio === "Abrió tarde" || $q->mensaje_hora_inicio === "Abrió temprano")) {
-                $mensaje_alerta = "El local: " . $q->nombre . $q->mensaje_hora_inicio;
+                $mensaje_alerta = "El local: " . $q->nombre . ' ' . $q->mensaje_hora_inicio;
                 event(new NewMessage($q->usuario_id, $mensaje_alerta));
                 SendNotty::enviarEmailRegistro($q, $mensaje_alerta);
             } else if ($q->estado === 'Apagado' && ($q->mensaje_hora_fin === "Cerró tarde" || $q->mensaje_hora_fin === "Cerró temprano")) {
-                $mensaje_alerta = "El local: " . $q->nombre . $q->mensaje_hora_fin;
+                $mensaje_alerta = "El local: " . $q->nombre . ' ' . $q->mensaje_hora_fin;
                 event(new NewMessage($q->usuario_id, $mensaje_alerta));
                 SendNotty::enviarEmailRegistro($q, $mensaje_alerta);
             }
