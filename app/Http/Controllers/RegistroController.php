@@ -90,7 +90,9 @@ class RegistroController extends Controller
             [$registros->estado, $registros->fecha_apagado, $registros->MAC, $registros->fecha_apagado]
         );
 
-        $this->alertarEstado($registros);
+        if ($registros->estado === "2") {
+            $this->alertarEstado($registros);
+        }
         return "Actualiza2";
     }
 
