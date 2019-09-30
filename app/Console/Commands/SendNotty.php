@@ -72,4 +72,20 @@ class SendNotty extends Command
         });
         echo "HTML Email Sent. Check your inbox. Notty \n";
     }
+
+    public static function enviarEmailRegistro($data, $mensaje_alerta)
+    {
+        $nombre = $data->name;
+        $correo = $data->email;
+
+        $check = ['data' => $data];
+
+        Mail::send('Mail.alertaRegistro', ['data' => $data], function ($message) use ($correo, $nombre, $mensaje_alerta) {
+            $message->to($correo, $nombre)
+                ->subject('Contactores: ' . $mensaje_alerta);
+            $message
+                ->from('AdmiWebOnline@gmail.com', 'Sistema Contactores - Admin');
+        });
+        echo "HTML Email Sent. Check your inbox. Notty \n";
+    }
 }
