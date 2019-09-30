@@ -175,10 +175,10 @@ function cargarDataTable() {
 
             switch (data.mensaje_hora_fin) {
                 case "Cerró tarde":
-                    $(row.cells[8]).addClass('bg-chart-red');
+                    $(row.cells[8]).addClass('bg-chart-yellow');
                     break;
                 case "Cerró temprano":
-                    $(row.cells[8]).addClass('bg-chart-yellow');
+                    $(row.cells[8]).addClass('bg-chart-red');
                     break;
                 case "Cerró a tiempo":
                     $(row.cells[8]).addClass('bg-chart-green');

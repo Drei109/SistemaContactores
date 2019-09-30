@@ -205,6 +205,7 @@
                         <tr style="border-bottom:2px solid #ecedee;text-align:left;padding:15px 0;">
                           <th>ID</th>
                           <th>Local</th>
+                          <th>Hora</th>
                           <th>Mensaje</th>
                         </tr>
                         <tbody>
@@ -212,10 +213,12 @@
                             <td>{{ $data->cc_id }}</td>
                             <td>{{ $data->nombre }}</td>
                             @if ($data->estado == 'Encendido' || $data->estado === NULL)
+                            <td>{{ $data->fecha_apagado }}</td>
                             <td>{{ $data->mensaje_hora_fin }}</td>
                             @endif
 
                             @if ($data->estado == 'Apagado')
+                            <td>{{ $data->fecha_encendido }}</td>
                             <td>{{ $data->mensaje_hora_inicio }}</td>
                             @endif
                           </tr>
