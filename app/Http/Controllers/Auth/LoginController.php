@@ -63,18 +63,19 @@ class LoginController extends Controller
                 return redirect()->intended('/');
             }
             return redirect()->intended('/Reportes');
-        } else {
-            if ($respuesta['http_code'] == 202) {
-                app('App\Http\Controllers\UserController')->store($request);
-                Auth::attempt($credentials);
-                $user = auth()->user();
-                $user->assignRole("Usuario");
-
-                UsuarioPuntoVenta::ActualizarLocales($respuesta['result']['locales'], $user->id);
-
-                return redirect()->intended('/');
-            }
-            return redirect('login');
         }
+        // else {
+        //     if ($respuesta['http_code'] == 202) {
+        //         app('App\Http\Controllers\UserController')->store($request);
+        //         Auth::attempt($credentials);
+        //         $user = auth()->user();
+        //         $user->assignRole("Usuario");
+
+        //         UsuarioPuntoVenta::ActualizarLocales($respuesta['result']['locales'], $user->id);
+
+        //         return redirect()->intended('/');
+        //     }
+        //     return redirect('login');
+        // }
     }
 }
