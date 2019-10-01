@@ -51,15 +51,15 @@ class LoginController extends Controller
     {
         $credentials = $request->only('name', 'password');
 
-        $validar_api = new ValidarApi();
-        $respuesta_api = $validar_api->ValidarLoginTokenApi($request->input('name'), $request->input('password'));
-        $respuesta_api = (string) $respuesta_api;
-        $respuesta = json_decode($respuesta_api, true);
+        // $validar_api = new ValidarApi();
+        // $respuesta_api = $validar_api->ValidarLoginTokenApi($request->input('name'), $request->input('password'));
+        // $respuesta_api = (string) $respuesta_api;
+        // $respuesta = json_decode($respuesta_api, true);
 
         if (Auth::attempt($credentials)) {
             $user = auth()->user();
             if ($user->hasRole('Usuario')) {
-                UsuarioPuntoVenta::ActualizarLocales($respuesta['result']['locales'], $user->id);
+                //UsuarioPuntoVenta::ActualizarLocales($respuesta['result']['locales'], $user->id);
                 return redirect()->intended('/');
             }
             return redirect()->intended('/Reportes');
