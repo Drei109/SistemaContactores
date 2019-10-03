@@ -4,10 +4,13 @@
 <!-- Page header -->
 <!-- Content area -->
 <div class="content">
+	<div class="chart-container" style="position: relative; height:40vh; width:80vw">
+		<canvas id="seguimientoChart"></canvas>
+	</div>
 	<div class="card-group mb-sm-12">
 		<div class="card">
 			<div class="card-body">
-				<canvas id="seguimientoChart"></canvas>
+
 			</div>
 		</div>
 	</div>

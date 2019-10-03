@@ -278,7 +278,8 @@ function createSeguimientoCanvas(ctx, data) {
         let obj = {
             label: data[i].nombre,
             fill: false,
-            data: data[i].data
+            data: data[i].data,
+            spanGaps: true
         };
         dataset.push(obj);
     }
@@ -286,12 +287,13 @@ function createSeguimientoCanvas(ctx, data) {
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['', '', '', ''],
+            labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
             datasets: dataset
         },
         options: {
+            spanGaps: true,
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
             scales: {
                 yAxes: [{
                     ticks: {

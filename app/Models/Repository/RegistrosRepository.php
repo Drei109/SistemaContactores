@@ -213,7 +213,7 @@ class RegistrosRepository
          (
             SELECT @curDate := DATE_SUB(@curDate, INTERVAL 1 day) AS fecha 
             FROM ( 
-                    SELECT @curDate := '2019-10-30' 
+                    SELECT @curDate := DATE_ADD(DATE(NOW()), INTERVAL 1 day)
                 ) sqlvars, ubigeo LIMIT 30
          ) AS d
         LEFT JOIN punto_venta_macs pvm
