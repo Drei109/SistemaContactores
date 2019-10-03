@@ -185,4 +185,65 @@ class RegistrosRepository
         $data = DB::select($query_general . $query_where, ['id' => $id]);
         return $data;
     }
+
+    public static function SeguimientoLocalesPorUsuario($id)
+    {
+        $query = "SELECT pv.cc_id, pv.nombre, pvm.MAC, d.fecha,
+        UNIX_TIMESTAMP(TIME(r.fecha_encendido)) AS 'hora_encendido', 
+        UNIX_TIMESTAMP(TIME(r.fecha_apagado)) AS 'hora_apagado', 
+        DAYNAME(d.fecha) AS dia, t.horainicio,
+        CASE r.estado
+          WHEN 1 THEN 'Encendido'
+          ELSE 'Apagado'
+        END AS estado,
+        CASE 
+          WHEN t.horainicio <= (TIME(r.fecha_encendido) - INTERVAL 5 MINUTE) THEN 'Abrió tarde'
+          WHEN t.horainicio >= (TIME(r.fecha_encendido) + INTERVAL 5 MINUTE) THEN 'Abrió temprano'
+          WHEN r.fecha_encendido IS NULL THEN 'No Abrió'
+          ELSE 'Abrió a tiempo'
+        END AS mensaje_hora_inicio,
+        CASE 
+          WHEN t.horafin <= (TIME(r.fecha_apagado) - INTERVAL 5 MINUTE) THEN 'Cerró tarde'
+          WHEN t.horafin >= (TIME(r.fecha_apagado) + INTERVAL 5 MINUTE) THEN 'Cerró temprano'
+          WHEN r.fecha_apagado IS NULL THEN 'No Cerró'
+          ELSE 'Cerró a tiempo'
+        END AS mensaje_hora_fin
+        FROM usuario_punto_ventas upv
+        CROSS JOIN
+         (
+            SELECT @curDate := DATE_SUB(@curDate, INTERVAL 1 day) AS fecha 
+            FROM ( 
+                    SELECT @curDate := '2019-10-30' 
+                ) sqlvars, ubigeo LIMIT 30
+         ) AS d
+        LEFT JOIN punto_venta_macs pvm
+        ON pvm.cc_id = upv.punto_venta_id
+        LEFT JOIN punto_venta pv
+        ON pv.cc_id = pvm.cc_id
+        LEFT JOIN registro r
+        ON pvm.MAC = r.MAC AND
+        DATE(r.fecha_encendido) = d.fecha
+        LEFT JOIN
+        (
+          SELECT t.horainicio, t.horafin, pvm.MAC, pvm.cc_id
+          FROM turnos t
+          LEFT JOIN punto_venta_macs pvm
+          ON t.idlocal = pvm.cc_id
+          WHERE 
+          DAYOFWEEK(NOW()) = CASE t.diasemana
+              WHEN 'Do' THEN 1
+              WHEN 'Lu' THEN 2
+              WHEN 'Ma' THEN 3
+              WHEN 'Mi' THEN 4
+              WHEN 'Ju' THEN 5
+              WHEN 'Vi' THEN 6
+              WHEN 'Sa' THEN 7
+              END
+        ) AS t
+        ON t.cc_id = pvm.cc_id
+        WHERE upv.usuario_id = :id
+        ORDER BY d.fecha";
+        $data = DB::select($query, ['id' => $id]);
+        return $data;
+    }
 }

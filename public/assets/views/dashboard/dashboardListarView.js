@@ -1,3 +1,4 @@
+var user_id = $('#user_id').val();
 var ListarView = function () {
 
     var _componentes = function () {
@@ -57,6 +58,19 @@ var ListarView = function () {
             }
         });
         ctx.data('graph', myDoughnutChart);
+
+
+
+        var seguimientoCtx = $('#seguimientoChart');
+
+        $.ajax({
+            type: 'POST',
+            url: '/Dashboard/SeguimientoLocales/' + user_id,
+            success: function (data) {
+                console.log(data.data);
+                createSeguimientoCanvas(seguimientoCtx, data.data);
+            }
+        })
     };
 
     // Basic Datatable examples
@@ -90,9 +104,6 @@ $(document).ready(function () {
 });
 
 function cargarDataTable() {
-
-    var user_id = $('#user_id').val();
-
     // Basic datatable
     simpleAjaxDataTable({
         uniform: true,
@@ -254,3 +265,51 @@ function update() {
         }
     })
 };
+
+function epoch_to_hh_mm_ss(epoch) {
+    let timestamp = moment.unix(epoch);
+    return timestamp.format("HH:mm:ss");
+    return new Date(epoch * 1000).toISOString().substr(12, 7)
+}
+
+function createSeguimientoCanvas(ctx, data) {
+    let dataset = [];
+    for (let i = 0; i < data.length; i++) {
+        let obj = {
+            label: data[i].nombre,
+            fill: false,
+            data: data[i].data
+        };
+        dataset.push(obj);
+    }
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['', '', '', ''],
+            datasets: dataset
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        userCallback: function (v) {
+                            return epoch_to_hh_mm_ss(v)
+                        },
+                        stepSize: 60 * 60
+                    }
+                }]
+            },
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        return data.datasets[tooltipItem.datasetIndex].label + ': ' + epoch_to_hh_mm_ss(tooltipItem.yLabel)
+                    }
+                }
+            }
+        }
+    });
+
+}

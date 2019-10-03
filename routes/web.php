@@ -20,6 +20,7 @@
 Route::get('/', 'InicioController@DashboardView')->name('Dashboard')->middleware('auth');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('Dashboard/Listar/{id}', 'DashboardController@Listar');
+Route::post('Dashboard/SeguimientoLocales/{id}', 'DashboardController@SeguimientoLocales');
 #endregion
 
 #region[Seguridad]
@@ -66,9 +67,9 @@ Route::post('Destinatarios/{id}/ReasignarHoras', 'Mantenimiento\DestinatarioCont
 #endregion
 
 #region[Turnos]
-Route::get('Turno/','Mantenimiento\TurnoController@Index')->name('Turnos.index');
+Route::get('Turno/', 'Mantenimiento\TurnoController@Index')->name('Turnos.index');
 //->middleware('permission:Listar Turnos');
-Route::post('Turno/Listar','Mantenimiento\TurnoController@Listar');
+Route::post('Turno/Listar', 'Mantenimiento\TurnoController@Listar');
 #endregion
 
 #region[Reportes]
@@ -80,7 +81,7 @@ Route::post('Registro/Actualizar', 'RegistroController@Actualizar');
 #endregion
 
 #region[Mail]
-Route::get('SendEmail','MailController@htmlEmail');
+Route::get('SendEmail', 'MailController@htmlEmail');
 #endregion
 
 
