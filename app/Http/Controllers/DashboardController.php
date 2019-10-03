@@ -26,10 +26,13 @@ class DashboardController extends Controller
         $data = RegistrosRepository::SeguimientoLocalesPorUsuario($id);
         $arregloLabels = [];
         $arregloRegistros = [];
+        $arregloFechas = [];
         foreach ($data as $value) {
             array_push($arregloLabels, $value->nombre);
+            array_push($arregloFechas, $value->fecha);
         }
 
+        $arregloFechas = array_values(array_unique($arregloFechas));
         $arregloLabels = array_unique($arregloLabels);
         foreach ($arregloLabels as $value) {
             $object = (object) [
@@ -46,6 +49,6 @@ class DashboardController extends Controller
             }
         }
 
-        return response()->json(['data' => $arregloRegistros]);
+        return response()->json(['data' => $arregloRegistros, 'fechas' => $arregloFechas]);
     }
 }

@@ -6,6 +6,7 @@
 
 require('./bootstrap');
 require('chart.js');
+window.randomColor = require('randomcolor');
 
 window.Vue = require('vue');
 

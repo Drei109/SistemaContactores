@@ -2,6 +2,7 @@
 <html lang="en">
 
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -48,7 +49,8 @@
 		<div class="collapse navbar-collapse" id="navbar-mobile">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a href="#" id="collapse-navbar" class="navbar-nav-link sidebar-control sidebar-main-toggle d-none d-md-block">
+					<a href="#" id="collapse-navbar"
+						class="navbar-nav-link sidebar-control sidebar-main-toggle d-none d-md-block">
 						<i class="icon-paragraph-justify3"></i>
 					</a>
 				</li>
@@ -58,30 +60,32 @@
 			<span class="ml-md-3 mr-md-auto"></span>
 
 			<ul class="navbar-nav">
-				
+
 				<li class="nav-item dropdown dropdown-user">
-					<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
-						<img src="../../../../global_assets/images/demo/users/face9.jpg" class="rounded-circle mr-2" height="34" alt="">
+					<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle"
+						data-toggle="dropdown">
+						<img src="../../../../global_assets/images/demo/users/face9.jpg" class="rounded-circle mr-2"
+							height="34" alt="">
 						@if (!Auth::guest())
-							<span>{{ app('auth')->user()->name}}</span>	
-							<input type="hidden" id="user_id" value="{{ app('auth')->user()-> id}}">
+						<span>{{ app('auth')->user()->name}}</span>
+						<input type="hidden" id="user_id" value="{{ app('auth')->user()-> id}}">
 						@else
-							<span>Invitado</span>
+						<span>Invitado</span>
 						@endif
-						
+
 					</a>
 					@auth
-						<div class="dropdown-menu dropdown-menu-right">
-							<a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
-							document.getElementById('logout-form').submit();"><i class="icon-switch2"></i> 
+					<div class="dropdown-menu dropdown-menu-right">
+						<a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
+							document.getElementById('logout-form').submit();"><i class="icon-switch2"></i>
 							Salir
-							</a>
-						</div>
-						<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-							@csrf
-						</form>
+						</a>
+					</div>
+					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+						@csrf
+					</form>
 					@endauth
-					
+
 				</li>
 			</ul>
 		</div>
@@ -118,7 +122,8 @@
 					<div class="card-body">
 						<div class="media">
 							<div class="mr-3">
-								<a href="#"><img src="../../../../global_assets/images/demo/users/face9.jpg" width="38" height="38" class="rounded-circle" alt=""></a>
+								<a href="#"><img src="../../../../global_assets/images/demo/users/face9.jpg" width="38"
+										height="38" class="rounded-circle" alt=""></a>
 							</div>
 
 							<div class="media-body">
@@ -143,7 +148,10 @@
 					<ul class="nav nav-sidebar" data-nav-type="accordion">
 
 						<!-- Main -->
-						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Menu</div> <i class="icon-menu" title="Main"></i></li>
+						<li class="nav-item-header">
+							<div class="text-uppercase font-size-xs line-height-xs">Menu</div> <i class="icon-menu"
+								title="Main"></i>
+						</li>
 						<li class="nav-item">
 							<a href="{{route('Dashboard')}}" class="nav-link">
 								<i class="icon-home4"></i>
@@ -155,28 +163,34 @@
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Mantenimiento</span></a>
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">
-								{{-- <li class="nav-item"><a href="{{route('Salas.index')}}" class="nav-link">Locales</a></li> --}}
-								<li class="nav-item"><a href="{{route('Destinarios.index')}}" class="nav-link">Destinatarios</a></li>
-								<li class="nav-item"><a href="{{route('PuntoVenta.index')}}" class="nav-link">Puntos de Venta</a></li>
-								<li class="nav-item"><a href="{{route('Turnos.index')}}" class="nav-link">Turnos</a></li>
-							</ul>
+								{{-- <li class="nav-item"><a href="{{route('Salas.index')}}"
+								class="nav-link">Locales</a>
+						</li> --}}
+						<li class="nav-item"><a href="{{route('Destinarios.index')}}" class="nav-link">Destinatarios</a>
 						</li>
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link"><i class="icon-lock2"></i> <span>Seguridad</span></a>
+						<li class="nav-item"><a href="{{route('PuntoVenta.index')}}" class="nav-link">Puntos de
+								Venta</a></li>
+						<li class="nav-item"><a href="{{route('Turnos.index')}}" class="nav-link">Turnos</a></li>
+					</ul>
+					</li>
+					<li class="nav-item nav-item-submenu">
+						<a href="#" class="nav-link"><i class="icon-lock2"></i> <span>Seguridad</span></a>
 
-							<ul class="nav nav-group-sub" data-submenu-title="Themes">
-								<li class="nav-item"><a href="{{route('users.index')}}" class="nav-link">Usuarios</a></li>
-								<li class="nav-item"><a href="{{route('roles.index')}}" class="nav-link">Roles</a></li>
-								<li class="nav-item"><a href="{{route('permissions.index')}}" class="nav-link">Permisos</a></li>
-							</ul>
-						</li>
+						<ul class="nav nav-group-sub" data-submenu-title="Themes">
+							<li class="nav-item"><a href="{{route('users.index')}}" class="nav-link">Usuarios</a></li>
+							<li class="nav-item"><a href="{{route('roles.index')}}" class="nav-link">Roles</a></li>
+							<li class="nav-item"><a href="{{route('permissions.index')}}" class="nav-link">Permisos</a>
+							</li>
+						</ul>
+					</li>
 
-						<li class="nav-item nav-item-submenu">
-							<a href="{{route('Reportes.index')}}" class="nav-link"><i class="icon-file-spreadsheet"></i> <span>Reportes</span></a>
-						</li>
+					<li class="nav-item nav-item-submenu">
+						<a href="{{route('Reportes.index')}}" class="nav-link"><i class="icon-file-spreadsheet"></i>
+							<span>Reportes</span></a>
+					</li>
 
 
-						<!-- /main -->
+					<!-- /main -->
 
 					</ul>
 				</div>
@@ -184,7 +198,7 @@
 
 			</div>
 			<!-- /sidebar content -->
-			
+
 		</div>
 		<!-- /main sidebar -->
 
@@ -198,7 +212,8 @@
 			<!-- Footer -->
 			<div class="navbar navbar-expand-lg navbar-light">
 				<div class="text-center d-lg-none w-100">
-					<button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse" data-target="#navbar-footer">
+					<button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse"
+						data-target="#navbar-footer">
 						<i class="icon-unfold mr-2"></i>
 						Software3000
 					</button>
@@ -243,17 +258,17 @@
 	<script src="{{asset('../global_assets/js/plugins/pickers/datetime/daterangepicker.js')}}"></script>
 
 	<script src="{{asset('../global_assets/js/plugins/tables/datatables/extensions/pdfmake/pdfmake.min.js')}}"></script>
-	<script src="{{asset('../global_assets/js/plugins/tables/datatables/extensions/pdfmake/vfs_fonts.min.js')}}"></script>
+	<script src="{{asset('../global_assets/js/plugins/tables/datatables/extensions/pdfmake/vfs_fonts.min.js')}}">
+	</script>
 	<script src="{{asset('../global_assets/js/plugins/tables/datatables/extensions/jszip/jszip2.min.js')}}"></script>
-	
+
 	{{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script> --}}
 	{{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script> --}}
 	{{-- <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/b-print-1.5.6/r-2.2.2/sc-2.0.0/datatables.min.js"></script> --}}
 	<!-- /theme JS files -->
-	@stack('js')
 	<script src="{{asset('../assets/js/app.js')}}"></script>
 	<script src="{{asset('../global_assets/js/main/jquery-ui.js')}}"></script>
-
+	{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.5.4/randomColor.min.js"></script> --}}
 	<script>
 		Echo.channel('home.' + {{ Auth::user()->id }})		
 			.listen('NewMessage', (e) =>{
@@ -265,6 +280,7 @@
 				messageResponse(obj);
 			})
 	</script>
+	@stack('js')
 </body>
-</html>
 
+</html>

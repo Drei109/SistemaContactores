@@ -4,16 +4,7 @@
 <!-- Page header -->
 <!-- Content area -->
 <div class="content">
-	<div class="chart-container" style="position: relative; height:40vh; width:80vw">
-		<canvas id="seguimientoChart"></canvas>
-	</div>
-	<div class="card-group mb-sm-12">
-		<div class="card">
-			<div class="card-body">
 
-			</div>
-		</div>
-	</div>
 	<div class="card-group mb-sm-3">
 		<div class="card d-flex justify-content-center text-center">
 			<div class="align-self-center">
@@ -52,6 +43,15 @@
 		</div>
 	</div>
 	<!-- /basic datatable -->
+	<div class="card-group mb-sm-12 mt-2">
+		<div class="card">
+			<div class="card-body">
+				<div class="chart-container" style="position: relative;">
+					<canvas id="seguimientoChart" height="350"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <!-- /content area -->
 @stop

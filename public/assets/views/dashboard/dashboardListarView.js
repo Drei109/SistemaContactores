@@ -68,7 +68,7 @@ var ListarView = function () {
             url: '/Dashboard/SeguimientoLocales/' + user_id,
             success: function (data) {
                 console.log(data.data);
-                createSeguimientoCanvas(seguimientoCtx, data.data);
+                createSeguimientoCanvas(seguimientoCtx, data.data, data.fechas);
             }
         })
     };
@@ -269,17 +269,27 @@ function update() {
 function epoch_to_hh_mm_ss(epoch) {
     let timestamp = moment.unix(epoch);
     return timestamp.format("HH:mm:ss");
-    return new Date(epoch * 1000).toISOString().substr(12, 7)
+    //return new Date(epoch * 1000).toISOString().substr(12, 7)
 }
 
-function createSeguimientoCanvas(ctx, data) {
+function createSeguimientoCanvas(ctx, data, fechas) {
+    f = Array.from(fechas);
+
     let dataset = [];
+    let colours = randomColor({
+        luminosity: 'light',
+        count: data.length
+    });
     for (let i = 0; i < data.length; i++) {
         let obj = {
             label: data[i].nombre,
             fill: false,
             data: data[i].data,
-            spanGaps: true
+            spanGaps: true,
+            lineTension: 0.2,
+            backgroundColor: colours[i],
+            borderColor: colours[i],
+            pointBorderColor: colours[i]
         };
         dataset.push(obj);
     }
@@ -287,13 +297,17 @@ function createSeguimientoCanvas(ctx, data) {
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+            labels: f,
             datasets: dataset
         },
         options: {
-            spanGaps: true,
+            title: {
+                display: true,
+                text: "Hora de encendido de los últimos 30 días",
+                position: "top"
+            },
             responsive: true,
-            maintainAspectRatio: true,
+            maintainAspectRatio: false,
             scales: {
                 yAxes: [{
                     ticks: {
@@ -310,8 +324,24 @@ function createSeguimientoCanvas(ctx, data) {
                         return data.datasets[tooltipItem.datasetIndex].label + ': ' + epoch_to_hh_mm_ss(tooltipItem.yLabel)
                     }
                 }
+            },
+            plugins: {
+                colorschemes: {
+                    scheme: 'brewer.Paired12'
+                }
             }
         }
     });
 
+}
+
+function getRandColor(brightness) {
+
+    // Six levels of brightness from 0 to 5, 0 being the darkest
+    var rgb = [Math.random() * 256, Math.random() * 256, Math.random() * 256];
+    var mix = [brightness * 51, brightness * 51, brightness * 51]; //51 => 255/5
+    var mixedrgb = [rgb[0] + mix[0], rgb[1] + mix[1], rgb[2] + mix[2]].map(function (x) {
+        return Math.round(x / 2.0)
+    })
+    return "rgb(" + mixedrgb.join(",") + ")";
 }
