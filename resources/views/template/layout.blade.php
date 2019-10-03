@@ -280,6 +280,7 @@
 				messageResponse(obj);
 			})
 	</script>
+	{{-- <script src="https://npmcdn.com/Chart.Zoom.js@latest/Chart.Zoom.min.js"></script> --}}
 	@stack('js')
 </body>
 

@@ -302,7 +302,7 @@ function createSeguimientoCanvas(ctx, data, fechas) {
         },
         options: {
             title: {
-                display: true,
+                display: false,
                 text: "Hora de encendido de los últimos 30 días",
                 position: "top"
             },
@@ -317,6 +317,14 @@ function createSeguimientoCanvas(ctx, data, fechas) {
                         stepSize: 60 * 60
                     }
                 }]
+            },
+            pan: {
+                enabled: true,
+                mode: 'xy'
+            },
+            zoom: {
+                enabled: true,
+                mode: 'xy',
             },
             tooltips: {
                 callbacks: {

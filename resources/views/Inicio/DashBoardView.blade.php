@@ -4,30 +4,32 @@
 <!-- Page header -->
 <!-- Content area -->
 <div class="content">
-
-	<div class="card-group mb-sm-3">
-		<div class="card d-flex justify-content-center text-center">
-			<div class="align-self-center">
-				<p class="card-text">Puntos de Venta abiertos</p>
-				<h3 class="numberCircle" id="encendidos">0</h3>
+	<div class="card">
+		<div class="card-group mb-sm-3">
+			<div class="card d-flex justify-content-center text-center">
+				<div class="align-self-center">
+					<p class="card-text">Puntos de Venta abiertos</p>
+					<h3 class="numberCircle" id="encendidos">0</h3>
+				</div>
 			</div>
-		</div>
-		<div class="card d-flex justify-content-center text-center">
-			<div class="align-self-center">
-				<p class="card-text">Puntos de Venta cerrados</p>
-				<h3 class="numberCircle" id="apagados">0</h3>
+			<div class="card d-flex justify-content-center text-center">
+				<div class="align-self-center">
+					<p class="card-text">Puntos de Venta cerrados</p>
+					<h3 class="numberCircle" id="apagados">0</h3>
+				</div>
 			</div>
-		</div>
-		<div class="card">
-			<div class="card-body">
-				<canvas id="myChart"></canvas>
+			<div class="card">
+				<div class="card-body">
+					<canvas id="myChart"></canvas>
+				</div>
 			</div>
 		</div>
 	</div>
 
+
 	<!-- Basic datatable -->
 	<div class="card">
-		<div class="card-header bg-dark text-center">
+		<div class="card-header bg-dark text-center p-0">
 			<h5 class="font-weight-bold">Registros de los locales del día</h5>
 		</div>
 		<div class="card-body">
@@ -45,6 +47,9 @@
 	<!-- /basic datatable -->
 	<div class="card-group mb-sm-12 mt-2">
 		<div class="card">
+			<div class="card-header bg-dark text-center p-0">
+				<h5 class="font-weight-bold">Estadísticas - Hora de encendido de los últimos 30 días</h5>
+			</div>
 			<div class="card-body">
 				<div class="chart-container" style="position: relative;">
 					<canvas id="seguimientoChart" height="350"></canvas>

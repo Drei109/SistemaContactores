@@ -7,6 +7,7 @@
 require('./bootstrap');
 require('chart.js');
 window.randomColor = require('randomcolor');
+require('chartjs-plugin-zoom');
 
 window.Vue = require('vue');
 
