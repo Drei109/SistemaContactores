@@ -51,14 +51,12 @@ class RegistrosRepository
         CASE 
         WHEN t.horainicio <= (TIME(f.fecha_encendido) - INTERVAL 5 MINUTE) THEN 'Abrió tarde'
         WHEN t.horainicio >= (TIME(f.fecha_encendido) + INTERVAL 5 MINUTE) THEN 'Abrió temprano'
-        WHEN f.fecha_encendido IS NULL AND (TIME(t.horainicio) + INTERVAL 5 MINUTE) <= TIME(NOW()) THEN 'Aún no abre'
         WHEN f.fecha_encendido IS NULL THEN 'No Abrió'
         ELSE 'Abrió a tiempo'
         END AS mensaje_hora_inicio,
         CASE 
         WHEN t.horafin <= (TIME(f.fecha_apagado) - INTERVAL 5 MINUTE) THEN 'Cerró tarde'
         WHEN t.horafin >= (TIME(f.fecha_apagado) + INTERVAL 5 MINUTE) THEN 'Cerró temprano'
-        WHEN (TIME(t.horafin) + INTERVAL 5 MINUTE) <= TIME(NOW()) THEN 'Aún no cierra'
         WHEN f.fecha_apagado IS NULL THEN 'No Cerró'
         ELSE 'Cerró a tiempo'
         END AS mensaje_hora_fin,
