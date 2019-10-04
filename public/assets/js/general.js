@@ -57,7 +57,7 @@ function redirect(obj) {
     setTimeout(function () {
         window.location.href = basePath + opciones.site;
     }, opciones.time);
-    
+
 }
 
 //////////////////////////////////
@@ -152,7 +152,7 @@ function messageConfirmation(obj) {
                     opciones.callBackSCCerraromplete();
                 }
             },
-            
+
         }
     });
 }
@@ -243,13 +243,19 @@ function responseSimple(obj) {
                     return;
                 };
                 setTimeout(function () {
-                    redirect({ site: opciones.redirectUrl, time: 0 });
+                    redirect({
+                        site: opciones.redirectUrl,
+                        time: 0
+                    });
                 }, opciones.time);
 
             } else {
                 if (opciones.refresh) {
                     setTimeout(function () {
-                        refresh({ estate: true, time: 0 });
+                        refresh({
+                            estate: true,
+                            time: 0
+                        });
                     }, opciones.time);
                 } else {
                     opciones.callBackSuccess(response);
@@ -267,7 +273,7 @@ function responseFileSimple(obj) {
     var defaults = {
         url: null,
         type: "POST",
-        method:"POST",
+        method: "POST",
         data: [],
         refresh: true,
         redirect: false,
@@ -291,7 +297,7 @@ function responseFileSimple(obj) {
     $.ajax({
         url: url,
         type: opciones.type,
-        method:opciones.method,
+        method: opciones.method,
         data: opciones.data,
         cache: false,
         contentType: false,
@@ -328,13 +334,19 @@ function responseFileSimple(obj) {
                         return;
                     };
                     setTimeout(function () {
-                        redirect({ site: opciones.redirectUrl, time: 0 });
+                        redirect({
+                            site: opciones.redirectUrl,
+                            time: 0
+                        });
                     }, opciones.time);
 
                 } else {
                     if (opciones.refresh) {
                         setTimeout(function () {
-                            refresh({ estate: true, time: 0 });
+                            refresh({
+                                estate: true,
+                                time: 0
+                            });
                         }, opciones.time);
                     } else {
                         opciones.callBackSuccess(response);
@@ -385,18 +397,18 @@ function validar_Form(obj) {
         errorClass: 'validation-invalid-label',
         successClass: 'validation-valid-label',
         validClass: 'validation-valid-label',
-        highlight: function(element, errorClass) {
+        highlight: function (element, errorClass) {
             $(element).removeClass(errorClass);
         },
-        unhighlight: function(element, errorClass) {
+        unhighlight: function (element, errorClass) {
             $(element).removeClass(errorClass);
         },
-        success: function(label) {
+        success: function (label) {
             label.addClass('validation-valid-label').text('Correcto.'); // remove to hide Success message
         },
 
         // Different components require proper error label placement
-        errorPlacement: function(error, element) {
+        errorPlacement: function (error, element) {
 
             // Unstyled checkboxes, radios
             if (element.parents().hasClass('form-check')) {
@@ -423,7 +435,7 @@ function validar_Form(obj) {
                 error.insertAfter(element);
             }
         },
-        submitHandler: function(form) { // for demo
+        submitHandler: function (form) { // for demo
             return false;
         },
         rules: opciones.rules,
@@ -446,12 +458,12 @@ function selectResponse(obj) {
         selectVal: null,
         select2: false,
         allOption: false,
-        placeholder:"Seleccione"
+        placeholder: "Seleccione"
     }
 
     var opciones = $.extend({}, defaults, obj);
 
-    if (opciones.url==null) {
+    if (opciones.url == null) {
         messageResponse({
             message: "No se Declaro Url",
             type: "warning"
@@ -460,7 +472,7 @@ function selectResponse(obj) {
     }
 
     $.ajax({
-        url: basePath+ opciones.url,
+        url: basePath + opciones.url,
         type: "POST",
         data: JSON.stringify(opciones.data),
         contentType: "application/json",
@@ -484,7 +496,7 @@ function selectResponse(obj) {
                 }
                 $.each(datos, function (index, value) {
                     var selected = "";
-                   
+
                     if ($.isArray(opciones.selectVal)) {
                         if (objectFindByKey(opciones.selectVal, opciones.campoID, value[opciones.campoID]) != null) {
                             selected = "selected='selected'";
@@ -502,7 +514,7 @@ function selectResponse(obj) {
                 if (opciones.select2) {
                     $("#" + opciones.select).select2();
                 }
-                
+
             } else {
                 $("#" + opciones.select).removeAttr("disabled");
                 messageResponse({
@@ -526,7 +538,7 @@ function selectResponse(obj) {
 
 //////////////////////////////////////////////////////////////////
 
-function readImage(input,contenedor) {
+function readImage(input, contenedor) {
 
     if (input != null && contenedor != null) {
         var reader = new FileReader();
@@ -534,10 +546,9 @@ function readImage(input,contenedor) {
             $(contenedor).attr('src', e.target.result);
         }
         reader.readAsDataURL(input);
-    }
-    else {
+    } else {
         console.warn("input o contenedor vacio(s)");
-    }   
+    }
     console.warn("input o contenedor vacio(s)");
 }
 
@@ -617,7 +628,7 @@ function llenarSelect(url, data, select, dataId, dataValor, selectVal) {
             var datos = response.data;
             var mensaje = response.mensaje;
             if (datos.length > 0) {
-              
+
                 $("#" + select).html("");
                 $("#" + select).append('<option value="">--Seleccione--</option>');
                 if (selectVal == "allOption") {
@@ -661,23 +672,23 @@ function simpleAjaxDataTable(obj) {
 
     var defaults = {
         ajaxUrl: null,
-        fullUrl:null,
+        fullUrl: null,
         ajaxDataSend: {},
         tableColumnsData: [],
         tableColumns: [],
         tableHeaderCheck: false,
         reportTitle: "Reporte",
         createdRow: "",
-        loader:true,
+        loader: true,
     }
     var opciones = $.extend({}, defaults, obj);
     var url = basePath;
 
-    if(opciones.fullUrl != null){
+    if (opciones.fullUrl != null) {
         url = opciones.fullUrl;
     }
 
-    if(opciones.ajaxUrl != null){
+    if (opciones.ajaxUrl != null) {
         url = basePath + opciones.ajaxUrl;
     }
 
@@ -691,19 +702,19 @@ function simpleAjaxDataTable(obj) {
         type: "POST",
         contentType: "application/json",
         data: JSON.stringify(opciones.ajaxDataSend),
-        beforeSend: function() {
-            if(opciones.loader){
+        beforeSend: function () {
+            if (opciones.loader) {
                 block_general("body");
             }
         },
-        complete: function() {
+        complete: function () {
             unblock("body");
         },
-        success: function(response) {
+        success: function (response) {
             opciones.tableColumnsData = response.data;
             simpleDataTable(opciones);
         },
-        error: function(xmlHttpRequest, textStatus, errorThrow) {
+        error: function (xmlHttpRequest, textStatus, errorThrow) {
             console.warn('Message :', xmlHttpRequest.responseJSON.message);
         }
     });
@@ -723,15 +734,14 @@ function simpleDataTable(obj) {
         tableLengthChange: true,
         tableHeaderCheck: false,
         tableDom: 'Bfrtip',
-        tableButtons:[
-            {
+        tableButtons: [{
                 extend: 'excelHtml5',
                 title: obj.reportTitle,
                 className: 'btn btn-primary',
                 exportOptions: {
                     columns: "thead th:not(.no-export)"
-                }                            
-            },                        
+                }
+            },
             {
                 extend: 'pdfHtml5',
                 title: obj.reportTitle,
@@ -746,7 +756,7 @@ function simpleDataTable(obj) {
                 className: 'btn btn-primary',
                 exportOptions: {
                     columns: "thead th:not(.no-export)"
-                }                            
+                }
             }
         ]
     }
@@ -754,7 +764,8 @@ function simpleDataTable(obj) {
     var opciones = $.extend({}, defaults, obj);
     var objt = "_objetoDatatable";
     this[objt + '_' + opciones.tableNameVariable] = $(opciones.table).DataTable({
-        dom: opciones.tableDom,                    
+        dom: opciones.tableDom,
+        responsive: true,
         "bDestroy": true,
         "scrollCollapse": true,
         "scrollX": false,
@@ -772,8 +783,8 @@ function simpleDataTable(obj) {
         "order": [],
         "language": {
             "search": ""
-          },
-        "initComplete": function() {
+        },
+        "initComplete": function () {
             var api = this.api();
             if (opciones.tableHeaderCheck) {
                 $(api.column(0).header()).html('<input type="checkbox" name="header_chk_all" data-children="' + opciones.table + '" class="form-check-input-styled-info chk_all">');

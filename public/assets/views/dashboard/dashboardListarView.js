@@ -10,6 +10,23 @@ var ListarView = function () {
             });
         });
 
+        $('#calendarInput').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: false,
+            autoUpdateInput: true,
+            startDate: moment(),
+            minYear: 1901,
+            locale: {
+                "format": "YYYY-MM-DD",
+                "separator": "-",
+            }
+        });
+
+
+        $("#calendarIcon").on("click", function () {
+            $("#calendarInput").focus();
+        });
+
         $(document).on("click", ".clean-txt", function () {
             $(this).siblings("input").val("");
         });
@@ -52,14 +69,57 @@ var ListarView = function () {
                 },
                 title: {
                     display: true,
-                    text: 'Estado Locales',
+                    text: 'Estado de Locales : Inicio',
                     position: 'top',
                 }
             }
         });
         ctx.data('graph', myDoughnutChart);
 
+        var ctx2 = $('#myChart2');
+        var myDoughnutChart2 = new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [10, 10, 10, 10],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }],
 
+                labels: [
+                    'Cerró tarde',
+                    'Cerró temprano',
+                    'Cerró a tiempo',
+                    'Aún no cierra'
+                ]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'right',
+                },
+                title: {
+                    display: true,
+                    text: 'Estado de Locales : Fin',
+                    position: 'top',
+                }
+            }
+        });
+        ctx2.data('graph', myDoughnutChart2);
 
         var seguimientoCtx = $('#seguimientoChart');
 
@@ -80,7 +140,7 @@ var ListarView = function () {
             return;
         }
 
-        //cargarDataTable();
+
     };
 
     return {
@@ -103,11 +163,17 @@ $(document).ready(function () {
     $('#collapse-navbar').click();
 });
 
+$('#calendarInput').on('change', function () {
+    cargarDataTable();
+    update();
+});
+
 function cargarDataTable() {
+    let fecha = $('#calendarInput').val();
     // Basic datatable
     simpleAjaxDataTable({
         uniform: true,
-        ajaxUrl: "Dashboard/Listar/" + user_id,
+        ajaxUrl: "Dashboard/Listar/" + user_id + "/" + fecha,
         tableNameVariable: "registros",
         tableHeaderCheck: false,
         table: "#datatable",
@@ -121,10 +187,6 @@ function cargarDataTable() {
                 data: "nombre",
                 title: "Punto de Venta"
             },
-            // {
-            //     data: "MAC",
-            //     title: "MAC"
-            // },
             {
                 data: "tipo",
                 title: "Tipo"
@@ -204,6 +266,7 @@ function cargarDataTable() {
 
 function update() {
     var chart = $('#myChart').data('graph');
+    var chart2 = $('#myChart2').data('graph');
     var user_id = $('#user_id').val();
 
     let apagado = 0;
@@ -212,10 +275,16 @@ function update() {
     let abrioTemprano = 0;
     let abrioATiempo = 0;
     let aunNoAbre = 0;
+    let cerroTarde = 0;
+    let cerroTemprano = 0;
+    let cerroATiempo = 0;
+    let aunNoCierra = 0;
+
+    let fecha = $('#calendarInput').val();
 
     $.ajax({
         type: 'POST',
-        url: '/Dashboard/Listar/' + user_id,
+        url: "Dashboard/Listar/" + user_id + "/" + fecha,
         success: function (data) {
 
             $.each(data.data, function (k, item) {
@@ -243,6 +312,23 @@ function update() {
                         abrioATiempo++;
                         break;
                 }
+                switch (item.mensaje_hora_fin) {
+                    case 'Cerró tarde':
+                        cerroTarde++;
+                        break;
+                    case 'Cerró temprano':
+                        cerroTemprano++;
+                        break;
+                    case 'Aún no cierra':
+                        aunNoCierra++;
+                        break;
+                    case 'No Cerró':
+                        aunNoCierra++;
+                        break;
+                    case 'Cerró a tiempo':
+                        cerroATiempo++;
+                        break;
+                }
             });
 
             $("#apagados").html(apagado);
@@ -253,6 +339,12 @@ function update() {
             chart.data.datasets[0].data[2] = abrioATiempo;
             chart.data.datasets[0].data[3] = aunNoAbre;
             chart.update();
+
+            chart2.data.datasets[0].data[0] = cerroTarde;
+            chart2.data.datasets[0].data[1] = cerroTemprano;
+            chart2.data.datasets[0].data[2] = cerroATiempo;
+            chart2.data.datasets[0].data[3] = aunNoCierra;
+            chart2.update();
 
             cargarDataTable();
             //var table = $('#datatable').DataTable();
@@ -287,9 +379,9 @@ function createSeguimientoCanvas(ctx, data, fechas) {
             data: data[i].data,
             spanGaps: true,
             lineTension: 0.2,
-            backgroundColor: colours[i],
-            borderColor: colours[i],
-            pointBorderColor: colours[i]
+            // backgroundColor: colours[i],
+            // borderColor: colours[i],
+            // pointBorderColor: colours[i]
         };
         dataset.push(obj);
     }
@@ -335,9 +427,12 @@ function createSeguimientoCanvas(ctx, data, fechas) {
             },
             plugins: {
                 colorschemes: {
-                    scheme: 'brewer.Paired12'
+                    scheme: 'tableau.Tableau10'
                 }
-            }
+            },
+            // colorschemes: {
+            //     scheme: 'brewer.Paired12'
+            // }
         }
     });
 

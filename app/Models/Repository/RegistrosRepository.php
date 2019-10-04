@@ -42,6 +42,42 @@ class RegistrosRepository
         LEFT JOIN punto_venta_macs pvm
         ON pvm.MAC = r.MAC";
 
+    static $query_primera_parte_2 = "SELECT pv.cc_id, pv.nombre, pvm.MAC, tps.descripcion AS tipo, 
+        f.fecha_encendido, f.fecha_apagado, DAYNAME(f.fecha_encendido) AS dia,
+        CASE f.estado
+        WHEN 1 THEN 'Encendido'
+        ELSE 'Apagado'
+        END AS estado,
+        CASE 
+        WHEN t.horainicio <= (TIME(f.fecha_encendido) - INTERVAL 5 MINUTE) THEN 'Abrió tarde'
+        WHEN t.horainicio >= (TIME(f.fecha_encendido) + INTERVAL 5 MINUTE) THEN 'Abrió temprano'
+        WHEN f.fecha_encendido IS NULL AND (TIME(t.horainicio) + INTERVAL 5 MINUTE) <= TIME(NOW()) THEN 'Aún no abre'
+        WHEN f.fecha_encendido IS NULL THEN 'No Abrió'
+        ELSE 'Abrió a tiempo'
+        END AS mensaje_hora_inicio,
+        CASE 
+        WHEN t.horafin <= (TIME(f.fecha_apagado) - INTERVAL 5 MINUTE) THEN 'Cerró tarde'
+        WHEN t.horafin >= (TIME(f.fecha_apagado) + INTERVAL 5 MINUTE) THEN 'Cerró temprano'
+        WHEN (TIME(t.horafin) + INTERVAL 5 MINUTE) <= TIME(NOW()) THEN 'Aún no cierra'
+        WHEN f.fecha_apagado IS NULL THEN 'No Cerró'
+        ELSE 'Cerró a tiempo'
+        END AS mensaje_hora_fin,
+        u.name, u.email, u.id AS 'usuario_id'
+        FROM
+        usuario_punto_ventas upv
+        LEFT JOIN users u
+        ON u.id = upv.usuario_id
+        LEFT JOIN punto_venta pv
+        ON upv.punto_venta_id = pv.cc_id
+        LEFT JOIN punto_venta_macs pvm                                
+        ON pvm.cc_id = pv.cc_id
+        LEFT JOIN	
+        (
+        SELECT pvm.cc_id, r.fecha_encendido, r.fecha_apagado, r.estado, r.MAC, r.tipo_id
+        FROM registro r
+        LEFT JOIN punto_venta_macs pvm
+        ON pvm.MAC = r.MAC";
+
     static $query_where_date = " WHERE DATE(r.fecha_encendido) = DATE(NOW()) ";
 
     static $query_segunda_parte = " ) AS f
@@ -149,6 +185,18 @@ class RegistrosRepository
         $data = DB::select($query_general . $where, ['id' => $id]);
         return $data;
     }
+
+    public static function RegistrosPorFechaYUsuario($id, $fecha)
+    {
+        $where_fecha = " WHERE DATE(r.fecha_encendido) = :fecha";
+        $where_usuario = " WHERE u.id = :id ";
+        $data = DB::select(
+            self::$query_primera_parte_2 . $where_fecha . self::$query_segunda_parte . $where_usuario,
+            ['fecha' => $fecha, 'id' => $id]
+        );
+        return $data;
+    }
+
     public static function RegistrosPorFecha($fecha_inicio, $fecha_fin)
     {
         $where_fecha = " WHERE DATE(r.fecha_encendido) BETWEEN :fecha_inicio AND :fecha_fin ";

@@ -20,6 +20,18 @@ class DashboardController extends Controller
         return response()->json(['data' => $data]);
     }
 
+    public function ListarPorFecha($id, $fecha)
+    {
+        $today = date("Y-m-d");
+        DB::statement("SET lc_time_names = 'es_PE';");
+        if ($today == $fecha) {
+            $data = RegistrosRepository::RegistrosPorUsuario($id);
+        } else {
+            $data = RegistrosRepository::RegistrosPorFechaYUsuario($id, $fecha);
+        }
+        return response()->json(['data' => $data]);
+    }
+
     public function SeguimientoLocales($id)
     {
         DB::statement("SET lc_time_names = 'es_PE';");
