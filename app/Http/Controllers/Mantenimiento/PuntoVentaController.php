@@ -45,7 +45,7 @@ class PuntoVentaController extends Controller
             $mensaje_error = $ex;
             $estado = false;
         }
-        return response()->json(['data' => $lista,'estado'=>$estado,'mensaje' => $mensaje_error]);
+        return response()->json(['data' => $lista, 'estado' => $estado, 'mensaje' => $mensaje_error]);
     }
 
     public function ListarBusqueda(Request $request)
@@ -67,18 +67,18 @@ class PuntoVentaController extends Controller
             FROM punto_venta pv
             LEFT JOIN empresa e ON e.id = pv.idEmpresa
             WHERE nombre LIKE '%" . $term . "%' 
-            OR cc_id LIKE '%". $term ."%'");
+            OR cc_id LIKE '%" . $term . "%'");
         } catch (QueryException $ex) {
             $mensaje_error = $ex;
             $estado = false;
         }
-        return response()->json(['data' => $lista,'estado'=>$estado,'mensaje' => $mensaje_error]);
+        return response()->json(['data' => $lista, 'estado' => $estado, 'mensaje' => $mensaje_error]);
     }
 
     public function Nuevo()
     {
         app('auth')->user()->hasPermissionTo('Crear Puntos de Venta');
-        return view('Mantenimiento.Salas.nuevo');    
+        return view('Mantenimiento.Salas.nuevo');
     }
 
     public function Guardar(Request $request)
@@ -97,30 +97,30 @@ class PuntoVentaController extends Controller
             $mensaje_error = $ex->errorInfo;
             $respuesta = false;
         }
-        return response()->json(['respuesta' => $respuesta,'sala' => $Salas, 'mensaje' => $mensaje_error]);
+        return response()->json(['respuesta' => $respuesta, 'sala' => $Salas, 'mensaje' => $mensaje_error]);
     }
 
     public function Eliminar(Request $request)
     {
         $respuesta = true;
         $mensaje_error = "Se Eliminó Correctamente";
-        
+
         $id_array = $request->all();
         foreach ($id_array as $id) {
             try {
                 $Sala = Sala::findOrFail($id);
                 $Sala->delete();
-            } catch(QueryException $ex){
+            } catch (QueryException $ex) {
                 $mensaje_error = $ex->errorInfo;
                 $respuesta = false;
             }
         }
-        return response()->json(['respuesta' => $respuesta,'mensaje' => $mensaje_error]);
+        return response()->json(['respuesta' => $respuesta, 'mensaje' => $mensaje_error]);
     }
 
     public function Editar($id)
     {
-        return view('Mantenimiento.PuntoVenta.editar',['id'=> $id]);
+        return view('Mantenimiento.PuntoVenta.editar', ['id' => $id]);
     }
 
     public function Ver($id)
@@ -134,9 +134,9 @@ class PuntoVentaController extends Controller
             $mensaje_error = $ex->errorInfo;
             $respuesta = false;
         }
-        return response()->json(['respuesta' => $respuesta,'registro' => $registro, 'mensaje' => $mensaje_error]);
+        return response()->json(['respuesta' => $respuesta, 'registro' => $registro, 'mensaje' => $mensaje_error]);
     }
-    
+
 
     public function Actualizar(Request $request)
     {
@@ -152,7 +152,7 @@ class PuntoVentaController extends Controller
             $mensaje_error = $ex->errorInfo;
             $respuesta = false;
         }
-        return response()->json(['respuesta' => $respuesta,'registro' => $registro, 'mensaje' => $mensaje_error]);
+        return response()->json(['respuesta' => $respuesta, 'registro' => $registro, 'mensaje' => $mensaje_error]);
     }
 
     public function SincronizarPuntoVentaAPI()
@@ -160,7 +160,7 @@ class PuntoVentaController extends Controller
         $mensaje_error = "Sincronizado correctamente";
         $validar_api = new ValidarApi();
         $respuesta_api = $validar_api->ListaTiendasTokenApi();
-        $respuesta_api = (string)$respuesta_api;
+        $respuesta_api = (string) $respuesta_api;
         $resp = json_decode($respuesta_api, true);
         $http_code = $resp['http_code'];
         if ($http_code == 200) {
@@ -208,39 +208,39 @@ class PuntoVentaController extends Controller
         return response()->json(['respuesta' => $respuesta, 'mensaje' => $mensaje_error]);
     }
 
-    public function ListarMacs($id){
+    public function ListarMacs($id)
+    {
         $lista = "";
         $mensaje_error = "Listado realizado correctamente";
         $estado = true;
         try {
             $lista = DB::select('SELECT * FROM punto_venta_macs pvm
             WHERE pvm.cc_id = :id
-        ',['id'=> $id]);
-
+        ', ['id' => $id]);
         } catch (QueryException $ex) {
             $mensaje_error = $ex;
             $estado = false;
         }
-        return response()->json(['data' => $lista,'estado'=>$estado,'mensaje' => $mensaje_error]);
+        return response()->json(['data' => $lista, 'estado' => $estado, 'mensaje' => $mensaje_error]);
     }
-    
-    public function AsignarMacs(Request $request){
+
+    public function AsignarMacs(Request $request)
+    {
         $respuesta = true;
         $mensaje_error = "Se actualizó Correctamente";
 
         $cc_id = $request->input('id');
-        $macs_nuevas = $request->input('data');
+        $datos = $request->input('data');
 
         try {
             $deleted = DB::delete('DELETE 
             FROM punto_venta_macs 
             WHERE cc_id = ?', [$cc_id]);
 
-            foreach ($macs_nuevas as &$mac) {
+            foreach ($datos as &$dat) {
                 DB::insert('insert into punto_venta_macs 
-                (cc_id, MAC) values (?, ?)', [$cc_id, $mac['MAC']]);
+                (cc_id, MAC, tipo_id) values (?, ?, ?)', [$cc_id, $dat['MAC'], $dat['tipo_id']]);
             }
-
         } catch (QueryException $ex) {
             $mensaje_error = $ex;
             $respuesta = false;

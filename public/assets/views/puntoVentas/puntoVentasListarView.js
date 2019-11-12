@@ -1,7 +1,7 @@
-var ListarView = function() {
+var ListarView = function () {
 
-    var _componentes = function() {
-        $(document).on("click", ".btn_recargar", function() {
+    var _componentes = function () {
+        $(document).on("click", ".btn_recargar", function () {
             $.ajax({
                 type: 'POST',
                 url: basePath + '/PuntoVentas/Sincronizar',
@@ -27,12 +27,15 @@ var ListarView = function() {
             });
         });
 
-        $(document).on("click", ".btn_editar", function() {
+        $(document).on("click", ".btn_editar", function () {
             var id = $(this).data("id");
-            redirect({site:"PuntoVentas/Editar/" + id, time:0});
+            redirect({
+                site: "PuntoVentas/Editar/" + id,
+                time: 0
+            });
         });
 
-        $(document).on("click", ".btn_editar_macs", function() {
+        $(document).on("click", ".btn_editar_macs", function () {
             var id = $(this).data("id");
             $('#cc_id').val(id);
 
@@ -41,14 +44,20 @@ var ListarView = function() {
                 ajaxUrl: "PuntoVentas/" + id + "/ListarMacs",
                 tableNameVariable: "macs",
                 tablePaging: false,
-                tableHeaderCheck:false,
+                tableHeaderCheck: false,
                 table: ".datatable-macs",
                 tableButtons: "",
                 tableDom: "",
-                tableColumns: [
-                    {
+                tableColumns: [{
                         data: "MAC",
                         title: "MAC"
+                    },
+                    {
+                        data: "tipo_id",
+                        title: "Tipo",
+                        render: function (value) {
+                            return value == undefined ? "Nulo" : value == 1 ? "PC" : "Puerta";
+                        }
                     },
                     {
                         data: 'id',
@@ -56,7 +65,7 @@ var ListarView = function() {
                         width: 100,
                         className: 'text-center',
                         "bSortable": false,
-                        "render": function(value, type, oData, meta) {
+                        "render": function (value, type, oData, meta) {
                             var botones = '<a href="#" class="btn btn-icon btn-sm bg-danger-400 eliminar_mac" data-id="' + value + '"><i class="icon-cross"></i></a>';
                             return botones;
                         }
@@ -65,13 +74,17 @@ var ListarView = function() {
             })
         });
 
-        $(document).on("click", "#agregar_mac", function() {
-            if($('#txt_mac_nueva').val().length !== 0){
+        $(document).on("click", "#agregar_mac", function () {
+            if ($('#txt_mac_nueva').val().length !== 0) {
                 var mac = $('#txt_mac_nueva').val();
+                var tipo = $('#txt_tipo_mac').val();
+
                 var t = $('.datatable-macs').DataTable();
+
                 t.row.add({
-                    'MAC' : mac,
-                    'id' : 0
+                    'MAC': mac,
+                    'tipo_id': tipo,
+                    'id': 0
                 }).draw(false);
 
                 $('.datatable-macs > tbody:last-child').append('<tr><td></td><td>' + mac + '</td><td></td></tr>');
@@ -79,12 +92,12 @@ var ListarView = function() {
             }
         });
 
-        $(document).on("click", ".eliminar_mac", function() {
+        $(document).on("click", ".eliminar_mac", function () {
             var t = $('.datatable-macs').DataTable();
             t.row($(this).parents('tr')).remove().draw();
         });
 
-        $(document).on("click", ".btn_guardar_macs", function() {
+        $(document).on("click", ".btn_guardar_macs", function () {
             var t = $('.datatable-macs').DataTable();
             var data = t.rows().data().toArray();
             var object = {};
@@ -93,10 +106,10 @@ var ListarView = function() {
             console.log(object);
 
             responseSimple({
-                url: "PuntoVentas/"+ object.id + "/AsignarMacs",
+                url: "PuntoVentas/" + object.id + "/AsignarMacs",
                 refresh: false,
                 data: JSON.stringify(object),
-                callBackSuccess: function(response) {
+                callBackSuccess: function (response) {
                     $('#cerrar_modal_horas').click();
                 }
             });
@@ -105,7 +118,7 @@ var ListarView = function() {
     };
 
     // Basic Datatable examples
-    var _Listado = function() {
+    var _Listado = function () {
         if (!$().DataTable) {
             console.warn('Advertencia - datatables.min.js no esta declarado.');
             return;
@@ -116,11 +129,10 @@ var ListarView = function() {
             uniform: true,
             ajaxUrl: "PuntoVentas/Listar",
             tableNameVariable: "salas",
-            tableHeaderCheck:false,
+            tableHeaderCheck: false,
             table: ".datatable",
             reportTitle: "Listado de Locales",
-            tableColumns: [
-                {
+            tableColumns: [{
                     data: "id",
                     title: "ID",
                 },
@@ -142,7 +154,7 @@ var ListarView = function() {
                     width: 100,
                     className: 'text-center no-export',
                     "bSortable": false,
-                    "render": function(value, type, oData, meta) {
+                    "render": function (value, type, oData, meta) {
                         var botones = '<div class="list-icons">' +
                             '<div class="dropdown">' +
                             '<a href="#" class="list-icons-item" data-toggle="dropdown">' +
@@ -163,16 +175,16 @@ var ListarView = function() {
     };
 
     return {
-        init: function() {
+        init: function () {
             _componentes();
             _Listado();
         },
-        init_Listado: function() {
+        init_Listado: function () {
             _Listado();
         },
     };
 }();
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     ListarView.init();
 });

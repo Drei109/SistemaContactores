@@ -4,7 +4,8 @@
 <div class="page-header page-header-light">
 	<div class="page-header-content header-elements-md-inline">
 		<div class="page-title d-flex">
-			<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Mantenimiento</span>  - Locales</h4>
+			<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Mantenimiento</span> - Locales
+			</h4>
 			<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 		</div>
 
@@ -29,12 +30,12 @@
 				<a href="#" class="breadcrumb-item">
 					Locales
 				</a>
-				<span class="breadcrumb-item active">Index</span>	
-				
+				<span class="breadcrumb-item active">Index</span>
+
 			</div>
 			<a href="#" class="header-elements-toggle text-default d-md-none">
-					<i class="icon-more"></i>
-				</a>
+				<i class="icon-more"></i>
+			</a>
 		</div>
 	</div>
 </div>
@@ -47,7 +48,13 @@
 	<div class="card">
 		<div class="card-body">
 			<table class="table datatable table-hover">
-				<tbody><tr><td colspan="6"><div class="alert alert-warning alert-dismissible text-center">Cargando...</span></td></tr></tbody>
+				<tbody>
+					<tr>
+						<td colspan="6">
+							<div class="alert alert-warning alert-dismissible text-center">Cargando...</span>
+						</td>
+					</tr>
+				</tbody>
 			</table>
 		</div>
 	</div>
@@ -66,21 +73,32 @@
 			</div>
 
 			<div class="align-middle modal-body py-1 row align-middle">
-				<div class="col-lg-8 offset-lg-2 row align-middle">
-					<div class="col-lg-8 align-middle">
-						<input id="txt_mac_nueva" class="w-100 form-group text-center" name="hora_nueva" type="text" size="12" placeholder="02004C4F4F50">
+				<div class="col-lg-12 row align-middle">
+					<div class="col-lg-5 align-middle">
+						<input id="txt_mac_nueva" class="w-100 form-control	text-center" name="hora_nueva" type="text"
+							size="12" placeholder="02004C4F4F50">
+					</div>
+					<div class="col-lg-3">
+						<select name="txt_tipo" id="txt_tipo_mac" class="form-control">
+							<option value="1">PC</option>
+							<option value="2">Puerta</option>
+						</select>
 					</div>
 					<div class="col-lg-4">
-						<button id="agregar_mac" class="w-100 btn btn-sm btn-primary">Agregar</button>
+						<button id="agregar_mac" class="w-100 btn btn btn-primary">Agregar</button>
 					</div>
 				</div>
 			</div>
-		
+
 
 			<div id="cuerpo-modal" class="align-middle modal-body py-1 row">
 				<div class="col-lg-8 offset-lg-2">
 					<table class="table datatable-macs table-hover ">
-						<tbody><tr><td colspan="2"></td></tr></tbody>
+						<tbody>
+							<tr>
+								<td colspan="2"></td>
+							</tr>
+						</tbody>
 					</table>
 				</div>
 			</div>
